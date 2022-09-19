@@ -6,7 +6,7 @@ function Navigation() {
   return (
     <Navbar sticky="top" bg="dark" variant="dark">
       <Container fluid>
-        <Navbar.Brand href="#home">Brand Name</Navbar.Brand>
+        <Navbar.Brand>Brand Name</Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="#home">Home</Nav.Link>
           <Nav.Link href="#all">All</Nav.Link>
