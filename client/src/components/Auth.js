@@ -26,6 +26,28 @@ function Auth( { onLogin } ) {
   //     .then((user) => handleLogin(user))
   // }
 
+  function handleLogin(e) {
+    e.preventDefault();
+    fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password
+      }),
+    })
+      .then((r) => {
+        if (r.ok) {
+          r.json().then(user => onLogin(user))
+        } else {
+          r.json().then(data => alert(data.error))
+        }
+      })
+      .catch(e => console.log(e))
+  }
+
   function handleSignUp(e) {
     e.preventDefault();
     fetch("/signup", {
@@ -65,7 +87,7 @@ function Auth( { onLogin } ) {
             <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </Form.Group>
 
-          <Button variant="dark" type="submit" onClick={handleSignUp}>Sign In</Button>
+          <Button variant="dark" type="submit" onClick={handleLogin}>Sign In</Button>
         </Form>
         <p>New to [app name]? <Alert.Link onClick={() => setSignIn(false)}>Register</Alert.Link></p>
       </div>

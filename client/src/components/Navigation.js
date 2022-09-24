@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
-function Navigation( {currentUser} ) {
+function Navigation( { currentUser } ) {
   const navigate = useNavigate()
 
   function handleLogout() {
