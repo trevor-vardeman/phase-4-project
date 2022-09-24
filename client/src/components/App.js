@@ -15,7 +15,7 @@ function App() {
     fetch("/me")
     .then((r) => {
       if (r.ok) {
-        r.json().then(user => setCurrentUser(user))
+        r.json().then(user => setCurrentUser(user.username))
       }
     })
   }, [])

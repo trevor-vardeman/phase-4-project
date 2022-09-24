@@ -7,7 +7,6 @@ function Navigation( { currentUser, onLogout } ) {
   const navigate = useNavigate()
 
   function handleLogout() {
-    console.log(currentUser)
     fetch("/logout", {
       method: "DELETE",
       headers: {
@@ -31,6 +30,7 @@ function Navigation( { currentUser, onLogout } ) {
         <Nav>
           <Nav.Link href="new-community">New Community</Nav.Link>
           <Nav.Link href="new-post">New Post</Nav.Link>
+          {currentUser ? <Nav.Link style={{color: "orange"}}>{currentUser}</Nav.Link> : null}
           {currentUser ? <Nav.Link onClick={handleLogout}>Sign Out</Nav.Link> : <Nav.Link href="auth">Sign In</Nav.Link>}
         </Nav>
       </Container>
