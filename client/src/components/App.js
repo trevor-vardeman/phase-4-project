@@ -25,9 +25,13 @@ function App() {
     navigate("/")
   }
 
+  function handleLogout() {
+    setCurrentUser(null)
+  }
+
   return (
     <div>
-      <Navigation currentUser={currentUser} />
+      <Navigation currentUser={currentUser} onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth onLogin={handleLogin} />} />

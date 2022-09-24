@@ -3,11 +3,19 @@ import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
-function Navigation( { currentUser } ) {
+function Navigation( { currentUser, onLogout } ) {
   const navigate = useNavigate()
 
   function handleLogout() {
     console.log(currentUser)
+    fetch("/logout", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ currentUser }),
+    })
+    onLogout(null)
     navigate("/")
   }
 
@@ -18,7 +26,7 @@ function Navigation( { currentUser } ) {
         <Nav className="me-auto">
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="all">All</Nav.Link>
-          <Nav.Link href="my-communities">My Communities</Nav.Link>
+          {currentUser ? <Nav.Link href="my-communities">My Communities</Nav.Link> : null}
         </Nav>
         <Nav>
           <Nav.Link href="new-community">New Community</Nav.Link>

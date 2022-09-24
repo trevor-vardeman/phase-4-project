@@ -9,23 +9,6 @@ function Auth( { onLogin } ) {
   const [passwordConfirmation, setPasswordConfirmation] = useState("")
   const [signIn, setSignIn] = useState(true)
 
-  // function handleLogin(e) {
-  //   e.preventDefault()
-  //   const user = {
-  //     username,
-  //     password
-  //   }
-  //   fetch("/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ username }),
-  //   })
-  //     .then((r) => r.json())
-  //     .then((user) => handleLogin(user))
-  // }
-
   function handleLogin(e) {
     e.preventDefault();
     fetch("/login", {
