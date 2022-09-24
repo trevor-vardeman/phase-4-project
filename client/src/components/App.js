@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navigation from './Navigation'
 import Auth from './Auth'
@@ -7,20 +7,22 @@ import Home from './Home'
 import NoPath from './NoPath'
 
 function App() {
-  const [currentUser, setCurrentUser] = useState()
+  const [currentUser, setCurrentUser] = useState(null)
 
-  // useEffect(() => {
-  //   fetch("/me")
-  //   .then((response) => {
-  //     if (response.ok) {
-  //       response.json().then(user => setUser(user))
-  //     }
-  //   })
-  // }, [])
+  const navigate = useNavigate()
 
-  function handleSignup(user) {
-    setCurrentUser(user)
-    console.log(user)
+  useEffect(() => {
+    fetch("/me")
+    .then((r) => {
+      if (r.ok) {
+        r.json().then(user => setCurrentUser(user))
+      }
+    })
+  }, [])
+
+  function handleLogin(user) {
+    setCurrentUser(user.username)
+    navigate("/")
   }
 
   return (
@@ -28,7 +30,7 @@ function App() {
       <Navigation currentUser={currentUser} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Auth onSignUp={handleSignup} />} />
+        <Route path="/auth" element={<Auth onLogin={handleLogin} />} />
         <Route path="*" element={<NoPath />} />
       </Routes>
     </div>

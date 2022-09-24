@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 
-function Auth( {onSignUp} ) {
+function Auth( { onLogin } ) {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [passwordConfirmation, setPasswordConfirmation] = useState("")
@@ -39,8 +39,14 @@ function Auth( {onSignUp} ) {
         password_confirmation: passwordConfirmation,
       }),
     })
-      .then((r) => r.json())
-      .then(data => onSignUp(data));
+      .then((r) => {
+        if (r.ok) {
+          r.json().then(user => onLogin(user))
+        } else {
+          r.json().then(data => alert(data.error))
+        }
+      })
+      .catch(e => console.log(e))
   }
 
   return (
@@ -59,7 +65,7 @@ function Auth( {onSignUp} ) {
             <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </Form.Group>
 
-          <Button variant="dark" type="submit" onClick={handleSignUp}>Sign Up</Button>
+          <Button variant="dark" type="submit" onClick={handleSignUp}>Sign In</Button>
         </Form>
         <p>New to [app name]? <Alert.Link onClick={() => setSignIn(false)}>Register</Alert.Link></p>
       </div>
