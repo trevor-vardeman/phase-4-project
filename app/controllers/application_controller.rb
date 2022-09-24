@@ -1,12 +1,10 @@
 class ApplicationController < ActionController::API
-  # include ActionController::Cookies
-  # before_action :authorized
+  include ActionController::Cookies
+  before_action :authorized, except: [:create]
   
-  # def authorized
-  #   return render json:{ error: "Not Authorized"}, status: :unauthorized unless session.include? :user_id
-  # end
-
-  before_action :authorized
+  def authorized
+    return render json:{ error: "Not Authorized"}, status: :unauthorized unless session.include? :user_id
+  end
 
   def encode_token(payload)
     JWT.encode(payload, 'my_s3cr3t')

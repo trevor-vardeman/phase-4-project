@@ -28,7 +28,7 @@ function App() {
       <Navigation currentUser={currentUser} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Auth handleSignup={handleSignup} />} />
+        <Route path="/auth" element={<Auth onSignUp={handleSignup} />} />
         <Route path="*" element={<NoPath />} />
       </Routes>
     </div>

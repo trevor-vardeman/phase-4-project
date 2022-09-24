@@ -47,9 +47,3 @@ group :test do
   gem 'rspec-json_expectations'
   gem 'shoulda-matchers', '~> 4.0'
 end
-
-gem "jwt", "~> 2.5"
-
-gem "active_model_serializers", "~> 0.10.12"
-
-gem "faker", "~> 2.19"
