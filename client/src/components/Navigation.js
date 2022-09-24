@@ -3,11 +3,11 @@ import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
-function Navigation( {user} ) {
+function Navigation( {currentUser} ) {
   const navigate = useNavigate()
 
   function handleLogout() {
-    console.log(user)
+    console.log(currentUser)
     navigate("/")
   }
 
@@ -23,7 +23,7 @@ function Navigation( {user} ) {
         <Nav>
           <Nav.Link href="new-community">New Community</Nav.Link>
           <Nav.Link href="new-post">New Post</Nav.Link>
-          {user ? <Nav.Link onClick={handleLogout}>Sign Out</Nav.Link> : <Nav.Link href="sign-in">Sign In</Nav.Link>}
+          {currentUser ? <Nav.Link onClick={handleLogout}>Sign Out</Nav.Link> : <Nav.Link href="signup">Sign Up</Nav.Link>}
         </Nav>
       </Container>
     </Navbar>
