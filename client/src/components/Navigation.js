@@ -28,8 +28,7 @@ function Navigation( { currentUser, onLogout } ) {
           {currentUser ? <Nav.Link href="my-communities">My Communities</Nav.Link> : null}
         </Nav>
         <Nav>
-          <Nav.Link href="new-community">New Community</Nav.Link>
-          <Nav.Link href="new-post">New Post</Nav.Link>
+          <Nav.Link href="new">New</Nav.Link>
           {currentUser ? <Nav.Link style={{color: "orange"}}>{currentUser}</Nav.Link> : null}
           {currentUser ? <Nav.Link onClick={handleLogout}>Sign Out</Nav.Link> : <Nav.Link href="auth">Sign In</Nav.Link>}
         </Nav>

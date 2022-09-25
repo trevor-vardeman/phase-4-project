@@ -5,6 +5,7 @@ import Navigation from './Navigation'
 import Auth from './Auth'
 import Home from './Home'
 import NoPath from './NoPath'
+import New from './New'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
@@ -35,6 +36,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth onLogin={handleLogin} />} />
+        <Route path="/new" element={<New />} />
         <Route path="*" element={<NoPath />} />
       </Routes>
     </div>
