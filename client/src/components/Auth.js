@@ -48,7 +48,7 @@ function Auth( { onLogin } ) {
         if (r.ok) {
           r.json().then(user => onLogin(user))
         } else {
-          r.json().then(data => alert(data.error))
+          r.json().then(data => alert(`${Object.keys(data.error)[0]} ${Object.values(data.error)[0][0]}`))
         }
       })
       .catch(e => console.log(e))

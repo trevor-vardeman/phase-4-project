@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navigation from './Navigation'
 import Auth from './Auth'
-import Home from './Home'
+import Front from './Front'
 import NoPath from './NoPath'
 import New from './New'
 
@@ -34,7 +34,7 @@ function App() {
     <div>
       <Navigation currentUser={currentUser} onLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Front />} />
         <Route path="/auth" element={<Auth onLogin={handleLogin} />} />
         <Route path="/new" element={<New />} />
         <Route path="*" element={<NoPath />} />

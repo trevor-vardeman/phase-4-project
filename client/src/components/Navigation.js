@@ -21,7 +21,7 @@ function Navigation( { currentUser, onLogout } ) {
   return (
     <Navbar sticky="top" bg="dark" variant="dark">
       <Container fluid>
-        <Navbar.Brand>Brand Name</Navbar.Brand>
+        <Navbar.Brand>App Name</Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="all">All</Nav.Link>
