@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 
 function New() {
+  const [allCommunities, setAllCommunities] = useState([])
   const [newPost, setNewPost] = useState(true)
   const [postCommunity, setPostCommunity] = useState("")
   const [postTitle, setPostTitle] =  useState("")
@@ -11,6 +12,22 @@ function New() {
   const [postLink, setPostLink] = useState("")
   const [communityName, setCommunityName] = useState("")
   const [communityDescription, setCommunityDescription] = useState("")
+
+  useEffect(() => {
+    fetch("/community")
+    .then((r) => {
+      if (r.ok) {
+        r.json().then(community => console.log(community.map(({ name }) => name)))
+      } else {
+        r.json().then(error => alert(error))
+      }
+    })
+  }, [])
+
+  function submitPost(e) {
+    e.preventDefault()
+
+  }
 
   return (
     <div>
@@ -40,7 +57,7 @@ function New() {
           <Form.Control type="url" placeholder="Link" value={postLink} onChange={(e) => setPostLink(e.target.value)} />
         </Form.Group>
 
-        {/* <Button variant="dark" type="submit" onClick={handleLogin}>Post</Button> */}
+        <Button variant="dark" type="submit" onClick={submitPost}>Post</Button>
       </Form>
       <p>Want to create a new community instead? <Alert.Link onClick={() => setNewPost(false)}>New Community</Alert.Link></p>
     </div>
