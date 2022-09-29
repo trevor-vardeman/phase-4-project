@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 import Dropdown from 'react-bootstrap/Dropdown'
 
-function New() {
+function New({ currentUserId }) {
   const [allCommunities, setAllCommunities] = useState([])
   const [communitiesToDisplay, setCommunitiesToDisplay] = useState([])
   const [newPost, setNewPost] = useState(true)
@@ -74,9 +74,9 @@ function New() {
 
   function submitPost(e) {
     e.preventDefault()
-    const communityId = function(allCommunities) {
-
-    }
+    const communityId = allCommunities.filter(community => {
+      return community.name === postCommunity
+    })[0].id
     fetch("/post", {
       method: "POST",
       headers: {
@@ -86,19 +86,23 @@ function New() {
         title: postTitle,
         text: postText,
         link: postLink,
-        // community_id: communityId,
-        // user_id: userId,
+        community_id: communityId,
+        user_id: currentUserId,
         points: 1
       }),
     })
       .then((r) => {
         if (r.ok) {
-          r.json().then(post => console.log(post))
+          r.json().then(() => {
+            setPostTitle("")
+            setPostText("")
+            setPostLink("")
+          })
         } else {
-          r.json().then(data => console.log(data.error))
+          r.json().then(data => alert(data.error))
         }
       })
-      .catch(e => console.log(e))
+      .catch(e => alert(e))
   }
 
   return (
@@ -151,7 +155,7 @@ function New() {
           <Form.Control type="text" placeholder="Description" value={communityDescription} onChange={(e) => setCommunityDescription(e.target.value)} />
         </Form.Group>
 
-        <Button variant="dark" type="submit" onClick={submitPost}>Sign Up</Button>
+        {/* <Button variant="dark" type="submit" onClick={submitPost}>Sign Up</Button> */}
       </Form>
       <p>Want to submit a post instead? <Alert.Link onClick={() => setNewPost(true)}>New Post</Alert.Link></p>
     </div>}
