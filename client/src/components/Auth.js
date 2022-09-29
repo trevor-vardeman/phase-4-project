@@ -28,11 +28,11 @@ function Auth( { onLogin } ) {
           r.json().then(data => alert(data.error))
         }
       })
-      .catch(e => console.log(e))
+      .catch(e => alert(e))
   }
 
   function handleSignUp(e) {
-    e.preventDefault();
+    e.preventDefault()
     fetch("/signup", {
       method: "POST",
       headers: {
@@ -51,7 +51,7 @@ function Auth( { onLogin } ) {
           r.json().then(data => alert(`${Object.keys(data.error)[0]} ${Object.values(data.error)[0][0]}`))
         }
       })
-      .catch(e => console.log(e))
+      .catch(e => alert(e))
   }
 
   return (
