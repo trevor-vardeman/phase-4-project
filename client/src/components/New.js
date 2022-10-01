@@ -114,7 +114,8 @@ function New({ currentUserId }) {
       },
       body: JSON.stringify({
         name: communityName,
-        description: communityDescription
+        description: communityDescription,
+        user_id: currentUserId,
       }),
     })
       .then((r) => {

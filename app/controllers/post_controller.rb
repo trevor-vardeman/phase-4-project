@@ -1,5 +1,11 @@
 class PostController < ApplicationController
 
+  def index
+    # posts = Post.all.includes(:user).order(points: :desc)
+    posts = Post.all.order(points: :desc)
+    render json: posts, status: :ok
+  end
+
   def create
     post = Post.create(post_params)
     if post.valid?
