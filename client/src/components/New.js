@@ -11,7 +11,7 @@ function New({ currentUserId }) {
   const [postCommunity, setPostCommunity] = useState("")
   const [postTitle, setPostTitle] =  useState("")
   const [postText, setPostText] = useState("")
-  const [postLink, setPostLink] = useState("")
+  const [postImageURL, setPostImageURL] = useState("")
   const [communityName, setCommunityName] = useState("")
   const [communityDescription, setCommunityDescription] = useState("")
 
@@ -85,7 +85,7 @@ function New({ currentUserId }) {
       body: JSON.stringify({
         title: postTitle,
         text: postText,
-        link: postLink,
+        image_url: postImageURL,
         community_id: communityId,
         user_id: currentUserId,
         points: 1
@@ -96,7 +96,7 @@ function New({ currentUserId }) {
           r.json().then(() => {
             setPostTitle("")
             setPostText("")
-            setPostLink("")
+            setPostImageURL("")
           })
         } else {
           r.json().then(data => alert(data.error))
@@ -158,9 +158,9 @@ function New({ currentUserId }) {
           <Form.Control type="text" placeholder="Text" value={postText} onChange={(e) => setPostText(e.target.value)} />
         </Form.Group>
 
-        <Form.Group controlId="postLinkForm">
-          <Form.Label>Link</Form.Label>
-          <Form.Control type="url" placeholder="Link" value={postLink} onChange={(e) => setPostLink(e.target.value)} />
+        <Form.Group controlId="postImageUrlForm">
+          <Form.Label>Image URL</Form.Label>
+          <Form.Control type="url" placeholder="Image URL" value={postImageURL} onChange={(e) => setPostImageURL(e.target.value)} />
         </Form.Group>
 
         <Button variant="dark" type="submit" onClick={submitPost}>Post</Button>

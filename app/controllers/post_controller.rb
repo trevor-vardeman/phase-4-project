@@ -1,7 +1,6 @@
 class PostController < ApplicationController
 
   def index
-    # posts = Post.all.includes(:user).order(points: :desc)
     posts = Post.all.order(points: :desc)
     render json: posts, status: :ok
   end
@@ -18,7 +17,7 @@ class PostController < ApplicationController
   private
 
   def post_params
-    params.permit(:title, :text, :link, :community_id, :user_id, :points)
+    params.permit(:title, :text, :image_url, :community_id, :user_id, :points)
   end
 
 end
