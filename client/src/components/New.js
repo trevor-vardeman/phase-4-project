@@ -105,6 +105,31 @@ function New({ currentUserId }) {
       .catch(e => alert(e))
   }
 
+  function submitCommunity(e) {
+    e.preventDefault()
+    fetch("/community", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: communityName,
+        description: communityDescription
+      }),
+    })
+      .then((r) => {
+        if (r.ok) {
+          r.json().then(() => {
+            setCommunityName("")
+            setCommunityDescription("")
+          })
+        } else {
+          r.json().then(data => alert(data.error))
+        }
+      })
+      .catch(e => alert(e))
+  }
+
   return (
     <div>
     {newPost
@@ -155,7 +180,7 @@ function New({ currentUserId }) {
           <Form.Control type="text" placeholder="Description" value={communityDescription} onChange={(e) => setCommunityDescription(e.target.value)} />
         </Form.Group>
 
-        {/* <Button variant="dark" type="submit" onClick={submitPost}>Sign Up</Button> */}
+        <Button variant="dark" type="submit" onClick={submitCommunity}>Create</Button>
       </Form>
       <p>Want to submit a post instead? <Alert.Link onClick={() => setNewPost(true)}>New Post</Alert.Link></p>
     </div>}
