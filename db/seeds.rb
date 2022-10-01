@@ -10,17 +10,20 @@ puts "Seeding..."
 
 Community.create(
   name: "us-politics",
-  description: "a community to discuss all things US policites. feel free to post memes, ask questions, or post links to articles."
+  description: "a community to discuss all things US policites. feel free to post memes, ask questions, or post links to articles.",
+  user_id: 1
 )
 
 Community.create(
   name: "dogmemes",
-  description: "post your dog memes"
+  description: "post your dog memes",
+  user_id: 1
 )
 
 Community.create(
   name: "football",
-  description: "let's talk about the NFL!"
+  description: "let's talk about the NFL!",
+  user_id: 2
 )
 
 Post.create(

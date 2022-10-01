@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2022_10_01_062104) do
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "user_id", null: false
     t.string "text"
     t.integer "points"
     t.datetime "created_at", precision: 6, null: false
@@ -28,17 +28,17 @@ ActiveRecord::Schema.define(version: 2022_10_01_062104) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
+    t.integer "user_id", null: false
   end
 
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.string "text"
     t.string "link"
-    t.string "community_id"
+    t.string "community_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
+    t.integer "user_id", null: false
     t.integer "points"
   end
 
