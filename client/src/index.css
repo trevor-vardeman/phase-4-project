@@ -18,3 +18,7 @@ img {
   border-color: black;
   border-style: solid;
 }
+
+.points-and-arrows {
+  min-width: 50px;
+}

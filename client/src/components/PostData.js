@@ -12,7 +12,7 @@ function PostData({ post }) {
     <Stack gap={3}>
       {post ? 
       <Stack gap={3}>
-          <Stack gap={1} direction="horizontal" key={post.id}>
+          <Stack className="points-and-arrows" gap={1} direction="horizontal" key={post.id}>
             <p>&#x25b2;</p>
             <h6>{post.points}</h6>
             <p>&#x25bc;</p>
