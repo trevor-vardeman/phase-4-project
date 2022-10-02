@@ -44,7 +44,7 @@ function App() {
         <Route path="/" element={<Page />} />
         <Route path="/auth" element={<Auth onLogin={handleLogin} />} />
         <Route path="/new" element={<New currentUserId={currentUserId} />} />
-        <Route path="/post/:id" element={<Post />} />
+        <Route path="/post/:id" element={<Post currentUserId={currentUserId} />} />
         <Route path="*" element={<NoPath />} />
       </Routes>
     </div>
