@@ -127,4 +127,18 @@ Comment.create(
   post_id: 5
 )
 
+Comment.create(
+  user_id: 1,
+  text: "testinnnnnnng",
+  points: 100,
+  post_id: 1
+)
+
+Comment.create(
+  user_id: 1,
+  text: "testing 1 2 3",
+  points: 50,
+  post_id: 1
+)
+
 puts "Seeding complete!"

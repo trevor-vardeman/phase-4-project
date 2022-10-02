@@ -20,8 +20,10 @@ function PostData({ post }) {
             <Stack>
               <h4 hover="true" onClick={() => openPost(post)}>{post.title}</h4>
               {post.comments.length === 1 
-              ? <sub onClick={() => openPost(post)}>{post.comments.length} comment</sub>
-              : <sub onClick={() => openPost(post)}>{post.comments.length} comments</sub>}
+              ? 
+              <sub onClick={() => openPost(post)}>{post.comments.length} comment</sub>
+              : 
+              <sub onClick={() => openPost(post)}>{post.comments.length} comments</sub>}
               <br></br>
               <sub>submitted by {post.user.username} to {post.community.name} at {post.created_at}</sub>
             </Stack>

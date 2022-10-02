@@ -6,7 +6,7 @@ import Auth from './Auth'
 import NoPath from './NoPath'
 import New from './New'
 import Post from './Post'
-import Page from './Page'
+import PostList from './PostList'
 
 function App() {
   const [currentUsername, setCurrentUsername] = useState(null)
@@ -41,7 +41,7 @@ function App() {
     <div>
       <Navigation currentUsername={currentUsername} onLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<Page />} />
+        <Route path="/" element={<PostList />} />
         <Route path="/auth" element={<Auth onLogin={handleLogin} />} />
         <Route path="/new" element={<New currentUserId={currentUserId} />} />
         <Route path="/post/:id" element={<Post currentUserId={currentUserId} />} />

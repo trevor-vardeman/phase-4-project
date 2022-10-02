@@ -1,13 +1,15 @@
-import Page from "./Page"
+import PostList from "./PostList"
 import CommentSubmission from "./CommentSubmission"
+import CommentData from "./CommentData"
 
 function Post({ currentUserId }) {
-
   return (
     <div>
-      <Page />
+      <PostList />
       <br></br>
       <CommentSubmission currentUserId={currentUserId} />
+      <br></br>
+      <CommentData />
     </div>
   )
 }

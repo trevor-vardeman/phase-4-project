@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import PostData from "./PostData"
 import Stack from 'react-bootstrap/Stack'
 
-function Page() {
+function PostList() {
   const [posts, setPosts] = useState([])
   const {id} = useParams()
 
@@ -30,4 +30,4 @@ function Page() {
   )
 }
 
-export default Page
+export default PostList
