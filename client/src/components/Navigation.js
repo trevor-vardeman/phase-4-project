@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
@@ -23,14 +23,14 @@ function Navigation( { currentUsername, onLogout } ) {
       <Container fluid>
         <Navbar.Brand>App Name</Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="all">All</Nav.Link>
-          {currentUsername ? <Nav.Link href="my-communities">My Communities</Nav.Link> : null}
+          <Nav.Link as={Link} to="/">Home</Nav.Link>
+          <Nav.Link as={Link} to="all">All</Nav.Link>
+          {currentUsername ? <Nav.Link as={Link} to="my-communities">My Communities</Nav.Link> : null}
         </Nav>
         <Nav>
-          <Nav.Link href="new">New</Nav.Link>
+          <Nav.Link as={Link} to="new">New</Nav.Link>
           {currentUsername ? <Nav.Link style={{color: "orange"}}>{currentUsername}</Nav.Link> : null}
-          {currentUsername ? <Nav.Link onClick={handleLogout}>Sign Out</Nav.Link> : <Nav.Link href="auth">Sign In</Nav.Link>}
+          {currentUsername ? <Nav.Link onClick={handleLogout}>Sign Out</Nav.Link> : <Nav.Link as={Link} to="auth">Sign In</Nav.Link>}
         </Nav>
       </Container>
     </Navbar>

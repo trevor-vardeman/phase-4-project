@@ -17,7 +17,7 @@ class CommunityController < ApplicationController
   private
 
   def community_params
-    params.permit(:name, :description)
+    params.permit(:name, :description, :user_id)
   end
 
 end
