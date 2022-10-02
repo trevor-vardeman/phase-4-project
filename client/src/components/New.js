@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom"
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
@@ -14,6 +15,7 @@ function New({ currentUserId }) {
   const [postImageURL, setPostImageURL] = useState("")
   const [communityName, setCommunityName] = useState("")
   const [communityDescription, setCommunityDescription] = useState("")
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch("/community")
@@ -97,6 +99,7 @@ function New({ currentUserId }) {
             setPostTitle("")
             setPostText("")
             setPostImageURL("")
+            navigate("/")
           })
         } else {
           r.json().then(data => alert(data.error))
@@ -123,6 +126,7 @@ function New({ currentUserId }) {
           r.json().then(() => {
             setCommunityName("")
             setCommunityDescription("")
+            navigate("/")
           })
         } else {
           r.json().then(data => alert(data.error))

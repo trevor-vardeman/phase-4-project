@@ -28,6 +28,7 @@ function App() {
 
   function handleLogin(user) {
     setCurrentUsername(user.username)
+    setCurrentUserId(user.id)
     navigate("/")
   }
 
