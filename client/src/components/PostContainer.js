@@ -16,11 +16,14 @@ function PostContainer() {
       {posts ? 
       <Stack gap={3}>
         {posts.map(post => (
-          <Stack gap={3} direction="horizontal" key={post.id}>
+          <Stack gap={1} direction="horizontal" key={post.id}>
+            <p>&#x25b2;</p>
+            <h6>{post.points}</h6>
+            <p>&#x25bc;</p>
             <img src={post.image_url} alt={`${post.title}`}/>
             <Stack>
-              <h2>{post.title}</h2>
-              <sub>{post.points} points | submitted by {post.user.username} | submitted {post.created_at}</sub>
+              <h4>{post.title}</h4>
+              <sub>submitted by {post.user.username} to {post.community.name} at {post.created_at}</sub>
             </Stack>
           </Stack>
         ))}
