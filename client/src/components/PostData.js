@@ -16,7 +16,7 @@ function PostData({ post }) {
             <p>&#x25b2;</p>
             <h6>{post.points}</h6>
             <p>&#x25bc;</p>
-            {post.image_url ? <img src={post.image_url} alt={`${post.title}`}/> : null}
+            {post.image_url ? <img onClick={() => window.open(`${post.image_url}`, "_blank")} src={post.image_url} alt={`${post.title}`}/> : null}
             <Stack>
               <h4 hover="true" onClick={() => openPost(post)}>{post.title}</h4>
               {post.comments.length === 1 
