@@ -3,10 +3,10 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navigation from './Navigation'
 import Auth from './Auth'
-import Front from './Front'
 import NoPath from './NoPath'
 import New from './New'
 import Post from './Post'
+import Page from './Page'
 
 function App() {
   const [currentUsername, setCurrentUsername] = useState(null)
@@ -40,7 +40,7 @@ function App() {
     <div>
       <Navigation currentUsername={currentUsername} onLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<Front />} />
+        <Route path="/" element={<Page />} />
         <Route path="/auth" element={<Auth onLogin={handleLogin} />} />
         <Route path="/new" element={<New currentUserId={currentUserId} />} />
         <Route path="/post/:id" element={<Post />} />
