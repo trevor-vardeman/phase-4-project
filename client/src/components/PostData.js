@@ -8,6 +8,16 @@ function PostData({ post }) {
     navigate(`/post/${post.id}`)
   }
 
+  function handleDelete(e) {
+    console.log(post)
+    fetch(`/post/${post.id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then(navigate('/'))
+    .catch(error => console.log(error))
+  }
+
   return (
     <Stack gap={3}>
       {post ? 
@@ -26,6 +36,8 @@ function PostData({ post }) {
               <sub onClick={() => openPost(post)}>{post.comments.length} comments</sub>}
               <br></br>
               <sub>submitted by {post.user.username} to {post.community.name} at {post.created_at}</sub>
+              <br></br>
+              <sub onClick={(e) => handleDelete(e)}>Edit | Delete</sub>
             </Stack>
           </Stack>
       </Stack> : null}
