@@ -1,21 +1,11 @@
 import { useNavigate } from "react-router-dom"
 import Stack from 'react-bootstrap/Stack'
 
-function PostData({ post }) {
+function PostData({ post, handleDelete }) {
   const navigate = useNavigate()
 
   function openPost(post) {
     navigate(`/post/${post.id}`)
-  }
-
-  function handleDelete(e) {
-    console.log(post)
-    fetch(`/post/${post.id}`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-    })
-    .then(navigate('/'))
-    .catch(error => console.log(error))
   }
 
   return (
@@ -37,7 +27,7 @@ function PostData({ post }) {
               <br></br>
               <sub>submitted by {post.user.username} to {post.community.name} at {post.created_at}</sub>
               <br></br>
-              <sub onClick={(e) => handleDelete(e)}>Edit | Delete</sub>
+              <sub onClick={() => handleDelete(post)}>Edit | Delete</sub>
             </Stack>
           </Stack>
       </Stack> : null}

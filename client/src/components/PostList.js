@@ -21,10 +21,19 @@ function PostList() {
     }
   },[id])
 
+  function handleDelete(singlePost) {
+    fetch(`/post/${singlePost.id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then(setPosts(posts.filter(post => singlePost.id !== post.id)))
+    .catch(error => console.log(error))
+  }
+
   return (
     <Stack gap={3}>
       {posts.map(post => (
-        <PostData key={post.id} post={post} />
+        <PostData key={post.id} post={post} handleDelete={handleDelete} />
       ))}
     </Stack>
   )
