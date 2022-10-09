@@ -26,7 +26,12 @@ function PostList() {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     })
-    .then(setPosts(posts.filter(post => singlePost.id !== post.id)))
+    .then ((r) => {
+      if (r.ok) {
+        setPosts(posts.filter(post => singlePost.id !== post.id))
+      } else {
+        console.log(r)
+      }})
     .catch(error => console.log(error))
   }
 

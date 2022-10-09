@@ -1,4 +1,6 @@
 class PostController < ApplicationController
+  before_action :set_post, only: [:show, :update, :destroy]
+  before_action :authorize_user, only: [:update, :destroy]
 
   def index
     posts = Post.all.order(points: :desc)
@@ -32,6 +34,15 @@ class PostController < ApplicationController
 
   def post_params
     params.permit(:title, :text, :image_url, :community_id, :user_id, :points)
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  def authorize_user
+    user_can_modify = current_user.try(:admin) || @post.user_id == current_user.id && current_user.id != nil
+    render json: { error: "You don't have permission to perform that action." }, status: :forbidden unless user_can_modify
   end
 
 end
