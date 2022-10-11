@@ -1,11 +1,16 @@
 import { useNavigate } from "react-router-dom"
 import Stack from 'react-bootstrap/Stack'
+import EditPost from "./EditPost"
 
 function PostData({ post, handleDelete }) {
   const navigate = useNavigate()
 
   function openPost(post) {
     navigate(`/post/${post.id}`)
+  }
+
+  function handleEdit(post) {
+    navigate(`/edit/${post.id}`)
   }
 
   return (
@@ -19,6 +24,7 @@ function PostData({ post, handleDelete }) {
             {post.image_url ? <img onClick={() => window.open(`${post.image_url}`, "_blank")} src={post.image_url} alt={`${post.title}`}/> : null}
             <Stack>
               <h4 hover="true" onClick={() => openPost(post)}>{post.title}</h4>
+              {post.text ? <p>{post.text}</p> : null}
               {post.comments.length === 1 
               ? 
               <sub onClick={() => openPost(post)}>{post.comments.length} comment</sub>
@@ -27,7 +33,13 @@ function PostData({ post, handleDelete }) {
               <br></br>
               <sub>submitted by {post.user.username} to {post.community.name} at {post.created_at}</sub>
               <br></br>
-              {post.user_can_modify ? <sub onClick={() => handleDelete(post)}>Edit | Delete</sub> : null}
+              {post.user_can_modify ?
+                <Stack direction="horizontal" gap={1}>
+                  <sub onClick={() => handleEdit(post)}>Edit</sub> 
+                  <sub>|</sub>
+                  <sub onClick={() => handleDelete(post)}>Delete</sub> 
+                </Stack> :
+                null}
             </Stack>
           </Stack>
       </Stack> : null}

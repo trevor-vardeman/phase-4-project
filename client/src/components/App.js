@@ -7,6 +7,7 @@ import NoPath from './NoPath'
 import New from './New'
 import Post from './Post'
 import PostList from './PostList'
+import EditPost from './EditPost'
 
 function App() {
   const [currentUsername, setCurrentUsername] = useState(null)
@@ -45,6 +46,7 @@ function App() {
         <Route path="/auth" element={<Auth onLogin={handleLogin} />} />
         <Route path="/new" element={<New currentUserId={currentUserId} />} />
         <Route path="/post/:id" element={<Post currentUserId={currentUserId} />} />
+        <Route path="/edit/:id" element={<EditPost />} />
         <Route path="*" element={<NoPath />} />
       </Routes>
     </div>
