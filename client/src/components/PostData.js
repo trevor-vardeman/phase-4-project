@@ -27,7 +27,7 @@ function PostData({ post, handleDelete }) {
               <br></br>
               <sub>submitted by {post.user.username} to {post.community.name} at {post.created_at}</sub>
               <br></br>
-              <sub onClick={() => handleDelete(post)}>Edit | Delete</sub>
+              {post.user_can_modify ? <sub onClick={() => handleDelete(post)}>Edit | Delete</sub> : null}
             </Stack>
           </Stack>
       </Stack> : null}

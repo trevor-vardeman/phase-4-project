@@ -41,7 +41,7 @@ class PostController < ApplicationController
   end
 
   def authorize_user
-    user_can_modify = current_user.try(:admin) || @post.user_id == current_user.id && current_user.id != nil
+    user_can_modify = current_user.try(:admin) || current_user.id != nil && @post.user_id == current_user.id
     render json: { error: "You don't have permission to perform that action." }, status: :forbidden unless user_can_modify
   end
 
