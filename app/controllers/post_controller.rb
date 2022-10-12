@@ -1,6 +1,6 @@
 class PostController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
-  before_action :authorize_user, only: [:update, :destroy]
+  before_action :authorize_user, only: [:update, :destroy, :upvote, :downvote]
 
   def index
     posts = Post.all.order(points: :desc)
@@ -38,6 +38,26 @@ class PostController < ApplicationController
   def destroy
     post = Post.find(params[:id])
     post.destroy
+  end
+
+  def upvote
+    @post = Post.find(params[:id])
+    if current_user.voted_up_on? @post
+      @post.unvote_by current_user
+    else
+      @post.upvote_by current_user
+    end
+    render json: @post, status: :accepted
+  end
+
+  def downvote
+    @post = Post.find(params[:id])
+    if current_user.voted_down_on? @post
+      @post.unvote_by current_user
+    else
+      @post.downvote_by current_user
+    end  
+    render json: @post, status: :accepted
   end
 
   private

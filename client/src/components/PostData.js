@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom"
 import Stack from 'react-bootstrap/Stack'
-import EditPost from "./EditPost"
 
 function PostData({ post, handleDelete }) {
   const navigate = useNavigate()
@@ -13,14 +12,40 @@ function PostData({ post, handleDelete }) {
     navigate(`/edit/${post.id}`)
   }
 
+  function handleUpvote(e) {
+    fetch("upvote-post", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // body: JSON.stringify({
+      //   id: id,
+      //   title: postTitle,
+      //   text: postText,
+      //   image_url: postImageURL,
+      //   community_id: communityId
+      // }),
+    })
+      .then((r) => {
+        if (r.ok) {
+          r.json().then((data) => {
+            console.log(data)
+          })
+        } else {
+          r.json().then(data => alert(data.error))
+        }
+      })
+      .catch(e => alert(e))
+  }
+
   return (
     <Stack gap={3}>
       {post ? 
       <Stack gap={3}>
           <Stack className="points-and-arrows" gap={1} direction="horizontal" key={post.id}>
-            <p>&#x25b2;</p>
+            <p onClick={(e) => handleUpvote(e)}>&#x25b2;</p>
             <h6>{post.points}</h6>
-            <p>&#x25bc;</p>
+            <p onClick={() => console.log("downvote")}>&#x25bc;</p>
             {post.image_url ? <img onClick={() => window.open(`${post.image_url}`, "_blank")} src={post.image_url} alt={`${post.title}`}/> : null}
             <Stack>
               <h4 hover="true" onClick={() => openPost(post)}>{post.title}</h4>
