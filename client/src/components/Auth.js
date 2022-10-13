@@ -42,6 +42,7 @@ function Auth( { onLogin } ) {
         username,
         password,
         password_confirmation: passwordConfirmation,
+        admin: false
       }),
     })
       .then((r) => {

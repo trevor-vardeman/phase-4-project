@@ -1,6 +1,6 @@
 class PostController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
-  before_action :authorize_user, only: [:update, :destroy, :upvote, :downvote]
+  before_action :authorize_user, only: [:update, :destroy]
 
   def index
     posts = Post.all.order(points: :desc)
@@ -57,7 +57,7 @@ class PostController < ApplicationController
     else
       @post.downvote_by current_user
     end  
-    render json: @post, status: :accepted
+    render json: @post.voter_id, status: :accepted
   end
 
   private

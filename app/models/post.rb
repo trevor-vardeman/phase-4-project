@@ -4,4 +4,8 @@ class Post < ApplicationRecord
   belongs_to :community
   has_many :comments
   has_many :users, through: :comments
+
+  def users_id
+    @post.user_id
+  end
 end

@@ -13,18 +13,19 @@ function PostData({ post, handleDelete }) {
   }
 
   function handleUpvote(e) {
+    console.log(post)
     fetch("upvote-post", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      // body: JSON.stringify({
-      //   id: id,
-      //   title: postTitle,
-      //   text: postText,
-      //   image_url: postImageURL,
-      //   community_id: communityId
-      // }),
+      body: JSON.stringify({
+        id: post.id,
+        // title: postTitle,
+        // text: postText,
+        // image_url: postImageURL,
+        // community_id: communityId
+      }),
     })
       .then((r) => {
         if (r.ok) {
@@ -32,7 +33,7 @@ function PostData({ post, handleDelete }) {
             console.log(data)
           })
         } else {
-          r.json().then(data => alert(data.error))
+          r.json().then(data => console.log(data.error))
         }
       })
       .catch(e => alert(e))
