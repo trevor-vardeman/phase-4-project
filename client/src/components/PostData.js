@@ -14,7 +14,7 @@ function PostData({ post, handleDelete }) {
 
   function handleUpvote(e) {
     console.log(post)
-    fetch(`/upvote-post/`, {
+    fetch("/upvote", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ function PostData({ post, handleDelete }) {
             console.log(data)
           })
         } else {
-          r.json().then(data => console.log(data.error))
+          r.json().then(data => alert(data.error))
         }
       })
       .catch(e => alert(e))

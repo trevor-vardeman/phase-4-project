@@ -1,10 +1,9 @@
-import { useNavigate, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
 function Navigation( { currentUsername, onLogout } ) {
-  const navigate = useNavigate()
 
   function handleLogout() {
     fetch("/logout", {
@@ -14,8 +13,8 @@ function Navigation( { currentUsername, onLogout } ) {
       },
       body: JSON.stringify({ currentUsername }),
     })
-    onLogout(null)
-    navigate("/")
+    onLogout()
+    window.location.reload()
   }
 
   return (
