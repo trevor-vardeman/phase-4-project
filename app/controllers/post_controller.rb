@@ -1,6 +1,7 @@
 class PostController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
   before_action :authorize_user, only: [:update, :destroy]
+  before_action :authorize_vote, only: [:upvote]
 
   def index
     posts = Post.all.order(points: :desc)
@@ -46,6 +47,17 @@ class PostController < ApplicationController
     render json: post, status: :accepted
   end
 
+  def upvote
+    post = Post.find(params[:id])
+    if current_user.voted_for? post
+      post.unliked_by current_user
+    else
+      post.liked_by current_user
+    end
+    post.upvote_from current_user
+    render json: post, status: :accepted
+  end
+
   def downvote
     @post.downvote_from current_user
     render json: post, status: :accepted
@@ -84,6 +96,11 @@ class PostController < ApplicationController
   def authorize_user
     user_can_modify = current_user.try(:admin) || current_user.id != nil && @post.user_id == current_user.id
     render json: { error: "You don't have permission to perform that action." }, status: :forbidden unless user_can_modify
+  end
+
+  def authorize_vote
+    user_can_modify = !session[:user_id].nil?
+    render json: { error: "You must be logged in to vote." }, status: :forbidden unless user_can_modify
   end
 
 end

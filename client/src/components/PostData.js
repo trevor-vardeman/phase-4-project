@@ -14,7 +14,7 @@ function PostData({ post, handleDelete }) {
 
   function handleUpvote(e) {
     console.log(post)
-    fetch(`/upvote-post`, {
+    fetch(`/upvote-post/`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
