@@ -5,7 +5,7 @@ import CommentData from "./CommentData"
 function Post({ currentUserId }) {
   return (
     <div>
-      <PostList />
+      <PostList currentUserId={currentUserId} />
       <br></br>
       <CommentSubmission currentUserId={currentUserId} />
       <br></br>

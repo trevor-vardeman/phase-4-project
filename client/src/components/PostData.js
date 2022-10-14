@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import Stack from 'react-bootstrap/Stack'
 
-function PostData({ post, handleDelete }) {
+function PostData({ post, handleDelete, currentUserId }) {
   const navigate = useNavigate()
 
   function openPost(post) {
@@ -20,7 +20,14 @@ function PostData({ post, handleDelete }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: post.id,
+        id: post.id
+        // votable_type: "Post",
+        // votable_id: post.id,
+        // voter_type: "User",
+        // voter_id: currentUserId,
+        // vote_flag: true,
+        // vote_weight: 1
+
         // title: postTitle,
         // text: postText,
         // image_url: postImageURL,

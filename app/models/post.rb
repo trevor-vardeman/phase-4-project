@@ -4,8 +4,4 @@ class Post < ApplicationRecord
   has_many :comments
   has_many :users, through: :comments
   acts_as_votable
-
-  # def users_id
-  #   @post.user_id
-  # end
 end

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import PostData from "./PostData"
 import Stack from 'react-bootstrap/Stack'
 
-function PostList() {
+function PostList({ currentUserId }) {
   const [posts, setPosts] = useState([])
   const {id} = useParams()
 
@@ -38,7 +38,7 @@ function PostList() {
   return (
     <Stack gap={3}>
       {posts.map(post => (
-        <PostData key={post.id} post={post} handleDelete={handleDelete} />
+        <PostData key={post.id} post={post} handleDelete={handleDelete} currentUserId={currentUserId} />
       ))}
     </Stack>
   )

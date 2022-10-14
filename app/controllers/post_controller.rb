@@ -4,64 +4,64 @@ class PostController < ApplicationController
   before_action :authorize_vote, only: [:upvote]
 
   def index
-    posts = Post.all.order(points: :desc)
-    render json: posts, status: :ok
+    @posts = Post.all.order(points: :desc)
+    render json: @posts, status: :ok
   end
 
   def show
-    post = Post.find(params[:id])
-    if post
-      render json: post, status: :ok
+    @post = Post.find(params[:id])
+    if @post
+      render json: @post, status: :ok
     else
       render json: { error: "Post not found" }, status: :not_found
     end
   end
 
   def create
-    post = Post.create(post_params)
-    if post.valid?
-      render json: post, status: :created
+    @post = Post.create(post_params)
+    if @post.valid?
+      render json: @post, status: :created
     else
-      render json: { errors: post.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: @post.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def update
-    post = Post.find(params[:id])
-    post.update(post_params)
-    if post.valid?
-      render json: post, status: :accepted
+    @post = Post.find(params[:id])
+    @post.update(post_params)
+    if @post.valid?
+      render json: @post, status: :accepted
     else
-      render json: { errors: post.errors.full_messages}, status: :unprocessable_entity
+      render json: { errors: @post.errors.full_messages}, status: :unprocessable_entity
     end
   end
 
   def destroy
-    post = Post.find(params[:id])
-    post.destroy
+    @post = Post.find(params[:id])
+    @post.destroy
   end
 
   def upvote
-    post = Post.find(params[:id])
-    post.upvote_from current_user
-    render json: post, status: :accepted
+    @post = Post.find(params[:id])
+    @post.upvote_from current_user
+    render json: @post, status: :accepted
   end
 
   def upvote
-    post = Post.find(params[:id])
-    if current_user.voted_for? post
-      post.unliked_by current_user
+    @post = Post.find(params[:id])
+    if current_user.voted_for? @post
+      @post.unliked_by current_user
     else
-      post.liked_by current_user
+      @post.liked_by current_user
     end
-    post.upvote_from current_user
-    render json: post, status: :accepted
+    @post.upvote_from current_user
+    render json: @post, status: :accepted
   end
 
-  def downvote
-    @post.downvote_from current_user
-    render json: post, status: :accepted
-  end
+  # def downvote
+  #   @post.downvote_from current_user
+  #   render json: post, status: :accepted
+  # end
 
   # def upvote
   #   @post = Post.find(params[:id])
