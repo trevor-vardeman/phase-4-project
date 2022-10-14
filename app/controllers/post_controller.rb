@@ -41,24 +41,35 @@ class PostController < ApplicationController
   end
 
   def upvote
-    @post = Post.find(params[:id])
-    if current_user.voted_up_on? @post
-      @post.unvote_by current_user
-    else
-      @post.upvote_by current_user
-    end
-    render json: @post, status: :accepted
+    post = Post.find(params[:id])
+    post.upvote_from current_user
+    render json: post, status: :accepted
   end
 
   def downvote
-    @post = Post.find(params[:id])
-    if current_user.voted_down_on? @post
-      @post.unvote_by current_user
-    else
-      @post.downvote_by current_user
-    end  
-    render json: @post.voter_id, status: :accepted
+    @post.downvote_from current_user
+    render json: post, status: :accepted
   end
+
+  # def upvote
+  #   @post = Post.find(params[:id])
+  #   if current_user.voted_up_on? @post
+  #     @post.unvote_by current_user
+  #   else
+  #     @post.upvote_by current_user
+  #   end
+  #   render json: @post, status: :accepted
+  # end
+
+  # def downvote
+  #   @post = Post.find(params[:id])
+  #   if current_user.voted_down_on? @post
+  #     @post.unvote_by current_user
+  #   else
+  #     @post.downvote_by current_user
+  #   end  
+  #   render json: @post.voter_id, status: :accepted
+  # end
 
   private
 
