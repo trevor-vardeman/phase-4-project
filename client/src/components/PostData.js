@@ -20,7 +20,9 @@ function PostData({ post, handleDelete, currentUserId }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: post.id
+        post_id: post.id,
+        user_id: post.user.id
+        // user_id: ,
         // votable_type: "Post",
         // votable_id: post.id,
         // voter_type: "User",

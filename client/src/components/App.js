@@ -12,7 +12,6 @@ import EditPost from './EditPost'
 function App() {
   const [currentUsername, setCurrentUsername] = useState(null)
   const [currentUserId, setCurrentUserId] = useState(null)
-
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -30,7 +29,7 @@ function App() {
   function handleLogin(user) {
     setCurrentUsername(user.username)
     setCurrentUserId(user.id)
-    navigate("/")
+    navigate(-1)
   }
 
   function handleLogout() {
