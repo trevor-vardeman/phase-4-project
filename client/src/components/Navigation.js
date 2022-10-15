@@ -14,7 +14,6 @@ function Navigation( { currentUsername, onLogout } ) {
       body: JSON.stringify({ currentUsername }),
     })
     onLogout()
-    window.location.reload()
   }
 
   return (

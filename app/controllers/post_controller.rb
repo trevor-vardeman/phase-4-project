@@ -43,6 +43,8 @@ class PostController < ApplicationController
 
   def upvote
     @post = Post.find(params[:id])
+
+    # if @post.post_votes
     if @post.post_votes.create(user_id: current_user.id)
       render json: @post, status: :accepted
     else 

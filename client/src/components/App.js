@@ -19,6 +19,7 @@ function App() {
     .then((r) => {
       if (r.ok) {
         r.json().then(user => {
+          console.log(user)
           setCurrentUsername(user.username)
           setCurrentUserId(user.id)
         })
@@ -41,7 +42,7 @@ function App() {
     <div>
       <Navigation currentUsername={currentUsername} onLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<PostList />} />
+        <Route path="/" element={<PostList currentUserId={currentUserId} />} />
         <Route path="/auth" element={<Auth onLogin={handleLogin} />} />
         <Route path="/new" element={<New currentUserId={currentUserId} />} />
         <Route path="/post/:id" element={<Post currentUserId={currentUserId} />} />

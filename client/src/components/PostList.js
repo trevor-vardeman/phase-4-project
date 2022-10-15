@@ -30,9 +30,9 @@ function PostList({ currentUserId }) {
       if (r.ok) {
         setPosts(posts.filter(post => singlePost.id !== post.id))
       } else {
-        console.log(r)
+        alert(r)
       }})
-    .catch(error => console.log(error))
+    .catch(error => alert(error))
   }
 
   return (

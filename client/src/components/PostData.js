@@ -13,6 +13,7 @@ function PostData({ post, handleDelete, currentUserId }) {
   }
 
   function handleUpvote(e) {
+    console.log(currentUserId)
     console.log(post)
     fetch("/upvote", {
       method: "PATCH",
