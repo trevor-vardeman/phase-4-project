@@ -1,7 +1,7 @@
 class PostVoteController < ApplicationController
   before_action :authorize_vote, only: [:upvote]
 
-  def upvote
+  # def upvote
     # post = Post.find(params[:id])
     # if current_user.voted_for? @post
     #   @post.unliked_by current_user
@@ -10,13 +10,13 @@ class PostVoteController < ApplicationController
     # end
     # @post.upvote_from current_user
     # render json: @post, status: :accepted
-    render json: {test: "test"}
-  end
+  #   render json: {test: "test"}
+  # end
 
   private
 
   def post_vote_params
-    params.permit(:post_id, :user_id, :points)
+    params.permit(:post_id, :user_id)
   end
 
   def authorize_vote
