@@ -13,28 +13,14 @@ function PostData({ post, handleDelete, currentUserId }) {
   }
 
   function handleUpvote(e) {
-    console.log(currentUserId)
-    console.log(post)
     fetch("/upvote", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: post.id
-        // user_id: post.user.id
-        // user_id: ,
-        // votable_type: "Post",
-        // votable_id: post.id,
-        // voter_type: "User",
-        // voter_id: currentUserId,
-        // vote_flag: true,
-        // vote_weight: 1
-
-        // title: postTitle,
-        // text: postText,
-        // image_url: postImageURL,
-        // community_id: communityId
+        id: post.id,
+        user_id: currentUserId
       }),
     })
       .then((r) => {

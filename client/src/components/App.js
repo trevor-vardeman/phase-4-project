@@ -19,7 +19,6 @@ function App() {
     .then((r) => {
       if (r.ok) {
         r.json().then(user => {
-          console.log(user)
           setCurrentUsername(user.username)
           setCurrentUserId(user.id)
         })

@@ -42,57 +42,15 @@ class PostController < ApplicationController
   end
 
   def upvote
-    @post = Post.find(params[:id])
-
-    # if @post.post_votes
-    if @post.post_votes.create(user_id: current_user.id)
-      render json: @post, status: :accepted
-    else 
-      render json: { error: "Post already upvoted."}, status: :unprocessable_entity
+    post = Post.find(params[:id])
+    upvote_user_id = User.find(params[:user_id]).id
+    if post.post_votes.select { |vote| upvote_user_id == vote.user_id }.length > 0
+      render json: { error: "User has already voted." }, status: :unprocessable_entity
+    else
+      post.post_votes.create(user_id: current_user.id)
+      render json: post, status: :accepted
     end
   end
-
-  # def upvote
-  #   @post = Post.find(params[:id])
-  #   @post.upvote_from current_user
-  #   render json: @post, status: :accepted
-  # end
-
-  # def upvote
-  #   @post = Post.find(params[:id])
-  #   if current_user.voted_for? @post
-  #     @post.unliked_by current_user
-  #   else
-  #     @post.liked_by current_user
-  #   end
-  #   @post.upvote_from current_user
-  #   render json: @post, status: :accepted
-  # end
-
-  # def downvote
-  #   @post.downvote_from current_user
-  #   render json: post, status: :accepted
-  # end
-
-  # def upvote
-  #   @post = Post.find(params[:id])
-  #   if current_user.voted_up_on? @post
-  #     @post.unvote_by current_user
-  #   else
-  #     @post.upvote_by current_user
-  #   end
-  #   render json: @post, status: :accepted
-  # end
-
-  # def downvote
-  #   @post = Post.find(params[:id])
-  #   if current_user.voted_down_on? @post
-  #     @post.unvote_by current_user
-  #   else
-  #     @post.downvote_by current_user
-  #   end  
-  #   render json: @post.voter_id, status: :accepted
-  # end
 
   private
 
