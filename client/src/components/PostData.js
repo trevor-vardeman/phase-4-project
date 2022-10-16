@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import Stack from 'react-bootstrap/Stack'
 
-function PostData({ post, handleDelete, currentUserId }) {
+function PostData({ post, onUpvote, onDelete }) {
   const navigate = useNavigate()
 
   function openPost(post) {
@@ -12,35 +12,12 @@ function PostData({ post, handleDelete, currentUserId }) {
     navigate(`/edit/${post.id}`)
   }
 
-  function handleUpvote(e) {
-    fetch("/upvote", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: post.id,
-        user_id: currentUserId
-      }),
-    })
-      .then((r) => {
-        if (r.ok) {
-          r.json().then((data) => {
-            console.log(data)
-          })
-        } else {
-          r.json().then(data => alert(data.error))
-        }
-      })
-      .catch(e => alert(e))
-  }
-
   return (
     <Stack gap={3}>
       {post ? 
       <Stack gap={3}>
           <Stack className="points-and-arrows" gap={1} direction="horizontal" key={post.id}>
-            <p onClick={(e) => handleUpvote(e)}>&#x25b2;</p>
+            {post.user_upvoted ? <p onClick={() => onUpvote(post.id)} className="upvoted">&#x25b2;</p> : <p onClick={() => onUpvote(post.id)}>&#x25b2;</p>}
             <h6>{post.points}</h6>
             <p onClick={() => console.log("downvote")}>&#x25bc;</p>
             {post.image_url ? <img onClick={() => window.open(`${post.image_url}`, "_blank")} src={post.image_url} alt={`${post.title}`}/> : null}
@@ -59,7 +36,7 @@ function PostData({ post, handleDelete, currentUserId }) {
                 <Stack direction="horizontal" gap={1}>
                   <sub onClick={() => handleEdit(post)}>Edit</sub> 
                   <sub>|</sub>
-                  <sub onClick={() => handleDelete(post)}>Delete</sub> 
+                  <sub onClick={() => onDelete(post)}>Delete</sub> 
                 </Stack> :
                 null}
             </Stack>

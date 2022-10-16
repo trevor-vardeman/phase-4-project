@@ -22,3 +22,7 @@ img {
 .points-and-arrows {
   min-width: 50px;
 }
+
+.upvoted {
+  color: orange;
+}
