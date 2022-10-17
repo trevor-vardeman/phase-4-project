@@ -26,3 +26,7 @@ img {
 .upvoted {
   color: orange;
 }
+
+.downvoted {
+  color: purple;
+}

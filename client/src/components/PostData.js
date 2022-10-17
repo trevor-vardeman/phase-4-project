@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import Stack from 'react-bootstrap/Stack'
 
-function PostData({ post, onUpvote, onDelete }) {
+function PostData({ post, onUpvote, onDownvote, onDelete }) {
   const navigate = useNavigate()
 
   function openPost(post) {
@@ -19,7 +19,7 @@ function PostData({ post, onUpvote, onDelete }) {
           <Stack className="points-and-arrows" gap={1} direction="horizontal" key={post.id}>
             {post.user_upvoted ? <p onClick={() => onUpvote(post.id)} className="upvoted">&#x25b2;</p> : <p onClick={() => onUpvote(post.id)}>&#x25b2;</p>}
             <h6>{post.points}</h6>
-            <p onClick={() => console.log("downvote")}>&#x25bc;</p>
+            {post.user_downvoted ? <p onClick={() => onDownvote(post.id)} className="downvoted">&#x25bc;</p> : <p onClick={() => onDownvote(post.id)}>&#x25bc;</p>}
             {post.image_url ? <img onClick={() => window.open(`${post.image_url}`, "_blank")} src={post.image_url} alt={`${post.title}`}/> : null}
             <Stack>
               <h4 hover="true" onClick={() => openPost(post)}>{post.title}</h4>
