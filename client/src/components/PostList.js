@@ -19,7 +19,7 @@ function PostList({ currentUserId }) {
     } else {
       fetch(`/post/${id}`)
       .then(r => r.json())
-      .then(posts => setPosts([posts]))
+      .then(posts => ([posts]))
       .catch(err => alert(err.message))
     }
   },[id])
@@ -32,7 +32,8 @@ function PostList({ currentUserId }) {
       },
       body: JSON.stringify({
         post_id: postId,
-        user_id: currentUserId
+        user_id: currentUserId,
+        points: 1
       }),
     })
       .then((r) => {

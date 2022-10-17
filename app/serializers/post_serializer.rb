@@ -1,5 +1,5 @@
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :title, :text, :image_url, :points, :created_at, :user_can_modify, :user_upvoted
+  attributes :id, :title, :text, :image_url, :points, :created_at, :user_can_modify, :user_upvoted, :user_downvoted
 
   belongs_to :user
   belongs_to :community
@@ -13,10 +13,29 @@ class PostSerializer < ActiveModel::Serializer
   end
 
   def user_upvoted
-    if self.object.post_votes.select { |vote| current_user.id == vote.user_id }.length > 0
-      return true
-    else
+    if !current_user
       return false
+    else current_user
+      post_vote_array = self.object.post_votes.select { |vote| current_user.id == vote.user_id }
+      post_vote = post_vote_array[0]
+      if current_user && post_vote_array.length > 0 && post_vote.points == 1
+        return true
+      else return false
+      end
     end
   end
+
+  def user_downvoted
+    if !current_user
+      return false
+    else current_user
+      post_vote_array = self.object.post_votes.select { |vote| current_user.id == vote.user_id }
+      post_vote = post_vote_array[0]
+      if current_user && post_vote_array.length > 0 && post_vote.points == -1
+        return true
+      else return false
+      end
+    end
+  end
+
 end

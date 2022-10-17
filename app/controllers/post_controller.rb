@@ -44,10 +44,20 @@ class PostController < ApplicationController
   def upvote
     post = Post.find(params[:post_id])
     upvote_user_id = User.find(params[:user_id]).id
-    if post.post_votes.select { |vote| upvote_user_id == vote.user_id }.length > 0
-      render json: { error: "User has already voted." }, status: :unprocessable_entity
+    post_vote_array = post.post_votes.select { |vote| upvote_user_id == vote.user_id }
+    post_vote = post_vote_array[0]
+    if post_vote_array.length > 0 && post_vote.points == 1
+      post_vote.update(points: 0)
+      render json: { update: "unvoted" }, status: :accepted
+    elsif post_vote_array.length > 0 && post_vote.points == 0
+      post_vote.update(points: 1)
+      render json: { update: "upvoted" }, status: :accepted
+    elsif post_vote_array.length > 0 && post_vote.points == -1
+      post_vote.update(points: 1)
+      render json: { update: "upvoted" }, status: :accepted
+      # render json: { error: "User has already voted." }, status: :unprocessable_entity
     else
-      post.post_votes.create(user_id: current_user.id)
+      post.post_votes.create(user_id: current_user.id, points: params[:points])
       render json: post, status: :accepted
     end
   end

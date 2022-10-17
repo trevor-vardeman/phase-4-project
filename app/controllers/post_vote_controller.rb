@@ -4,7 +4,7 @@ class PostVoteController < ApplicationController
   private
 
   def post_vote_params
-    params.permit(:post_id, :user_id)
+    params.permit(:post_id, :user_id, :points)
   end
 
   def authorize_vote
