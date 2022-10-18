@@ -26,7 +26,7 @@ function PostList({ currentUserId }) {
   },[id])
 
   function handleUpvote(postId) {
-    fetch("/upvote", {
+    fetch("/upvote-post", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ function PostList({ currentUserId }) {
   }
 
   function handleDownvote(postId) {
-    fetch("/downvote", {
+    fetch("/downvote-post", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

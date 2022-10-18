@@ -22,6 +22,13 @@ User.create(
   admin: false
 )
 
+User.create!([
+  {username: "trevor", password_digest: "$2a$12$oEAKY6esczbUV5lMgW9bN.vu6e5Oho83LRPXmoX.IEZr.s0Ii7lru", admin: false},
+  {username: "jolene", password_digest: "$2a$12$MaxATcBlIASp4gy2E2pODOuLNxEpXVLN/HrhWt.bly94M4V/phz2i", admin: false},
+  {username: "testing", password_digest: "$2a$12$K7AlzaVAD5cxQnE5cQuQ8OGxEfPF5RZCf0mltjYJsTmu/F1hjSRLK", admin: false},
+  {username: "testing2", password_digest: "$2a$12$azGKzlrUaaE8j2dXzjO8qO2odR4usC0ovMoxNnmBBF5I.hPzmAsiK", admin: false}
+])
+
 Community.create(
   name: "us-politics",
   description: "a community to discuss all things US policites. feel free to post memes, ask questions, or post links to articles.",
@@ -88,57 +95,80 @@ Post.create(
 Comment.create(
   user_id: 1,
   text: "this is a test comment",
-  points: 1,
+  points: 0,
   post_id: 1
 )
 
 Comment.create(
   user_id: 2,
   text: "this is a test comment",
-  points: 2,
+  points: 0,
   post_id: 2
 )
 
 Comment.create(
   user_id: 1,
   text: "this is a test comment",
-  points: 50,
+  points: 0,
   post_id: 3
 )
 
 Comment.create(
   user_id: 2,
   text: "this is a test comment 2",
-  points: 100,
+  points: 0,
   post_id: 3
 )
 
 Comment.create(
   user_id: 2,
   text: "this is a test comment 2",
-  points: 100,
+  points: 0,
   post_id: 4
 )
 
 Comment.create(
   user_id: 1,
   text: "this is a test comment 2",
-  points: 150,
+  points: 0,
   post_id: 5
 )
 
 Comment.create(
   user_id: 1,
   text: "testinnnnnnng",
-  points: 100,
+  points: 0,
   post_id: 1
 )
 
 Comment.create(
   user_id: 1,
   text: "testing 1 2 3",
-  points: 50,
+  points: 0,
   post_id: 1
 )
+
+PostVote.create!([
+  {post_id: 1, user_id: 2, points: 1},
+  {post_id: 2, user_id: 2, points: 1},
+  {post_id: 3, user_id: 2, points: 1},
+  {post_id: 4, user_id: 2, points: -1},
+  {post_id: 5, user_id: 2, points: 1},
+  {post_id: 1, user_id: 1, points: 1},
+  {post_id: 2, user_id: 1, points: 0},
+  {post_id: 3, user_id: 1, points: 1},
+  {post_id: 4, user_id: 1, points: -1},
+  {post_id: 1, user_id: 3, points: 1},
+  {post_id: 2, user_id: 3, points: 1},
+  {post_id: 3, user_id: 3, points: 1},
+  {post_id: 1, user_id: 4, points: 1},
+  {post_id: 2, user_id: 4, points: 1},
+  {post_id: 3, user_id: 4, points: 1},
+  {post_id: 4, user_id: 4, points: -1},
+  {post_id: 5, user_id: 4, points: 1},
+  {post_id: 1, user_id: 5, points: 1},
+  {post_id: 3, user_id: 5, points: 1},
+  {post_id: 1, user_id: 6, points: 1}
+])
 
 puts "Seeding complete!"

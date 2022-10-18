@@ -6,4 +6,6 @@ class User < ApplicationRecord
   has_many :posts, through: :comments
   has_many :post_votes
   has_many :posts, through: :post_votes
+  has_many :comment_votes
+  has_many :users, through: :comment_votes
 end
