@@ -1,7 +1,7 @@
 class PostController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
   before_action :authorize_user, only: [:update, :destroy]
-  before_action :authorize_vote, only: [:upvote]
+  before_action :authorize_vote, only: [:upvote, :downvote]
 
   def index
     posts = Post.all.order(points: :desc)
@@ -20,6 +20,7 @@ class PostController < ApplicationController
   def create
     post = Post.create(post_params)
     if post.valid?
+      post.post_votes.create(user_id: current_user.id, points: params[:points])
       render json: post, status: :created
     else
       render json: { errors: post.errors.full_messages }, status: :unprocessable_entity
@@ -88,11 +89,11 @@ class PostController < ApplicationController
   end
 
   def set_post
-    post = Post.find(params[:id])
+    @post = Post.find(params[:id])
   end
 
   def authorize_user
-    user_can_modify = current_user.try(:admin) || current_user.id != nil && post.user_id == current_user.id
+    user_can_modify = current_user.try(:admin) || current_user.id != nil && @post.user_id == current_user.id
     render json: { error: "You don't have permission to perform that action." }, status: :forbidden unless user_can_modify
   end
 

@@ -44,7 +44,7 @@ Post.create(
   title: "me right now",
   text: "me right now",
   image_url: "https://www.rd.com/wp-content/uploads/2020/04/DogMeme1.jpg",
-  points: 500,
+  points: 0,
   community_id: 2,
   user_id: 1,
 )
@@ -53,7 +53,7 @@ Post.create(
   title: "how i feel",
   text: "",
   image_url: "https://www.rd.com/wp-content/uploads/2020/04/DogMeme2.jpg",
-  points: 300,
+  points: 0,
   community_id: 2,
   user_id: 1,
 )
@@ -62,7 +62,7 @@ Post.create(
   title: "so serious",
   text: "",
   image_url: "https://www.rd.com/wp-content/uploads/2020/04/DogMeme4.jpg",
-  points: 100,
+  points: 0,
   community_id: 2,
   user_id: 1,
 )
@@ -71,7 +71,7 @@ Post.create(
   title: "tua shouldn't have been in the game",
   text: "seriously, how can the nfl allow it? the guy couldn't walk straight after last week's hit, then they send him this week so quickly. pretty irresponsible. anything for entertainment, am i right?",
   image_url: "https://sportshub.cbsistatic.com/i/r/2022/09/30/92367559-c2f8-44ab-8fd4-ca1fb9a15ac1/thumbnail/770x433/8070086a2e664c6e99a36735c4f4c590/tua-getty.jpg",
-  points: 450,
+  points: 0,
   community_id: 3,
   user_id: 1,
 )
@@ -80,7 +80,7 @@ Post.create(
   title: "National Archives tells Congress some Trump records still unaccounted for",
   text: "https://www.axios.com/2022/10/01/trump-national-archives-records-missing-congress",
   image_url: "",
-  points: 475,
+  points: 0,
   community_id: 1,
   user_id: 2,
 )

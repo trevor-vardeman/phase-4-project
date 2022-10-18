@@ -38,4 +38,8 @@ class PostSerializer < ActiveModel::Serializer
     end
   end
 
+  def points
+    self.object.post_votes.sum { |votes| votes[:points] } 
+  end
+
 end

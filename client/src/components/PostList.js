@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import PostData from "./PostData"
 import Stack from 'react-bootstrap/Stack'
 
 function PostList({ currentUserId }) {
   const [posts, setPosts] = useState([])
   const {id} = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (id === undefined) {
@@ -76,6 +77,7 @@ function PostList({ currentUserId }) {
     .then ((r) => {
       if (r.ok) {
         setPosts(posts.filter(post => singlePost.id !== post.id))
+        id === undefined ? window.location.reload() : navigate("/")
       } else {
         alert(r)
       }})
