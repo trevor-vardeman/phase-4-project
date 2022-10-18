@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2022_10_18_063714) do
   enable_extension "plpgsql"
 
   create_table "comment_votes", force: :cascade do |t|
-    t.integer "post_id", null: false
+    t.integer "comment_id", null: false
     t.integer "user_id", null: false
     t.integer "points", null: false
     t.datetime "created_at", precision: 6, null: false

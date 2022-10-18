@@ -4,7 +4,6 @@ import Stack from 'react-bootstrap/Stack'
 import Alert from 'react-bootstrap/Alert'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import Comments from './CommentList'
 
 function CommentSubmission({ currentUserId }) {
   const [comment, setComment] = useState("")
@@ -49,7 +48,6 @@ function CommentSubmission({ currentUserId }) {
       </Form>
       : 
       <p>You must be logged in to post a comment. <Alert.Link onClick={() => navigate("/auth")}>Sign in here.</Alert.Link></p>}
-      <Comments />
     </Stack>
   )
 }

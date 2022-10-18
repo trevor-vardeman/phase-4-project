@@ -1,5 +1,5 @@
 class CommentVoteSerializer < ActiveModel::Serializer
-  attributes :id, :post_id, :user_id, :points
+  attributes :id, :comment_id, :user_id, :points
   belongs_to :user
-  belongs_to :post
+  belongs_to :comment
 end

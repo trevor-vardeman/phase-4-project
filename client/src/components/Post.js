@@ -1,6 +1,6 @@
 import PostList from "./PostList"
 import CommentSubmission from "./CommentSubmission"
-import CommentData from "./CommentData"
+import CommentList from "./CommentList"
 
 function Post({ currentUserId }) {
   return (
@@ -9,7 +9,7 @@ function Post({ currentUserId }) {
       <br></br>
       <CommentSubmission currentUserId={currentUserId} />
       <br></br>
-      <CommentData />
+      <CommentList currentUserId={currentUserId} />
     </div>
   )
 }

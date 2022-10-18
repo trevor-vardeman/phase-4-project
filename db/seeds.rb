@@ -171,4 +171,13 @@ PostVote.create!([
   {post_id: 1, user_id: 6, points: 1}
 ])
 
+CommentVote.create!([
+  {comment_id: 1, user_id: 1, points: 1},
+  {comment_id: 2, user_id: 2, points: 1},
+  {comment_id: 3, user_id: 1, points: 0},
+  {comment_id: 3, user_id: 2, points: -1},
+  {comment_id: 4, user_id: 2, points: 1},
+  {comment_id: 5, user_id: 1, points: 1}
+])
+
 puts "Seeding complete!"
