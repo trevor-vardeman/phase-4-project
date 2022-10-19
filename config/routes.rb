@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :show]
   resources :community, only: [:create, :show, :index]
   resources :post
-  resources :comment, only: [:create, :index, :show]
+  resources :comment
   resources :post_vote, only: [:create, :index, :show]
   resource :comment_vote, only: [:create, :index, :show]
 

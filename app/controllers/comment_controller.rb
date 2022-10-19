@@ -1,4 +1,6 @@
 class CommentController < ApplicationController
+  before_action :set_comment, only: [:show, :update, :destroy]
+  before_action :authorize_user, only: [:update, :destroy]
   before_action :authorize_vote, only: [:upvote, :downvote]
 
   def index
@@ -23,6 +25,22 @@ class CommentController < ApplicationController
     else
       render json: { errors: comment.errors.full_messages }, status: :unprocessable_entity
     end
+  end
+
+  def update
+    # raise params.inspect
+    comment = Comment.find(params[:id])
+    comment.update(comment_params)
+    if comment.valid?
+      render json: comment, status: :accepted
+    else
+      render json: { error: comment.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    comment = Comment.find(params[:id])
+    comment.destroy
   end
 
   def upvote
@@ -68,7 +86,16 @@ class CommentController < ApplicationController
   private
 
   def comment_params
-    params.permit(:user_id, :text, :points, :post_id)
+    params.permit(:id, :user_id, :text, :points, :post_id)
+  end
+
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
+
+  def authorize_user
+    user_can_modify = current_user.try(:admin) || current_user.id != nil && @comment.user_id == current_user.id
+    render json: { error: "You don't have permission to perform that action." }, status: :forbidden unless user_can_modify
   end
 
   def authorize_vote

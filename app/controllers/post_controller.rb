@@ -33,7 +33,7 @@ class PostController < ApplicationController
     if post.valid?
       render json: post, status: :accepted
     else
-      render json: { errors: post.errors.full_messages}, status: :unprocessable_entity
+      render json: { errors: post.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

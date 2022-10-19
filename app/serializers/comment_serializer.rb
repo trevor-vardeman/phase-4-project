@@ -1,10 +1,14 @@
 class CommentSerializer < ActiveModel::Serializer
-  attributes :id, :text, :points, :post_id, :created_at, :user, :user_upvoted, :user_downvoted
+  attributes :id, :text, :points, :post_id, :created_at, :user, :user_can_modify, :user_upvoted, :user_downvoted
 
   belongs_to :user
   belongs_to :post
   has_many :comment_votes
   has_many :users, through: :comment_votes
+
+  def user_can_modify
+    current_user.try(:admin) || current_user == self.object.user && current_user.id != nil
+  end
 
   def user_upvoted
     if !current_user

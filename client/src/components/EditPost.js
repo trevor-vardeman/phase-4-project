@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown'
 
-function EditPost({ currentUserId }) {
+function EditPost() {
   const [allCommunities, setAllCommunities] = useState([])
   const [communitiesToDisplay, setCommunitiesToDisplay] = useState([])
   const [postCommunity, setPostCommunity] = useState("")
