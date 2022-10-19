@@ -18,6 +18,7 @@ class CommentController < ApplicationController
   def create
     comment = Comment.create(comment_params)
     if comment.valid?
+      comment.comment_votes.create(user_id: current_user.id, points: params[:points])
       render json: comment, status: :created
     else
       render json: { errors: comment.errors.full_messages }, status: :unprocessable_entity
@@ -31,16 +32,16 @@ class CommentController < ApplicationController
     comment_vote = comment_vote_array[0]
     if comment_vote_array.length > 0 && comment_vote.points == 1
       comment_vote.update(points: 0)
-      render json: { update: "unvoted" }, status: :accepted
+      render json: { update: "1" }, status: :accepted
     elsif comment_vote_array.length > 0 && comment_vote.points == 0
       comment_vote.update(points: 1)
-      render json: { update: "upvoted" }, status: :accepted
+      render json: { update: "2" }, status: :accepted
     elsif comment_vote_array.length > 0 && comment_vote.points == -1
       comment_vote.update(points: 1)
-      render json: { update: "upvoted" }, status: :accepted
+      render json: { update: "3" }, status: :accepted
     else
-      comment.comment_votes.create(user_id: current_user.id, points: params[:points])
-      render json: comment, status: :accepted
+      comment.comment_votes.create(user_id: current_user.id, points: 1)
+      render json: { update: "4" }, status: :accepted
     end
   end
 

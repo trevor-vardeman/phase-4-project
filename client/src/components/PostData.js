@@ -9,7 +9,7 @@ function PostData({ post, onUpvote, onDownvote, onDelete }) {
   }
 
   function handleEdit(post) {
-    navigate(`/edit/${post.id}`)
+    navigate(`/posts/edit/${post.id}`)
   }
 
   return (

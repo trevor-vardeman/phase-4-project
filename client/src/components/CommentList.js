@@ -69,7 +69,7 @@ function CommentList({ currentUserId }) {
         ))}
       </Stack>
       : 
-      <p>No comments yet! Be the first to comment.</p> }
+      <p>No comments yet! Be the first to comment.</p>}
     </Stack>
   )
 }
