@@ -5,7 +5,7 @@ function PostData({ post, onUpvote, onDownvote, onDelete }) {
   const navigate = useNavigate()
 
   function openPost(post) {
-    navigate(`/post/${post.id}`)
+    navigate(`/posts/${post.id}`)
   }
 
   function handleEdit(post) {
