@@ -10,7 +10,7 @@ function CommentSubmission({ currentUserId }) {
   const navigate = useNavigate()
   const {id} = useParams()
 
-  function submitComment(e) {
+  function submitComment() {
     console.log("test")
     fetch("/comment", {
       method: "POST",
@@ -28,6 +28,8 @@ function CommentSubmission({ currentUserId }) {
         if (r.ok) {
           r.json().then(() => {
             setComment("")
+            // window.location.reload()
+            navigate(-1)
           })
         } else {
           r.json().then(data => alert(data.error))

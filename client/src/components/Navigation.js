@@ -22,8 +22,6 @@ function Navigation( { currentUsername, onLogout } ) {
         <Navbar.Brand>App Name</Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link as={Link} to="/">Home</Nav.Link>
-          <Nav.Link as={Link} to="all">All</Nav.Link>
-          {currentUsername ? <Nav.Link as={Link} to="my-communities">My Communities</Nav.Link> : null}
         </Nav>
         <Nav>
           <Nav.Link as={Link} to="new">New</Nav.Link>
