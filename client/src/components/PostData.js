@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import Stack from 'react-bootstrap/Stack'
 
-function PostData({ post, onUpvote, onDownvote, onDelete }) {
+function PostData({ post, onOpenPost, onUpvote, onDownvote, onDelete }) {
   const navigate = useNavigate()
 
   function openPost(post) {

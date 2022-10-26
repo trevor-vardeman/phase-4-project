@@ -10,7 +10,10 @@ function CommentList({ currentUserId }) {
   useEffect(() => {
     fetch(`/post/${id}`)
     .then(r => r.json())
-    .then(posts => setComments(posts.comments))
+    .then(posts => {
+      const sortedComments = posts.comments.sort((a, b) => b.points - a.points)
+      setComments(sortedComments)
+    })
     .catch(err => alert(err.message))
   },[id])
 

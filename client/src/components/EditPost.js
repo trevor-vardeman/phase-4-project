@@ -117,7 +117,7 @@ function EditPost() {
   }
 
   return (
-    <div>
+    <div className="centered">
       <h2>Edit Post</h2>
       <Form>
         <Dropdown>

@@ -10,7 +10,7 @@ class CommunityController < ApplicationController
     if community.valid?
       render json: community, status: :created
     else
-      render json: { errors: community.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: community.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

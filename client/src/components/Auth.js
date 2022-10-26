@@ -56,7 +56,7 @@ function Auth( { onLogin } ) {
   }
 
   return (
-    <div>
+    <div className="centered">
       {signIn
       ? 
       <div>
@@ -73,7 +73,7 @@ function Auth( { onLogin } ) {
 
           <Button variant="dark" type="submit" onClick={handleLogin}>Sign In</Button>
         </Form>
-        <p>New to [app name]? <Alert.Link onClick={() => setSignIn(false)}>Register</Alert.Link></p>
+        <p>New to seenit? <Alert.Link onClick={() => setSignIn(false)}>Register</Alert.Link></p>
       </div>
       : 
       <div>

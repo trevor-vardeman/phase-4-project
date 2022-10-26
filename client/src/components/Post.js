@@ -4,7 +4,7 @@ import CommentList from "./CommentList"
 
 function Post({ currentUserId }) {
   return (
-    <div>
+    <div className="main">
       <PostList currentUserId={currentUserId} />
       <br></br>
       <CommentSubmission currentUserId={currentUserId} />

@@ -5,6 +5,7 @@ import Stack from 'react-bootstrap/Stack'
 
 function PostList({ currentUserId }) {
   const [posts, setPosts] = useState([])
+  const [singlePost, setSinglePost] = useState(false)
   const {id} = useParams()
   const navigate = useNavigate()
 
@@ -13,8 +14,8 @@ function PostList({ currentUserId }) {
       fetch("/post")
       .then(r => r.json())
       .then(posts => {
-        console.log(posts)
-        setPosts(posts)
+        const sortedPosts = posts.sort((a, b) => b.points - a.points)
+        setPosts(sortedPosts)
       })
       .catch(err => alert(err.message))
     } else {
@@ -24,6 +25,21 @@ function PostList({ currentUserId }) {
       .catch(err => alert(err.message))
     }
   },[id])
+
+  // useEffect(() => {
+  //   fetch("/post")
+  //   .then(r => r.json())
+  //   .then(posts => {
+  //     const sortedPosts = posts.sort((a, b) => b.points - a.points)
+  //     setPosts(sortedPosts)
+  //   })
+  //   .catch(err => alert(err.message))
+  // },[])
+
+  // function handleOpenPost(post) {
+  //   setSinglePost(true)
+  //   setPosts(post)
+  // }
 
   function handleUpvote(postId) {
     fetch("/upvote-post", {
@@ -85,9 +101,10 @@ function PostList({ currentUserId }) {
   }
 
   return (
-    <Stack gap={3}>
+    <Stack gap={3} className="main">
       {posts.map(post => (
         <PostData key={post.id} post={post} onUpvote={handleUpvote} onDownvote={handleDownvote} onDelete={handleDelete} />
+        // <PostData key={post.id} post={post} onUpvote={handleUpvote} onDownvote={handleDownvote} onOpenPost={handleOpenPost} onDelete={handleDelete} />
       ))}
     </Stack>
   )

@@ -18,12 +18,19 @@ class PostController < ApplicationController
   end
 
   def create
-    post = Post.create(post_params)
+    post = Post.create(
+      user_id: current_user.id,
+      title: params[:title],
+      text: params[:text],
+      image_url: params[:image_url],
+      community_id: params[:community_id],
+      points: params[:points]
+    )
     if post.valid?
       post.post_votes.create(user_id: current_user.id, points: params[:points])
-      render json: post, status: :created
+      render json: post_params, status: :created
     else
-      render json: { errors: post.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: post.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -85,7 +92,7 @@ class PostController < ApplicationController
   private
 
   def post_params
-    params.permit(:title, :text, :image_url, :community_id, :user_id, :points)
+    params.permit(:title, :text, :image_url, :community_id, :points)
   end
 
   def set_post
