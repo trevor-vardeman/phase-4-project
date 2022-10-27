@@ -18,7 +18,21 @@ function CommentList({ currentUserId }) {
   },[id])
 
   function handleUpvote(commentId) {
-    console.log(commentId, currentUserId)
+    const commentArray = [...comments]
+    const clickedComment = commentArray.find(comments => comments.id === commentId)
+    if (clickedComment.user_upvoted === false && clickedComment.user_downvoted === false) {
+      clickedComment.user_upvoted = true
+      clickedComment.points += 1
+    } else if (clickedComment.user_upvoted === false && clickedComment.user_downvoted === true) {
+      clickedComment.user_upvoted = true
+      clickedComment.user_downvoted = false
+      clickedComment.points += 2
+    } else {
+      clickedComment.user_upvoted = false
+      clickedComment.points -= 1
+    }
+    setComments(commentArray)
+    
     fetch("/upvote-comment", {
       method: "PATCH",
       headers: {
@@ -32,15 +46,30 @@ function CommentList({ currentUserId }) {
     })
       .then((r) => {
         if (r.ok) {
-          r.json().then(() => window.location.reload())
+          r.json().then()
         } else {
-          r.json().then(data => console.log(data.error))
+          r.json().then(data => alert(data.error))
         }
       })
       .catch(e => alert(e))
   }
 
   function handleDownvote(commentId) {
+    const commentArray = [...comments]
+    const clickedComment = commentArray.find(comments => comments.id === commentId)
+    if (clickedComment.user_upvoted === false && clickedComment.user_downvoted === false) {
+      clickedComment.user_downvoted = true
+      clickedComment.points -= 1
+    } else if (clickedComment.user_downvoted === false && clickedComment.user_upvoted === true) {
+      clickedComment.user_upvoted = false
+      clickedComment.user_downvoted = true
+      clickedComment.points -= 2
+    } else {
+      clickedComment.user_downvoted = false
+      clickedComment.points += 1
+    }
+    setComments(commentArray)
+
     fetch("/downvote-comment", {
       method: "PATCH",
       headers: {
@@ -54,12 +83,26 @@ function CommentList({ currentUserId }) {
     })
       .then((r) => {
         if (r.ok) {
-          r.json().then(() => window.location.reload())
+          r.json().then()
         } else {
           r.json().then(data => console.log(data.error))
         }
       })
       .catch(e => alert(e))
+  }
+
+  function handleDelete(singleComment) {
+    fetch(`/comment/${singleComment.id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then ((r) => {
+      if (r.ok) {
+        setComments(comments.filter(comment => singleComment.id !== comment.id))
+      } else {
+        alert(r)
+      }})
+    .catch(error => alert(error))
   }
 
   return (
@@ -68,7 +111,7 @@ function CommentList({ currentUserId }) {
       ? 
       <Stack gap={3}>
         {comments.map(comment => (
-          <CommentData key={comment.id} comment={comment} onUpvote={handleUpvote} onDownvote={handleDownvote} />
+          <CommentData key={comment.id} comment={comment} onUpvote={handleUpvote} onDownvote={handleDownvote} onDelete={handleDelete} />
         ))}
       </Stack>
       : 

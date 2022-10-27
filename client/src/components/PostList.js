@@ -107,7 +107,7 @@ function PostList({ currentUserId }) {
     .then ((r) => {
       if (r.ok) {
         setPosts(posts.filter(post => singlePost.id !== post.id))
-        id === undefined ? window.location.reload() : navigate("/")
+        if (id) navigate("/")
       } else {
         alert(r)
       }})

@@ -3,7 +3,7 @@ import Stack from 'react-bootstrap/Stack'
 // import Form from 'react-bootstrap/Form'
 // import Button from 'react-bootstrap/Button'
 
-function CommentData({ comment, currentUserId, onUpvote, onDownvote }) {
+function CommentData({ comment, currentUserId, onUpvote, onDownvote, onDelete }) {
   // const [editComment, setEditComment] = useState(false)
   // const [originalCommentText, setOriginalCommentText] = useState()
   // const [editedCommentText, setEditedCommentText] = useState(originalCommentText)
@@ -39,20 +39,6 @@ function CommentData({ comment, currentUserId, onUpvote, onDownvote }) {
   //     })
   //     .catch(e => alert(e))
   // }
-
-  function handleDelete(comment) {
-    fetch(`/comment/${comment.id}`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-    })
-    .then ((r) => {
-      if (r.ok) {
-        window.location.reload()
-      } else {
-        alert(r)
-      }})
-    .catch(error => alert(error))
-  }
 
   return (
     // <Stack gap={3}>
@@ -110,7 +96,7 @@ function CommentData({ comment, currentUserId, onUpvote, onDownvote }) {
           {comment.user_can_modify 
           ?
           <Stack direction="horizontal" gap={1}>
-            <sub onClick={() => handleDelete(comment)}>Delete</sub> 
+            <sub onClick={() => onDelete(comment)}>Delete</sub> 
           </Stack> 
           :
           null}
