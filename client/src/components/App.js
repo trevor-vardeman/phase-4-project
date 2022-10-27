@@ -35,7 +35,7 @@ function App() {
   function handleLogout() {
     setCurrentUsername(null)
     setCurrentUserId(null)
-    window.location.reload()
+    navigate("/")
   }
 
   return (

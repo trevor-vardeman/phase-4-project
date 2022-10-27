@@ -193,7 +193,7 @@ function New({ currentUserId }) {
           </div>}
         </div>
       : 
-      <p>You must be signed in to create a community or post.</p>}
+      <p>You must be logged in to create a new community or post. <Alert.Link onClick={() => navigate("/auth")}>Sign in here.</Alert.Link></p>}
   </div>
   )
 }

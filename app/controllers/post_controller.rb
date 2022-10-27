@@ -40,7 +40,7 @@ class PostController < ApplicationController
     if post.valid?
       render json: post, status: :accepted
     else
-      render json: { errors: post.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: post.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -97,6 +97,11 @@ class PostController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
+    if @post.valid?
+      render json: @post, status: :accepted
+    else
+      render json: { error: post.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def authorize_user

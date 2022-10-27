@@ -5,7 +5,6 @@ import Stack from 'react-bootstrap/Stack'
 
 function PostList({ currentUserId }) {
   const [posts, setPosts] = useState([])
-  const [singlePost, setSinglePost] = useState(false)
   const {id} = useParams()
   const navigate = useNavigate()
 
@@ -26,22 +25,22 @@ function PostList({ currentUserId }) {
     }
   },[id])
 
-  // useEffect(() => {
-  //   fetch("/post")
-  //   .then(r => r.json())
-  //   .then(posts => {
-  //     const sortedPosts = posts.sort((a, b) => b.points - a.points)
-  //     setPosts(sortedPosts)
-  //   })
-  //   .catch(err => alert(err.message))
-  // },[])
-
-  // function handleOpenPost(post) {
-  //   setSinglePost(true)
-  //   setPosts(post)
-  // }
-
   function handleUpvote(postId) {
+    const postArray = [...posts]
+    const clickedPost = postArray.find(posts => posts.id === postId)
+    if (clickedPost.user_upvoted === false && clickedPost.user_downvoted === false) {
+      clickedPost.user_upvoted = true
+      clickedPost.points += 1
+    } else if (clickedPost.user_upvoted === false && clickedPost.user_downvoted === true) {
+      clickedPost.user_upvoted = true
+      clickedPost.user_downvoted = false
+      clickedPost.points += 2
+    } else {
+      clickedPost.user_upvoted = false
+      clickedPost.points -= 1
+    }
+    setPosts(postArray)
+
     fetch("/upvote-post", {
       method: "PATCH",
       headers: {
@@ -55,15 +54,30 @@ function PostList({ currentUserId }) {
     })
       .then((r) => {
         if (r.ok) {
-          r.json().then(() => window.location.reload())
+          r.json().then()
         } else {
-          r.json().then(data => console.log(data.error))
+          r.json().then(data => alert(data.error))
         }
       })
       .catch(e => alert(e))
   }
 
   function handleDownvote(postId) {
+    const postArray = [...posts]
+    const clickedPost = postArray.find(posts => posts.id === postId)
+    if (clickedPost.user_upvoted === false && clickedPost.user_downvoted === false) {
+      clickedPost.user_downvoted = true
+      clickedPost.points -= 1
+    } else if (clickedPost.user_downvoted === false && clickedPost.user_upvoted === true) {
+      clickedPost.user_upvoted = false
+      clickedPost.user_downvoted = true
+      clickedPost.points -= 2
+    } else {
+      clickedPost.user_downvoted = false
+      clickedPost.points += 1
+    }
+    setPosts(postArray)
+    
     fetch("/downvote-post", {
       method: "PATCH",
       headers: {
@@ -77,9 +91,9 @@ function PostList({ currentUserId }) {
     })
       .then((r) => {
         if (r.ok) {
-          r.json().then(() => window.location.reload())
+          r.json().then()
         } else {
-          r.json().then(data => console.log(data.error))
+          r.json().then(data => alert(data.error))
         }
       })
       .catch(e => alert(e))
@@ -104,7 +118,6 @@ function PostList({ currentUserId }) {
     <Stack gap={3} className="main">
       {posts.map(post => (
         <PostData key={post.id} post={post} onUpvote={handleUpvote} onDownvote={handleDownvote} onDelete={handleDelete} />
-        // <PostData key={post.id} post={post} onUpvote={handleUpvote} onDownvote={handleDownvote} onOpenPost={handleOpenPost} onDelete={handleDelete} />
       ))}
     </Stack>
   )
