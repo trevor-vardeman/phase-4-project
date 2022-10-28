@@ -12,17 +12,18 @@ function CommentSubmission({ currentUserId }) {
 
   function submitComment(e) {
     e.preventDefault()
+    const newComment = {
+      user_id: currentUserId,
+      text: comment,
+      points: 1,
+      post_id: id
+    }
     fetch("/comment", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        user_id: currentUserId,
-        text: comment,
-        points: 1,
-        post_id: id
-      }),
+      body: JSON.stringify(newComment),
     })
       .then((r) => {
         if (r.ok) {

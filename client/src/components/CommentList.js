@@ -31,7 +31,8 @@ function CommentList({ currentUserId }) {
       clickedComment.user_upvoted = false
       clickedComment.points -= 1
     }
-    setComments(commentArray)
+    const sortArray = commentArray.sort((a, b) => b.points - a.points)
+    setComments(sortArray)
     
     fetch("/upvote-comment", {
       method: "PATCH",
@@ -68,8 +69,9 @@ function CommentList({ currentUserId }) {
       clickedComment.user_downvoted = false
       clickedComment.points += 1
     }
-    setComments(commentArray)
-
+    const sortArray = commentArray.sort((a, b) => b.points - a.points)
+    setComments(sortArray)
+    
     fetch("/downvote-comment", {
       method: "PATCH",
       headers: {

@@ -76,22 +76,28 @@ function New({ currentUserId }) {
 
   function submitPost(e) {
     e.preventDefault()
-    const communityId = allCommunities.filter(community => {
-      return community.name === postCommunity
-    })[0].id
-    fetch("/post", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title: postTitle,
-        text: postText,
-        image_url: postImageURL,
-        community_id: communityId,
-        points: 1
-      }),
-    })
+    if (!postCommunity) {
+      alert("You must select a community for your post.")
+    } else if (!postTitle) {
+      alert("You must give your post a title.")
+    } else {
+      const communityId = allCommunities.filter(community => {
+        return community.name === postCommunity
+      })[0].id
+
+      fetch("/post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: postTitle,
+          text: postText,
+          image_url: postImageURL,
+          community_id: communityId,
+          points: 1
+        }),
+      })
       .then((r) => {
         if (r.ok) {
           r.json().then(() => {
@@ -105,21 +111,25 @@ function New({ currentUserId }) {
         }
       })
       .catch(e => alert(e))
+    }
   }
 
   function submitCommunity(e) {
     e.preventDefault()
-    fetch("/community", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: communityName,
-        description: communityDescription,
-        user_id: currentUserId,
-      }),
-    })
+    if (!communityName || !communityDescription) {
+      alert("You must give your new community a name and description.")
+    } else {
+      fetch("/community", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: communityName,
+          description: communityDescription,
+          user_id: currentUserId,
+        }),
+      })
       .then((r) => {
         if (r.ok) {
           r.json().then(() => {
@@ -132,6 +142,7 @@ function New({ currentUserId }) {
         }
       })
       .catch(e => alert(e))
+    }
   }
 
   return (
@@ -160,12 +171,12 @@ function New({ currentUserId }) {
               </Form.Group>
 
               <Form.Group controlId="postTextForm">
-                <Form.Label>Text</Form.Label>
+                <Form.Label>Text (Optional)</Form.Label>
                 <Form.Control type="text" placeholder="Text" value={postText} onChange={(e) => setPostText(e.target.value)} />
               </Form.Group>
 
               <Form.Group controlId="postImageUrlForm">
-                <Form.Label>Image URL</Form.Label>
+                <Form.Label>Image URL (Optional)</Form.Label>
                 <Form.Control type="url" placeholder="Image URL" value={postImageURL} onChange={(e) => setPostImageURL(e.target.value)} />
               </Form.Group>
 

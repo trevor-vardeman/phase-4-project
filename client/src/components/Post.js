@@ -1,29 +1,29 @@
 import PostList from "./PostList"
+import PostData from "./PostData"
 import CommentSubmission from "./CommentSubmission"
 import CommentList from "./CommentList"
-import PostData from "./PostData"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
-function Post({ currentUserId }) {
+// function Post({ currentUserId }) {
+  function Post({ post, onUpvote, onDownvote, onDelete, currentUserId }) {
   const {id} = useParams()
 
-  // function paramTester() {
-  //   if (id === undefined || null) {
-  //     console.log("undefined")
-  //   } else {
-  //     console.log(id)
-  //   }
-  // }
-  // paramTester()
-
   return (
-    <div className="main">
-      <PostList currentUserId={currentUserId} />
-      {/* <PostData /> */}
-      <br></br>
-      <CommentSubmission currentUserId={currentUserId} />
-      <br></br>
-      <CommentList currentUserId={currentUserId} />
+    <div>
+      {id 
+      ?
+        <div className="main">
+          <PostList currentUserId={currentUserId} />
+          {/* <PostData currentUserId={currentUserId} /> */}
+          <br></br>
+          <CommentSubmission currentUserId={currentUserId} />
+          <br></br>
+          <CommentList currentUserId={currentUserId} />
+        </div>
+      :
+        <div className="main">
+          <PostList currentUserId={currentUserId} />
+        </div>}
     </div>
   )
 }

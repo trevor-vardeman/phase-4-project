@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from "react-router-dom"
 import PostData from "./PostData"
+import Post from "./Post"
 import Stack from 'react-bootstrap/Stack'
 
 function PostList({ currentUserId }) {
@@ -39,7 +40,8 @@ function PostList({ currentUserId }) {
       clickedPost.user_upvoted = false
       clickedPost.points -= 1
     }
-    setPosts(postArray)
+    const sortArray = postArray.sort((a, b) => b.points - a.points)
+    setPosts(sortArray)
 
     fetch("/upvote-post", {
       method: "PATCH",
@@ -76,8 +78,9 @@ function PostList({ currentUserId }) {
       clickedPost.user_downvoted = false
       clickedPost.points += 1
     }
-    setPosts(postArray)
-    
+    const sortArray = postArray.sort((a, b) => b.points - a.points)
+    setPosts(sortArray)
+        
     fetch("/downvote-post", {
       method: "PATCH",
       headers: {
@@ -118,6 +121,7 @@ function PostList({ currentUserId }) {
     <Stack gap={3} className="main">
       {posts.map(post => (
         <PostData key={post.id} post={post} onUpvote={handleUpvote} onDownvote={handleDownvote} onDelete={handleDelete} />
+        // <Post key={post.id} post={post} onUpvote={handleUpvote} onDownvote={handleDownvote} onDelete={handleDelete} />
       ))}
     </Stack>
   )
