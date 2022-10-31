@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   resources :users, only: [:create, :show]
   resources :community, only: [:create, :show, :index]
-  resources :post
-  resources :comment, only: [:create, :show, :index, :destroy]
+  resources :post, only: [:create, :index, :update, :destroy]
+  resources :comment, only: [:create, :index, :destroy]
   resource :comment_vote, only: [:create, :index, :show]
 
   get "/me", to: "users#show"

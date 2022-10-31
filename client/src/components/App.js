@@ -42,7 +42,7 @@ function App() {
     navigate("/")
   }
 
-  function handleUpvote(postId) {
+  function handlePostUpvote(postId) {
     const postArray = [...posts]
     const clickedPost = postArray.find(posts => posts.id === postId)
     if (clickedPost.user_upvoted === false && clickedPost.user_downvoted === false) {
@@ -79,7 +79,7 @@ function App() {
       .catch(e => alert(e))
   }
 
-  function handleDownvote(postId) {
+  function handlePostDownvote(postId) {
     const postArray = [...posts]
     const clickedPost = postArray.find(posts => posts.id === postId)
     if (clickedPost.user_upvoted === false && clickedPost.user_downvoted === false) {
@@ -146,13 +146,13 @@ function App() {
 
   return (
     <div>
-      <Navigation currentUsername={user.username} onLogout={handleLogout} />
+      <Navigation user={user} onLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<PostList posts={posts} onUpvote={handleUpvote} onDownvote={handleDownvote} onDelete={handleDelete} />} />
+        <Route path="/" element={<PostList posts={posts} user={user} onUpvote={handlePostUpvote} onDownvote={handlePostDownvote} onDelete={handleDelete} />} />
+        <Route path="/posts/:id" element={<PostList posts={posts} user={user} onUpvote={handlePostUpvote} onDownvote={handlePostDownvote} onDelete={handleDelete} />} />
+        <Route path="/posts/:id/edit" element={<EditPost />} />
         <Route path="/auth" element={<Auth onLogin={handleLogin} />} />
         <Route path="/new" element={<New user={user} onPostSubmission={postSubmission} />} />
-        <Route path="/posts/:id" element={<Post posts={posts} user={user} />} />
-        <Route path="/posts/:id/edit" element={<EditPost />} />
         <Route path="*" element={<NoPath />} />
       </Routes>
     </div>

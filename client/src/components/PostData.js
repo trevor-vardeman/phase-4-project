@@ -1,9 +1,14 @@
 import { useNavigate } from "react-router-dom"
 import Stack from 'react-bootstrap/Stack'
+import Post from "./Post"
 
-function PostData({ post, onUpvote, onDownvote, onDelete }) {
+function PostData({ post, onUpvote, onDownvote, onDelete, onPostSelection }) {
   const navigate = useNavigate()
-  const openPost = (post) => navigate(`/posts/${post.id}`, { state: {post} })
+  // const openPost = (post) => navigate(`/posts/${post.id}`, { state: {post} })
+  const openPost = (post) => {
+    navigate(`/posts/${post.id}`)
+    onPostSelection(post)
+  }
   const handleEdit = (post) => navigate(`/posts/${post.id}/edit`)
 
   return (
@@ -17,7 +22,7 @@ function PostData({ post, onUpvote, onDownvote, onDelete }) {
           {post.user_downvoted ? <p onClick={() => onDownvote(post.id)} className="downvoted">&#x25bc;</p> : <p onClick={() => onDownvote(post.id)}>&#x25bc;</p>}
           {post.image_url ? <img onClick={() => window.open(`${post.image_url}`, "_blank")} src={post.image_url} alt={`${post.title}`}/> : null}
           <Stack>
-            <h4 hover="true" onClick={() => openPost(post)}>{post.title}</h4>
+            <h4 onClick={() => onPostSelection(post)}>{post.title}</h4>
             {post.text ? <p>{post.text}</p> : null}
             {post.comments.length === 1
             ? 

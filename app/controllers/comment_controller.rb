@@ -8,14 +8,14 @@ class CommentController < ApplicationController
     render json: comments, status: :ok
   end
 
-  def show
-    comment = Comment.find(params[:id])
-    if comment
-      render json: comment, status: :ok
-    else
-      render json: { error: "Comment not found" }, status: :not_found
-    end
-  end
+  # def show
+  #   comment = Comment.find(params[:id])
+  #   if comment
+  #     render json: comment, status: :ok
+  #   else
+  #     render json: { error: "Comment not found" }, status: :not_found
+  #   end
+  # end
 
   def create
     comment = Comment.create(comment_params)
@@ -44,8 +44,7 @@ class CommentController < ApplicationController
 
   def upvote
     comment = Comment.find(params[:comment_id])
-    upvote_user_id = User.find(params[:user_id]).id
-    comment_vote_array = comment.comment_votes.select { |vote| upvote_user_id == vote.user_id }
+    comment_vote_array = comment.comment_votes.select { |vote| current_user.id == vote.user_id }
     comment_vote = comment_vote_array[0]
     if comment_vote_array.length > 0 && comment_vote.points == 1
       comment_vote.update(points: 0)
@@ -64,8 +63,7 @@ class CommentController < ApplicationController
 
   def downvote
     comment = Comment.find(params[:comment_id])
-    downvote_user_id = User.find(params[:user_id]).id
-    comment_vote_array = comment.comment_votes.select { |vote| downvote_user_id == vote.user_id }
+    comment_vote_array = comment.comment_votes.select { |vote| current_user.id == vote.user_id }
     comment_vote = comment_vote_array[0]
     if comment_vote_array.length > 0 && comment_vote.points == 1
       comment_vote.update(points: -1)
@@ -85,7 +83,7 @@ class CommentController < ApplicationController
   private
 
   def comment_params
-    params.permit(:id, :user_id, :text, :points, :post_id)
+    params.permit(:id, :text, :points, :post_id)
   end
 
   def set_comment

@@ -3,22 +3,23 @@ import { useParams } from "react-router-dom"
 import Stack from 'react-bootstrap/Stack'
 import CommentData from './CommentData'
 
-function CommentList({ user }) {
+function CommentList({ user, post }) {
   const [comments, setComments] = useState([])
   const {id} = useParams()
+  // console.log("post comments", post.comments)
 
-  useEffect(() => {
-    fetch(`/post/${id}`)
-    .then(r => r.json())
-    .then(posts => {
-      const sortedComments = posts.comments.sort((a, b) => b.points - a.points)
-      setComments(sortedComments)
-    })
-    .catch(err => alert(err.message))
-  },[id])
+  // useEffect(() => {
+  //   fetch(`/post/${id}`)
+  //   .then(r => r.json())
+  //   .then(posts => {
+  //     const sortedComments = posts.comments.sort((a, b) => b.points - a.points)
+  //     setComments(sortedComments)
+  //   })
+  //   .catch(err => alert(err.message))
+  // },[id])
 
   function handleUpvote(commentId) {
-    const commentArray = [...comments]
+    const commentArray = [...post.comments]
     const clickedComment = commentArray.find(comments => comments.id === commentId)
     if (clickedComment.user_upvoted === false && clickedComment.user_downvoted === false) {
       clickedComment.user_upvoted = true
@@ -41,7 +42,6 @@ function CommentList({ user }) {
       },
       body: JSON.stringify({
         comment_id: commentId,
-        user_id: user.id,
         points: 1
       }),
     })
@@ -79,7 +79,6 @@ function CommentList({ user }) {
       },
       body: JSON.stringify({
         comment_id: commentId,
-        user_id: user.id,
         points: -1
       }),
     })
@@ -107,12 +106,14 @@ function CommentList({ user }) {
     .catch(error => alert(error))
   }
 
+  console.log(post)
+
   return (
     <Stack gap={3}>
-      {comments.length > 0 
+      {post[0].comments.length > 0 
       ? 
       <Stack gap={3}>
-        {comments.map(comment => (
+        {post[0].comments.map(comment => (
           <CommentData key={comment.id} comment={comment} onUpvote={handleUpvote} onDownvote={handleDownvote} onDelete={handleDelete} />
         ))}
       </Stack>

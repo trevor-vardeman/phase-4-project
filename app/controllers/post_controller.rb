@@ -8,15 +8,6 @@ class PostController < ApplicationController
     render json: posts, status: :ok
   end
 
-  def show
-    post = Post.find(params[:id])
-    if post
-      render json: post, status: :ok
-    else
-      render json: { error: "Post not found" }, status: :not_found
-    end
-  end
-
   def create
     post = Post.create(
       user_id: current_user.id,
@@ -51,8 +42,7 @@ class PostController < ApplicationController
 
   def upvote
     post = Post.find(params[:post_id])
-    upvote_user_id = User.find(params[:user_id]).id
-    post_vote_array = post.post_votes.select { |vote| upvote_user_id == vote.user_id }
+    post_vote_array = post.post_votes.select { |vote| current_user.id == vote.user_id }
     post_vote = post_vote_array[0]
     if post_vote_array.length > 0 && post_vote.points == 1
       post_vote.update(points: 0)
@@ -71,8 +61,7 @@ class PostController < ApplicationController
 
   def downvote
     post = Post.find(params[:post_id])
-    downvote_user_id = User.find(params[:user_id]).id
-    post_vote_array = post.post_votes.select { |vote| downvote_user_id == vote.user_id }
+    post_vote_array = post.post_votes.select { |vote| current_user.id == vote.user_id }
     post_vote = post_vote_array[0]
     if post_vote_array.length > 0 && post_vote.points == 1
       post_vote.update(points: -1)

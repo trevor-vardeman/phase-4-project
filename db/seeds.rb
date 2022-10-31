@@ -101,35 +101,35 @@ Comment.create(
 
 Comment.create(
   user_id: 2,
-  text: "this is a test comment",
+  text: "another test comment",
   points: 0,
   post_id: 2
 )
 
 Comment.create(
   user_id: 1,
-  text: "this is a test comment",
+  text: "testing once again",
   points: 0,
   post_id: 3
 )
 
 Comment.create(
   user_id: 2,
-  text: "this is a test comment 2",
+  text: "we're always just testing with comments",
   points: 0,
   post_id: 3
 )
 
 Comment.create(
   user_id: 2,
-  text: "this is a test comment 2",
+  text: "the more tests, the better!",
   points: 0,
   post_id: 4
 )
 
 Comment.create(
   user_id: 1,
-  text: "this is a test comment 2",
+  text: "once again, i'm here to test",
   points: 0,
   post_id: 5
 )

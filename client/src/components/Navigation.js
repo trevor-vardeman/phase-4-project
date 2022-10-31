@@ -3,8 +3,7 @@ import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
-function Navigation( { currentUsername, onLogout } ) {
-
+function Navigation( { user, onLogout } ) {
   function handleLogout() {
     fetch("/logout", {
       method: "DELETE",
@@ -23,8 +22,8 @@ function Navigation( { currentUsername, onLogout } ) {
         </Nav>
         <Nav>
           <Nav.Link as={Link} to="new">New</Nav.Link>
-          {currentUsername ? <Nav.Link style={{color: "orange"}}>{currentUsername}</Nav.Link> : null}
-          {currentUsername ? <Nav.Link onClick={handleLogout}>Sign Out</Nav.Link> : <Nav.Link as={Link} to="auth">Sign In</Nav.Link>}
+          {user ? <Nav.Link style={{color: "orange"}}>{user.username}</Nav.Link> : null}
+          {user ? <Nav.Link onClick={handleLogout}>Sign Out</Nav.Link> : <Nav.Link as={Link} to="auth">Sign In</Nav.Link>}
         </Nav>
       </Container>
     </Navbar>

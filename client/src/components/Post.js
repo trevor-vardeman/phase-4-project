@@ -3,7 +3,7 @@ import PostData from "./PostData"
 import CommentSubmission from "./CommentSubmission"
 import CommentList from "./CommentList"
 
-  function Post({ user, onUpvote, onDownvote, onDelete }) {
+  function Post({ posts, user, onUpvote, onDownvote, onDelete }) {
   const {state} = useLocation()
   const {post} = state
 
@@ -13,7 +13,7 @@ import CommentList from "./CommentList"
       <br></br>
       <CommentSubmission user={user} />
       <br></br>
-      <CommentList user={user} />
+      <CommentList user={user} post={post} />
     </div>
   )
 }
