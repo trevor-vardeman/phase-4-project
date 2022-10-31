@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import Stack from 'react-bootstrap/Stack'
 import CommentData from './CommentData'
 
-function CommentList({ currentUserId }) {
+function CommentList({ user }) {
   const [comments, setComments] = useState([])
   const {id} = useParams()
 
@@ -41,7 +41,7 @@ function CommentList({ currentUserId }) {
       },
       body: JSON.stringify({
         comment_id: commentId,
-        user_id: currentUserId,
+        user_id: user.id,
         points: 1
       }),
     })
@@ -79,7 +79,7 @@ function CommentList({ currentUserId }) {
       },
       body: JSON.stringify({
         comment_id: commentId,
-        user_id: currentUserId,
+        user_id: user.id,
         points: -1
       }),
     })

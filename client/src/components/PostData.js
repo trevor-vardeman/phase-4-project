@@ -3,14 +3,8 @@ import Stack from 'react-bootstrap/Stack'
 
 function PostData({ post, onUpvote, onDownvote, onDelete }) {
   const navigate = useNavigate()
-
-  function openPost(post) {
-    navigate(`/posts/${post.id}`)
-  }
-
-  function handleEdit(post) {
-    navigate(`/posts/${post.id}/edit`)
-  }
+  const openPost = (post) => navigate(`/posts/${post.id}`, { state: {post} })
+  const handleEdit = (post) => navigate(`/posts/${post.id}/edit`)
 
   return (
     <Stack gap={3}>
@@ -25,7 +19,7 @@ function PostData({ post, onUpvote, onDownvote, onDelete }) {
           <Stack>
             <h4 hover="true" onClick={() => openPost(post)}>{post.title}</h4>
             {post.text ? <p>{post.text}</p> : null}
-            {post.comments.length === 1 
+            {post.comments.length === 1
             ? 
             <sub onClick={() => openPost(post)}>{post.comments.length} comment</sub>
             : 
@@ -35,7 +29,7 @@ function PostData({ post, onUpvote, onDownvote, onDelete }) {
             <br></br>
             {post.user_can_modify ?
               <Stack direction="horizontal" gap={1}>
-                <sub onClick={() => handleEdit(post)}>Edit</sub> 
+                <sub onClick={() => handleEdit(post)}>Edit</sub>
                 <sub>|</sub>
                 <sub onClick={() => onDelete(post)}>Delete</sub> 
               </Stack> :

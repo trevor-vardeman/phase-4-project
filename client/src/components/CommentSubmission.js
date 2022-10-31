@@ -5,7 +5,7 @@ import Alert from 'react-bootstrap/Alert'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-function CommentSubmission({ currentUserId }) {
+function CommentSubmission({ user }) {
   const [comment, setComment] = useState("")
   const navigate = useNavigate()
   const {id} = useParams()
@@ -13,7 +13,7 @@ function CommentSubmission({ currentUserId }) {
   function submitComment(e) {
     e.preventDefault()
     const newComment = {
-      user_id: currentUserId,
+      user_id: user.id,
       text: comment,
       points: 1,
       post_id: id
@@ -40,7 +40,7 @@ function CommentSubmission({ currentUserId }) {
 
   return (
     <Stack gap={3}>
-      {currentUserId
+      {user.id
       ? 
       <Form>
         <Form.Group controlId="commentForm">

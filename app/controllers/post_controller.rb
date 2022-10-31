@@ -28,7 +28,7 @@ class PostController < ApplicationController
     )
     if post.valid?
       post.post_votes.create(user_id: current_user.id, points: params[:points])
-      render json: post_params, status: :created
+      render json: post, status: :created
     else
       render json: { error: post.errors.full_messages }, status: :unprocessable_entity
     end

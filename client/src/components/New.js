@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 import Dropdown from 'react-bootstrap/Dropdown'
 
-function New({ currentUserId }) {
+function New({ user, onPostSubmission }) {
   const [allCommunities, setAllCommunities] = useState([])
   const [communitiesToDisplay, setCommunitiesToDisplay] = useState([])
   const [newPost, setNewPost] = useState(true)
@@ -85,26 +85,30 @@ function New({ currentUserId }) {
         return community.name === postCommunity
       })[0].id
 
+      const newPost = {
+        title: postTitle,
+        text: postText,
+        image_url: postImageURL,
+        community_id: communityId,
+        points: 1
+      }
+
       fetch("/post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          title: postTitle,
-          text: postText,
-          image_url: postImageURL,
-          community_id: communityId,
-          points: 1
-        }),
+        body: JSON.stringify( newPost ),
       })
       .then((r) => {
         if (r.ok) {
           r.json().then(() => {
+            console.log(r)
             setPostTitle("")
             setPostText("")
             setPostImageURL("")
-            navigate("/")
+            onPostSubmission(newPost, postCommunity, communityId)
+            // navigate("/")
           })
         } else {
           r.json().then(data => alert(data.error))
@@ -127,7 +131,7 @@ function New({ currentUserId }) {
         body: JSON.stringify({
           name: communityName,
           description: communityDescription,
-          user_id: currentUserId,
+          user_id: user.id,
         }),
       })
       .then((r) => {
@@ -147,7 +151,7 @@ function New({ currentUserId }) {
 
   return (
     <div className="centered">
-      {currentUserId 
+      {user 
       ? 
         <div>
           {newPost
