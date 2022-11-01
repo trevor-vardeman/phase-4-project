@@ -146,63 +146,59 @@ function New({ user, onPostSubmission }) {
   return (
     <div className="centered">
       {user 
-      ? 
-        <div>
+        ? <div>
           {newPost
-          ? 
-          <div>
-            <h2>New Post</h2>
-            <Form>
-              <Dropdown>
-                <Dropdown.Toggle as={CustomToggle} id="community-dropdown">Community</Dropdown.Toggle>
-                <Dropdown.Menu as={CustomMenu}>
-                  {communitiesToDisplay.map((community) => (
-                    <Dropdown.Item onClick={(e) => setPostCommunity(community)} key={community}>{community}</Dropdown.Item>
-                  ))}
-                </Dropdown.Menu>
-              </Dropdown>
-              <p>{postCommunity}</p>
+            ? <div>
+                <h2>New Post</h2>
+                <Form>
+                  <Dropdown>
+                    <Dropdown.Toggle as={CustomToggle} id="community-dropdown">Community</Dropdown.Toggle>
+                    <Dropdown.Menu as={CustomMenu}>
+                      {communitiesToDisplay.map((community) => (
+                        <Dropdown.Item onClick={(e) => setPostCommunity(community)} key={community}>{community}</Dropdown.Item>
+                      ))}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  <p>{postCommunity}</p>
 
-              <Form.Group controlId="postTitleForm">
-                <Form.Label>Post Title</Form.Label>
-                <Form.Control type="text" placeholder="Title" value={postTitle} onChange={(e) => setPostTitle(e.target.value)} />
-              </Form.Group>
+                  <Form.Group controlId="postTitleForm">
+                    <Form.Label>Post Title</Form.Label>
+                    <Form.Control type="text" placeholder="Title" value={postTitle} onChange={(e) => setPostTitle(e.target.value)} />
+                  </Form.Group>
 
-              <Form.Group controlId="postTextForm">
-                <Form.Label>Text (Optional)</Form.Label>
-                <Form.Control type="text" placeholder="Text" value={postText} onChange={(e) => setPostText(e.target.value)} />
-              </Form.Group>
+                  <Form.Group controlId="postTextForm">
+                    <Form.Label>Text (Optional)</Form.Label>
+                    <Form.Control type="text" placeholder="Text" value={postText} onChange={(e) => setPostText(e.target.value)} />
+                  </Form.Group>
 
-              <Form.Group controlId="postImageUrlForm">
-                <Form.Label>Image URL (Optional)</Form.Label>
-                <Form.Control type="url" placeholder="Image URL" value={postImageURL} onChange={(e) => setPostImageURL(e.target.value)} />
-              </Form.Group>
+                  <Form.Group controlId="postImageUrlForm">
+                    <Form.Label>Image URL (Optional)</Form.Label>
+                    <Form.Control type="url" placeholder="Image URL" value={postImageURL} onChange={(e) => setPostImageURL(e.target.value)} />
+                  </Form.Group>
 
-              <Button variant="dark" type="submit" onClick={submitPost}>Post</Button>
-            </Form>
-            <p>Want to create a new community instead? <Alert.Link onClick={() => setNewPost(false)}>New Community</Alert.Link></p>
+                  <Button variant="dark" type="submit" onClick={submitPost}>Post</Button>
+                </Form>
+                <p>Want to create a new community instead? <Alert.Link onClick={() => setNewPost(false)}>New Community</Alert.Link></p>
+              </div>
+            : <div>
+                <h2>New Community</h2>
+                <Form>
+                  <Form.Group controlId="communityNameForm">
+                    <Form.Label>Community Name</Form.Label>
+                    <Form.Control type="text" placeholder="Community Name" value={communityName} onChange={(e) => setCommunityName(e.target.value)} />
+                  </Form.Group>
+
+                  <Form.Group controlId="communityDescriptionForm">
+                    <Form.Label>Community Description</Form.Label>
+                    <Form.Control type="text" placeholder="Description" value={communityDescription} onChange={(e) => setCommunityDescription(e.target.value)} />
+                  </Form.Group>
+
+                  <Button variant="dark" type="submit" onClick={submitCommunity}>Create</Button>
+                </Form>
+                <p>Want to submit a post instead? <Alert.Link onClick={() => setNewPost(true)}>New Post</Alert.Link></p>
+              </div>}
           </div>
-          : 
-          <div>
-            <h2>New Community</h2>
-            <Form>
-              <Form.Group controlId="communityNameForm">
-                <Form.Label>Community Name</Form.Label>
-                <Form.Control type="text" placeholder="Community Name" value={communityName} onChange={(e) => setCommunityName(e.target.value)} />
-              </Form.Group>
-
-              <Form.Group controlId="communityDescriptionForm">
-                <Form.Label>Community Description</Form.Label>
-                <Form.Control type="text" placeholder="Description" value={communityDescription} onChange={(e) => setCommunityDescription(e.target.value)} />
-              </Form.Group>
-
-              <Button variant="dark" type="submit" onClick={submitCommunity}>Create</Button>
-            </Form>
-            <p>Want to submit a post instead? <Alert.Link onClick={() => setNewPost(true)}>New Post</Alert.Link></p>
-          </div>}
-        </div>
-      : 
-      <p>You must be logged in to create a new community or post. <Alert.Link onClick={() => navigate("/auth")}>Sign in here.</Alert.Link></p>}
+      : <p>You must be logged in to create a new community or post. <Alert.Link onClick={() => navigate("/auth")}>Sign in here.</Alert.Link></p>}
   </div>
   )
 }

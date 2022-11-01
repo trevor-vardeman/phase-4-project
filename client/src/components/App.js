@@ -39,7 +39,6 @@ function App() {
 
   function handleLogout() {
     setUser(null)
-    navigate("/")
   }
 
   function handlePostUpvote(postId) {
@@ -128,7 +127,7 @@ function App() {
       } else {
         alert(r)
       }})
-    .catch(error => alert(error))
+    .catch(e => alert(e))
   }
 
   function postSubmission(newPost) {

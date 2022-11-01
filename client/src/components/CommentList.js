@@ -1,22 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useParams } from "react-router-dom"
 import Stack from 'react-bootstrap/Stack'
 import CommentData from './CommentData'
 
-function CommentList({ user, post }) {
+function CommentList({ post }) {
   const [comments, setComments] = useState([])
-  const {id} = useParams()
-  // console.log("post comments", post.comments)
-
-  // useEffect(() => {
-  //   fetch(`/post/${id}`)
-  //   .then(r => r.json())
-  //   .then(posts => {
-  //     const sortedComments = posts.comments.sort((a, b) => b.points - a.points)
-  //     setComments(sortedComments)
-  //   })
-  //   .catch(err => alert(err.message))
-  // },[id])
 
   function handleUpvote(commentId) {
     const commentArray = [...post.comments]
@@ -106,19 +94,15 @@ function CommentList({ user, post }) {
     .catch(error => alert(error))
   }
 
-  console.log(post)
-
   return (
     <Stack gap={3}>
-      {post[0].comments.length > 0 
-      ? 
-      <Stack gap={3}>
-        {post[0].comments.map(comment => (
-          <CommentData key={comment.id} comment={comment} onUpvote={handleUpvote} onDownvote={handleDownvote} onDelete={handleDelete} />
-        ))}
-      </Stack>
-      : 
-      <p>No comments yet! Be the first to comment.</p>}
+      {post !== null
+        ? <Stack gap={3}>
+            {post[0].comments.map(comment => (
+              <CommentData key={comment.id} comment={comment} onUpvote={handleUpvote} onDownvote={handleDownvote} onDelete={handleDelete} />
+            ))}
+          </Stack>
+        : <p>No comments yet! Be the first to comment.</p>}
     </Stack>
   )
 }

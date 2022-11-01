@@ -19,6 +19,7 @@ function EditPost() {
     .then((r) => {
       if (r.ok) {
         r.json().then(community => {
+          console.log(community)
           setAllCommunities(community)
           setCommunitiesToDisplay((community.map(({ name }) => name)))
         })
