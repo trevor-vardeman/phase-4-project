@@ -131,14 +131,7 @@ function App() {
     .catch(error => alert(error))
   }
 
-  function postSubmission(newPost, postCommunity, communityId) {
-    newPost.comments = []
-    newPost.user = user
-    newPost.community = {
-      id: communityId,
-      name: postCommunity
-    }
-    // newPost.user_can_modify = true
+  function postSubmission(newPost) {
     const newPosts = [...posts, newPost]
     const sortedPosts = newPosts.sort((a, b) => b.points - a.points)
     setPosts(sortedPosts)

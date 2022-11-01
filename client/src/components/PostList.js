@@ -6,7 +6,7 @@ import CommentSubmission from './CommentSubmission'
 import CommentList from './CommentList'
 import CommentData from './CommentData'
 
-function PostList({ user, posts, onUpvote, onDownvote, onDelete }) {
+function PostList({ onUpvote, onDownvote, onDelete }) {
   const navigate = useNavigate()
   const [selectedPost, setSelectedPost] = useState(null)
   const { id } = useParams()
@@ -14,37 +14,62 @@ function PostList({ user, posts, onUpvote, onDownvote, onDelete }) {
   // const {state} = useLocation()
   // const {post} = state
 
+  // console.log("type", typeof id)
+
+  const [user, setUser] = useState("")
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    fetch("/me")
+    .then((r) => {
+      if (r.ok) {
+        r.json().then(user => setUser(user))
+      }
+    })
+    fetch("/post")
+      .then(r => r.json())
+      .then(posts => {
+        const sortedPosts = posts.sort((a, b) => b.points - a.points)
+        setPosts(sortedPosts)
+        if (id) {
+          const intId = parseInt(id, 10)
+          const findPost = posts.find(p => p.id === intId)
+          setSelectedPost([findPost])
+        }
+        console.log(sortedPosts)
+      })
+      .catch(err => alert(err.message))
+  }, [id])
+
   function selectPost(post) {
     console.log([post])
     setSelectedPost([post])
     navigate(`/posts/${post.id}`)
   }
 
-  // console.log(posts[id])
-
   // useEffect(() => {
-  //   if (id === undefined) {
-  //     console.log(id)
+  //   if (!id) {
   //     setSelectedPost(null)
   //   } else {
-  //     console.log(id)
-  //     console.log(posts.find(p => p.id === id))
-  //     // setSelectedPost(posts.find(p => p.id === id))
+  //     const intId = parseInt(id, 10)
+  //     const findPost = posts.find(p => p.id === intId)
+  //     console.log(findPost)
+  //     setSelectedPost([findPost])
   //   }
   // },[id, posts])
 
-  // const singlePost = posts.find(p => p.id === id)
+  // const singlePost = posts.find(p => p.id === parseInt(id, 10))
+  // console.log(singlePost)
 
   return (
     <Stack gap={3} className="main">
-      {/* {selectedPost === null */}
       {!id
       ?
-      <div>
+      <Stack gap={3}>
         {posts.map(post => (
           <PostData key={post.id} post={post} onUpvote={onUpvote} onDownvote={onDownvote} onDelete={onDelete} onPostSelection={selectPost} />
         ))}
-      </div>
+      </Stack>
       : 
       <div>
         {selectedPost.map(post => (

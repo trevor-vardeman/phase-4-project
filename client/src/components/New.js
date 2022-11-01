@@ -100,20 +100,14 @@ function New({ user, onPostSubmission }) {
         },
         body: JSON.stringify( newPost ),
       })
-      .then((r) => {
-        if (r.ok) {
-          r.json().then(() => {
-            console.log(r)
-            setPostTitle("")
-            setPostText("")
-            setPostImageURL("")
-            onPostSubmission(newPost, postCommunity, communityId)
-            // navigate("/")
-          })
-        } else {
-          r.json().then(data => alert(data.error))
-        }
-      })
+      .then(r => r.json()
+      .then(post => {
+        setPostTitle("")
+        setPostText("")
+        setPostImageURL("")
+        onPostSubmission(post)
+        navigate("/")
+      }))
       .catch(e => alert(e))
     }
   }
