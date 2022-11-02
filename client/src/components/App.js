@@ -154,13 +154,20 @@ function App() {
     setPosts(sortedPosts)
   }
 
+  function postEdit(updatedPost) {
+    const newPosts = posts.filter(post => post.id !== updatedPost.id)
+    newPosts.push(updatedPost)
+    const sortedPosts = newPosts.sort((a, b) => b.points - a.points)
+    setPosts(sortedPosts)
+  }
+
   return (
     <div>
       <Navigation user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<PostList posts={posts} user={user} onUpvote={handlePostUpvote} onDownvote={handlePostDownvote} onDelete={handlePostDelete} />} />
         <Route path="/posts/:id" element={<PostList posts={posts} user={user} onUpvote={handlePostUpvote} onDownvote={handlePostDownvote} onDelete={handlePostDelete} />} />
-        <Route path="/posts/:id/edit" element={<EditPost posts={posts} communities={communities} />} />
+        <Route path="/posts/:id/edit" element={<EditPost posts={posts} communities={communities} onPostEdit={postEdit} />} />
         <Route path="/auth" element={<Auth onLogin={handleLogin} />} />
         <Route path="/new" element={<New user={user} onPostSubmission={postSubmission} />} />
         <Route path="*" element={<NoPath />} />

@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown'
 import NoPath from './NoPath'
 
-function EditPost({ posts, communities }) {
+function EditPost({ posts, communities, onPostEdit }) {
   const {id} = useParams()
   const singlePost = posts.find(p => p.id === parseInt(id))
   const communitiesToDisplay = communities.map(({ name }) => name)
@@ -43,7 +43,6 @@ function EditPost({ posts, communities }) {
   const CustomMenu = React.forwardRef(
     ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
       const [value, setValue] = useState('')
-  
       return (
         <div
           ref={ref}
@@ -71,34 +70,31 @@ function EditPost({ posts, communities }) {
 
   function submitPost(e) {
     e.preventDefault()
-    const communityId = communities.filter(community => {
-      return community.name === postCommunity
-    })[0].id
+    const communityId = communities.filter(community => community.name === postCommunity)[0].id
+    const updatedPost = {
+      id: parseInt(id),
+      title: postTitle,
+      text: postText,
+      image_url: postImageURL,
+      community_id: communityId
+    }
     fetch(`/post/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        id: id,
-        title: postTitle,
-        text: postText,
-        image_url: postImageURL,
-        community_id: communityId
-      }),
+      body: JSON.stringify(updatedPost),
     })
-      .then((r) => {
-        if (r.ok) {
-          r.json().then(() => {
-            setPostTitle("")
-            setPostText("")
-            setPostImageURL("")
-            navigate("/")
-          })
-        } else {
-          r.json().then(data => alert(data.error))
-        }
-      })
+      .then(r => r.json() 
+      .then(post => {
+        console.log(post)
+          setPostTitle("")
+          setPostText("")
+          setPostImageURL("")
+          navigate("/")
+          onPostEdit(post)
+        })
+      )
       .catch(e => alert(e))
   }
 
