@@ -10,7 +10,7 @@ function PostList({ user, posts, onUpvote, onDownvote, onDelete, onCommentSubmis
   const navigate = useNavigate()
   const { id } = useParams()
   // const singlePost = posts.find(p => p.id === parseInt(id))
-  const selectPost = post => navigate(`/posts/${post.id}`)
+  const handleOpenPost = post => navigate(`/posts/${post.id}`)
 
   const [selectedPost, setSelectedPost] = useState("")  
   useEffect(() => {
@@ -24,13 +24,13 @@ function PostList({ user, posts, onUpvote, onDownvote, onDelete, onCommentSubmis
       {!id
         ? <Stack gap={3}>
             {posts.map(post => (
-              <PostData key={post.id} post={post} onUpvote={onUpvote} onDownvote={onDownvote} onDelete={onDelete} onPostSelection={selectPost} />
+              <PostData key={post.id} post={post} onUpvote={onUpvote} onDownvote={onDownvote} onDelete={onDelete} onPostSelection={handleOpenPost} />
             ))}
           </Stack>
         : <div>{selectedPost
           ? <div>
               {[selectedPost].map(post => (
-                <PostData key={post.id} post={post} onUpvote={onUpvote} onDownvote={onDownvote} onDelete={onDelete} onPostSelection={selectPost} />
+                <PostData key={post.id} post={post} onUpvote={onUpvote} onDownvote={onDownvote} onDelete={onDelete} onPostSelection={handleOpenPost} />
               ))}
               <br></br>
               <CommentSubmission user={user} onCommentSubmission={onCommentSubmission} />

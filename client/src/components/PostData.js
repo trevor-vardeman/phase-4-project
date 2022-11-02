@@ -7,7 +7,7 @@ function PostData({ post, onUpvote, onDownvote, onDelete, onPostSelection }) {
     navigate(`/posts/${post.id}`)
     onPostSelection(post)
   }
-  const handleEdit = (post) => navigate(`/posts/${post.id}/edit`, {state: post})
+  const handleEdit = (post) => navigate(`/posts/${post.id}/edit`)
 
   return (
     <Stack gap={3}>

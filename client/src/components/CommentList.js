@@ -9,6 +9,7 @@ function CommentList({ user, post }) {
     if (!user) {
       alert("You must be logged in to vote!")
     } else {
+      const commentArray = [...comments]
       if (comment.user_upvoted === false && comment.user_downvoted === false) {
         comment.user_upvoted = true
         comment.points += 1
@@ -20,9 +21,7 @@ function CommentList({ user, post }) {
         comment.user_upvoted = false
         comment.points -= 1
       }
-      const commentArray = [...comments]
-      const sortedCommentArray = commentArray.sort((a, b) => b.points - a.points)
-      setComments(sortedCommentArray)
+      setComments(commentArray)
       
       fetch("/upvote-comment", {
         method: "PATCH",
@@ -49,6 +48,7 @@ function CommentList({ user, post }) {
     if (!user) {
       alert("You must be logged in to vote!")
     } else {
+      const commentArray = [...comments]
       if (comment.user_upvoted === false && comment.user_downvoted === false) {
         comment.user_downvoted = true
         comment.points -= 1
@@ -60,9 +60,7 @@ function CommentList({ user, post }) {
         comment.user_downvoted = false
         comment.points += 1
       }
-      const commentArray = [...comments]
-      const sortedCommentArray = commentArray.sort((a, b) => b.points - a.points)
-      setComments(sortedCommentArray)
+      setComments(commentArray)
       
       fetch("/downvote-comment", {
         method: "PATCH",

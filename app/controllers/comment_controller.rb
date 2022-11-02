@@ -1,5 +1,5 @@
 class CommentController < ApplicationController
-  before_action :set_comment, only: [:show, :destroy]
+  before_action :set_comment, only: [:destroy]
   before_action :authorize_user, only: [:destroy]
   before_action :authorize_vote, only: [:upvote, :downvote]
 
@@ -7,15 +7,6 @@ class CommentController < ApplicationController
     comments = Comment.all.order(points: :desc)
     render json: comments, status: :ok
   end
-
-  # def show
-  #   comment = Comment.find(params[:id])
-  #   if comment
-  #     render json: comment, status: :ok
-  #   else
-  #     render json: { error: "Comment not found" }, status: :not_found
-  #   end
-  # end
 
   def create
     comment = Comment.create(

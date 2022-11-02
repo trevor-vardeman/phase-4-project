@@ -14,12 +14,12 @@ function App() {
   const [communities, setCommunities] = useState([])
   const navigate = useNavigate()
   const {id} = useParams()
-  
+
   const handleLogin = user => {
     setUser(user)
     navigate(-1)
   }
-  const handleLogout = () => setUser(null)
+  const handleLogout = () => setUser("")
 
   useEffect(() => {
     fetch("/me")
@@ -33,7 +33,6 @@ function App() {
       .then(posts => {
         const sortedPosts = posts.sort((a, b) => b.points - a.points)
         setPosts(sortedPosts)
-        console.log(sortedPosts)
       })
       .catch(err => alert(err.message))
       fetch("/community")
@@ -63,8 +62,7 @@ function App() {
         clickedPost.user_upvoted = false
         clickedPost.points -= 1
       }
-      const sortedPostArray = postArray.sort((a, b) => b.points - a.points)
-      setPosts(sortedPostArray)
+      setPosts(postArray)
   
       fetch("/upvote-post", {
         method: "PATCH",
@@ -104,8 +102,7 @@ function App() {
         clickedPost.user_downvoted = false
         clickedPost.points += 1
       }
-      const sortedPostArray = postArray.sort((a, b) => b.points - a.points)
-      setPosts(sortedPostArray)
+      setPosts(postArray)
           
       fetch("/downvote-post", {
         method: "PATCH",
