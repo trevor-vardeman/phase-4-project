@@ -7,7 +7,11 @@ class CommunityController < ApplicationController
   end
 
   def create
-    community = Community.create(community_params)
+    community = Community.create(
+      user_id: current_user.id,
+      name: params[:name],
+      description: params[:description]
+    )
     if community.valid?
       render json: community, status: :created
     else
@@ -18,7 +22,7 @@ class CommunityController < ApplicationController
   private
 
   def community_params
-    params.permit(:name, :description, :user_id)
+    params.permit(:name, :description)
   end
 
   def authorize_submission

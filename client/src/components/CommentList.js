@@ -5,7 +5,7 @@ import CommentData from './CommentData'
 function CommentList({ user, post }) {
   const [comments, setComments] = useState(post[0].comments)
 
-  function handleCommentUpvote(comment) {
+  const handleCommentUpvote = comment => {
     if (!user) {
       alert("You must be logged in to vote!")
     } else {
@@ -45,7 +45,7 @@ function CommentList({ user, post }) {
     }
   }
 
-  function handleCommentDownvote(comment) {
+  const handleCommentDownvote = comment => {
     if (!user) {
       alert("You must be logged in to vote!")
     } else {
@@ -85,7 +85,7 @@ function CommentList({ user, post }) {
     }
   }
 
-  function handleCommentDelete(singleComment) {
+  const handleCommentDelete = singleComment => {
     fetch(`/comment/${singleComment.id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
@@ -101,7 +101,7 @@ function CommentList({ user, post }) {
 
   return (
     <Stack gap={3}>
-      {post !== null
+      {post[0].comments.length > 0
         ? <Stack gap={3}>
             {post[0].comments.map(comment => (
               <CommentData key={comment.id} comment={comment} onUpvote={handleCommentUpvote} onDownvote={handleCommentDownvote} onDelete={handleCommentDelete} />

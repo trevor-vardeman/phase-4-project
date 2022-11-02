@@ -9,7 +9,7 @@ function Auth( { onLogin } ) {
   const [passwordConfirmation, setPasswordConfirmation] = useState("")
   const [signIn, setSignIn] = useState(true)
 
-  function handleLogin(e) {
+  const handleLogin = e => {
     e.preventDefault();
     fetch("/login", {
       method: "POST",
@@ -31,7 +31,7 @@ function Auth( { onLogin } ) {
       .catch(e => alert(e))
   }
 
-  function handleSignUp(e) {
+  const handleSignUp = e => {
     e.preventDefault()
     fetch("/signup", {
       method: "POST",

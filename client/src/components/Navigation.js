@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
 function Navigation( { user, onLogout } ) {
-  function handleLogout() {
+const handleLogout = () => {
     fetch("/logout", {
       method: "DELETE",
       headers: {

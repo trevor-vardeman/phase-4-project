@@ -1,6 +1,6 @@
 class CommentController < ApplicationController
-  before_action :set_comment, only: [:show, :update, :destroy]
-  before_action :authorize_user, only: [:update, :destroy]
+  before_action :set_comment, only: [:show, :destroy]
+  before_action :authorize_user, only: [:destroy]
   before_action :authorize_vote, only: [:upvote, :downvote]
 
   def index
@@ -18,7 +18,12 @@ class CommentController < ApplicationController
   # end
 
   def create
-    comment = Comment.create(comment_params)
+    comment = Comment.create(
+      user_id: current_user.id,
+      post_id: params[:post_id],
+      text: params[:text],
+      points: params[:points]
+    )
     if comment.valid?
       comment.comment_votes.create(user_id: current_user.id, points: params[:points])
       render json: comment, status: :created
@@ -83,7 +88,7 @@ class CommentController < ApplicationController
   private
 
   def comment_params
-    params.permit(:id, :text, :points, :post_id)
+    params.permit(:text, :points, :post_id)
   end
 
   def set_comment

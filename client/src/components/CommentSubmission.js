@@ -5,12 +5,12 @@ import Alert from 'react-bootstrap/Alert'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-function CommentSubmission({ user }) {
+function CommentSubmission({ user, onCommentSubmission }) {
   const [comment, setComment] = useState("")
   const navigate = useNavigate()
   const {id} = useParams()
 
-  function submitComment(e) {
+  const submitComment = e => {
     e.preventDefault()
     const newComment = {
       text: comment,
@@ -24,31 +24,21 @@ function CommentSubmission({ user }) {
       },
       body: JSON.stringify(newComment),
     })
-      .then((r) => {
-        if (r.ok) {
-          r.json().then(() => {
-            setComment("")
-            // window.location.reload()
-          })
-        } else {
-          r.json().then(data => alert(data.error))
-        }
-      })
-      .catch(e => alert(e))
+    .then(r => r.json())
+    .then(comment => onCommentSubmission(comment))
+    .catch(e => alert(e))
   }
-
+  
   return (
     <Stack gap={3}>
       {user
-      ? 
-      <Form>
-        <Form.Group controlId="commentForm">
-        <Form.Control type="text" placeholder="Comment" value={comment} onChange={(e) => setComment(e.target.value)} />
-        </Form.Group>
-        <Button variant="dark" type="submit" onClick={submitComment}>Submit</Button>
-      </Form>
-      : 
-      <p>You must be logged in to post a comment. <Alert.Link onClick={() => navigate("/auth")}>Sign in here.</Alert.Link></p>}
+        ? <Form>
+            <Form.Group controlId="commentForm">
+            <Form.Control type="text" placeholder="Comment" value={comment} onChange={(e) => setComment(e.target.value)} />
+            </Form.Group>
+            <Button variant="dark" type="submit" onClick={submitComment}>Submit</Button>
+          </Form>
+        : <p>You must be logged in to post a comment. <Alert.Link onClick={() => navigate("/auth")}>Sign in here.</Alert.Link></p>}
     </Stack>
   )
 }

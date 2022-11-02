@@ -14,6 +14,12 @@ function App() {
   const [communities, setCommunities] = useState([])
   const navigate = useNavigate()
   const {id} = useParams()
+  
+  const handleLogin = user => {
+    setUser(user)
+    navigate(-1)
+  }
+  const handleLogout = () => setUser(null)
 
   useEffect(() => {
     fetch("/me")
@@ -40,18 +46,7 @@ function App() {
       })
   }, [])
 
-  function handleLogin(user) {
-    setUser(user)
-    navigate(-1)
-  }
-
-  function handleLogout() {
-    setUser(null)
-    const resetPostVotes = posts.map((post => post.user_upvoted = false))
-    console.log(resetPostVotes)
-  }
-
-  function handlePostUpvote(postId) {
+  const handlePostUpvote = postId => {
     if (!user) {
       alert("You must be logged in to vote!")
     } else {
@@ -92,7 +87,7 @@ function App() {
     }
   }
 
-  function handlePostDownvote(postId) {
+  const handlePostDownvote = postId => {
     if (!user) {
       alert("You must be logged in to vote!")
     } else {
@@ -133,7 +128,7 @@ function App() {
     }
   }
 
-  function handlePostDelete(singlePost) {
+  const handlePostDelete = singlePost => {
     fetch(`/post/${singlePost.id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
@@ -148,28 +143,45 @@ function App() {
     .catch(e => alert(e))
   }
 
-  function postSubmission(newPost) {
+  const handlePostSubmission = newPost => {
     const newPosts = [...posts, newPost]
     const sortedPosts = newPosts.sort((a, b) => b.points - a.points)
     setPosts(sortedPosts)
   }
 
-  function postEdit(updatedPost) {
+  const handlePostEdit = updatedPost => {
     const newPosts = posts.filter(post => post.id !== updatedPost.id)
     newPosts.push(updatedPost)
     const sortedPosts = newPosts.sort((a, b) => b.points - a.points)
     setPosts(sortedPosts)
   }
 
+  const handleNewCommunity = newCommunity => {
+    communities.push(newCommunity)
+    setCommunities(communities)
+  }
+
+  const handleCommentSubmission = newComment => {
+    console.log(newComment)
+    const post = posts.find(post => post.id === newComment.post_id)
+    console.log(post)
+    post.comments.push(newComment)
+    console.log("with new comment", post)
+    console.log(posts)
+    const newPosts = posts.filter(post => post.id !== newComment.post_id)
+    newPosts.push(newComment)
+    setPosts(newPosts)
+  }
+
   return (
     <div>
       <Navigation user={user} onLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<PostList posts={posts} user={user} onUpvote={handlePostUpvote} onDownvote={handlePostDownvote} onDelete={handlePostDelete} />} />
-        <Route path="/posts/:id" element={<PostList posts={posts} user={user} onUpvote={handlePostUpvote} onDownvote={handlePostDownvote} onDelete={handlePostDelete} />} />
-        <Route path="/posts/:id/edit" element={<EditPost posts={posts} communities={communities} onPostEdit={postEdit} />} />
+        <Route path="/" element={<PostList user={user} posts={posts} onUpvote={handlePostUpvote} onDownvote={handlePostDownvote} onDelete={handlePostDelete} />} />
+        <Route path="/posts/:id" element={<PostList user={user} posts={posts} onUpvote={handlePostUpvote} onDownvote={handlePostDownvote} onDelete={handlePostDelete} onCommentSubmission={handleCommentSubmission} />} />
+        <Route path="/posts/:id/edit" element={<EditPost posts={posts} communities={communities} onPostEdit={handlePostEdit} />} />
         <Route path="/auth" element={<Auth onLogin={handleLogin} />} />
-        <Route path="/new" element={<New user={user} onPostSubmission={postSubmission} />} />
+        <Route path="/new" element={<New user={user} onPostSubmission={handlePostSubmission} onCommunitySubmission={handleNewCommunity} />} />
         <Route path="*" element={<NoPath />} />
       </Routes>
     </div>

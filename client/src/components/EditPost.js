@@ -68,7 +68,7 @@ function EditPost({ posts, communities, onPostEdit }) {
     },
   )
 
-  function submitPost(e) {
+  const submitPost = e => {
     e.preventDefault()
     const communityId = communities.filter(community => community.name === postCommunity)[0].id
     const updatedPost = {
@@ -85,17 +85,16 @@ function EditPost({ posts, communities, onPostEdit }) {
       },
       body: JSON.stringify(updatedPost),
     })
-      .then(r => r.json() 
-      .then(post => {
-        console.log(post)
-          setPostTitle("")
-          setPostText("")
-          setPostImageURL("")
-          navigate("/")
-          onPostEdit(post)
-        })
-      )
-      .catch(e => alert(e))
+    .then(r => r.json() 
+    .then(post => {
+        setPostTitle("")
+        setPostText("")
+        setPostImageURL("")
+        navigate("/")
+        onPostEdit(post)
+      })
+    )
+    .catch(e => alert(e))
   }
 
   return (

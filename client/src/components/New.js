@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 import Dropdown from 'react-bootstrap/Dropdown'
 
-function New({ user, onPostSubmission }) {
+function New({ user, onPostSubmission, onCommunitySubmission }) {
   const [allCommunities, setAllCommunities] = useState([])
   const [communitiesToDisplay, setCommunitiesToDisplay] = useState([])
   const [newPost, setNewPost] = useState(true)
@@ -48,7 +48,6 @@ function New({ user, onPostSubmission }) {
   const CustomMenu = React.forwardRef(
     ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
       const [value, setValue] = useState('')
-  
       return (
         <div
           ref={ref}
@@ -74,7 +73,7 @@ function New({ user, onPostSubmission }) {
     },
   )
 
-  function submitPost(e) {
+  const submitPost = e => {
     e.preventDefault()
     if (!postCommunity) {
       alert("You must select a community for your post.")
@@ -112,8 +111,12 @@ function New({ user, onPostSubmission }) {
     }
   }
 
-  function submitCommunity(e) {
+  const submitCommunity = e => {
     e.preventDefault()
+    const newCommunity = {
+      name: communityName,
+      description: communityDescription
+    }
     if (!communityName || !communityDescription) {
       alert("You must give your new community a name and description.")
     } else {
@@ -122,22 +125,13 @@ function New({ user, onPostSubmission }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name: communityName,
-          description: communityDescription,
-          user_id: user.id,
-        }),
+        body: JSON.stringify(newCommunity),
       })
-      .then((r) => {
-        if (r.ok) {
-          r.json().then(() => {
-            setCommunityName("")
-            setCommunityDescription("")
-            navigate("/")
-          })
-        } else {
-          r.json().then(data => alert(data.error))
-        }
+      .then(community => {
+        setCommunityName("")
+        setCommunityDescription("")
+        navigate("/")
+        onCommunitySubmission(community)
       })
       .catch(e => alert(e))
     }
