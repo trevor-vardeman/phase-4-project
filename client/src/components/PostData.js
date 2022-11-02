@@ -1,15 +1,13 @@
 import { useNavigate } from "react-router-dom"
 import Stack from 'react-bootstrap/Stack'
-import Post from "./Post"
 
 function PostData({ post, onUpvote, onDownvote, onDelete, onPostSelection }) {
   const navigate = useNavigate()
-  // const openPost = (post) => navigate(`/posts/${post.id}`, { state: {post} })
   const openPost = (post) => {
     navigate(`/posts/${post.id}`)
     onPostSelection(post)
   }
-  const handleEdit = (post) => navigate(`/posts/${post.id}/edit`)
+  const handleEdit = (post) => navigate(`/posts/${post.id}/edit`, {state: post})
 
   return (
     <Stack gap={3}>

@@ -13,7 +13,6 @@ function CommentSubmission({ user }) {
   function submitComment(e) {
     e.preventDefault()
     const newComment = {
-      user_id: user.id,
       text: comment,
       points: 1,
       post_id: id
@@ -29,7 +28,7 @@ function CommentSubmission({ user }) {
         if (r.ok) {
           r.json().then(() => {
             setComment("")
-            window.location.reload()
+            // window.location.reload()
           })
         } else {
           r.json().then(data => alert(data.error))
@@ -40,7 +39,7 @@ function CommentSubmission({ user }) {
 
   return (
     <Stack gap={3}>
-      {user.id
+      {user
       ? 
       <Form>
         <Form.Group controlId="commentForm">

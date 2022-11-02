@@ -3,43 +3,28 @@ import { useNavigate, useParams } from "react-router-dom"
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown'
+import NoPath from './NoPath'
 
-function EditPost() {
-  const [allCommunities, setAllCommunities] = useState([])
-  const [communitiesToDisplay, setCommunitiesToDisplay] = useState([])
+function EditPost({ posts, communities }) {
+  const {id} = useParams()
+  const singlePost = posts.find(p => p.id === parseInt(id))
+  const communitiesToDisplay = communities.map(({ name }) => name)
   const [postCommunity, setPostCommunity] = useState("")
   const [postTitle, setPostTitle] =  useState("")
   const [postText, setPostText] = useState("")
   const [postImageURL, setPostImageURL] = useState("")
   const navigate = useNavigate()
-  const {id} = useParams()
 
   useEffect(() => {
-    fetch("/community")
-    .then((r) => {
-      if (r.ok) {
-        r.json().then(community => {
-          console.log(community)
-          setAllCommunities(community)
-          setCommunitiesToDisplay((community.map(({ name }) => name)))
-        })
-      } else {
-        r.json().then(error => alert(error))
-      }
-    })
-  }, [])
-
-  useEffect(() => {
-    fetch(`/post/${id}`)
-    .then(r => r.json())
-    .then(post => {
-      setPostCommunity(post.community.name)
-      setPostTitle(post.title)
-      setPostText(post.text)
-      setPostImageURL(post.image_url)
-    })
-    .catch(error => alert(error))
-  },[id])
+    if (singlePost) {
+      setPostCommunity(singlePost.community.name)
+      setPostTitle(singlePost.title)
+      setPostText(singlePost.text)
+      setPostImageURL(singlePost.image_url)
+    } else {
+      return <NoPath />
+    }
+  },[singlePost])
 
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a
@@ -86,7 +71,7 @@ function EditPost() {
 
   function submitPost(e) {
     e.preventDefault()
-    const communityId = allCommunities.filter(community => {
+    const communityId = communities.filter(community => {
       return community.name === postCommunity
     })[0].id
     fetch(`/post/${id}`, {
@@ -118,37 +103,41 @@ function EditPost() {
   }
 
   return (
-    <div className="centered">
-      <h2>Edit Post</h2>
-      <Form>
-        <Dropdown>
-          <Dropdown.Toggle as={CustomToggle} id="community-dropdown">Community</Dropdown.Toggle>
-          <Dropdown.Menu as={CustomMenu}>
-            {communitiesToDisplay.map((community) => (
-              <Dropdown.Item onClick={(e) => setPostCommunity(community)} key={community}>{community}</Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
-        <p>{postCommunity}</p>
+    <div>
+      {singlePost 
+        ? <div className="centered">
+            <h2>Edit Post</h2>
+            <Form>
+              <Dropdown>
+                <Dropdown.Toggle as={CustomToggle} id="community-dropdown">Community</Dropdown.Toggle>
+                <Dropdown.Menu as={CustomMenu}>
+                  {communitiesToDisplay.map((community) => (
+                    <Dropdown.Item onClick={(e) => setPostCommunity(community)} key={community}>{community}</Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+              <p>{postCommunity}</p>
 
-        <Form.Group controlId="postTitleForm">
-          <Form.Label>Post Title</Form.Label>
-          <Form.Control type="text" placeholder="Title" value={postTitle} onChange={(e) => setPostTitle(e.target.value)} />
-        </Form.Group>
+              <Form.Group controlId="postTitleForm">
+                <Form.Label>Post Title</Form.Label>
+                <Form.Control type="text" placeholder="Title" value={postTitle} onChange={(e) => setPostTitle(e.target.value)} />
+              </Form.Group>
 
-        <Form.Group controlId="postTextForm">
-          <Form.Label>Text</Form.Label>
-          <Form.Control type="text" placeholder="Text" value={postText} onChange={(e) => setPostText(e.target.value)} />
-        </Form.Group>
+              <Form.Group controlId="postTextForm">
+                <Form.Label>Text</Form.Label>
+                <Form.Control type="text" placeholder="Text" value={postText} onChange={(e) => setPostText(e.target.value)} />
+              </Form.Group>
 
-        <Form.Group controlId="postImageUrlForm">
-          <Form.Label>Image URL</Form.Label>
-          <Form.Control type="url" placeholder="Image URL" value={postImageURL} onChange={(e) => setPostImageURL(e.target.value)} />
-        </Form.Group>
+              <Form.Group controlId="postImageUrlForm">
+                <Form.Label>Image URL</Form.Label>
+                <Form.Control type="url" placeholder="Image URL" value={postImageURL} onChange={(e) => setPostImageURL(e.target.value)} />
+              </Form.Group>
 
-        <Button variant="dark" type="submit" onClick={submitPost}>Post</Button>
-      </Form>
-  </div>
+              <Button variant="dark" type="submit" onClick={submitPost}>Post</Button>
+            </Form>
+          </div>
+        : <NoPath />}
+    </div>
   )
 }
 
