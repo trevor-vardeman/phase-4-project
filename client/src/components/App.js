@@ -5,8 +5,9 @@ import Navigation from './Navigation'
 import Auth from './Auth'
 import NoPath from './NoPath'
 import New from './New'
-import PostList from './PostList'
+import AllPosts from './AllPosts'
 import EditPost from './EditPost'
+import Post from './Post'
 
 function App() {
   const [user, setUser] = useState("")
@@ -28,6 +29,17 @@ function App() {
         r.json().then(user => setUser(user))
       }
     })
+    fetch("/community")
+    .then((r) => {
+      if (r.ok) {
+        r.json().then(communities => setCommunities(communities))
+      } else {
+        r.json().then(error => alert(error))
+      }
+    })
+  }, [])
+
+  useEffect(() => {
     fetch("/post")
       .then(r => r.json())
       .then(posts => {
@@ -35,15 +47,7 @@ function App() {
         setPosts(sortedPosts)
       })
       .catch(err => alert(err.message))
-      fetch("/community")
-      .then((r) => {
-        if (r.ok) {
-          r.json().then(communities => setCommunities(communities))
-        } else {
-          r.json().then(error => alert(error))
-        }
-      })
-  }, [])
+  },[user])
 
   const handlePostUpvote = postId => {
     if (!user) {
@@ -174,8 +178,8 @@ function App() {
     <div>
       <Navigation user={user} onLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<PostList user={user} posts={posts} onUpvote={handlePostUpvote} onDownvote={handlePostDownvote} onDelete={handlePostDelete} />} />
-        <Route path="/posts/:id" element={<PostList user={user} posts={posts} onUpvote={handlePostUpvote} onDownvote={handlePostDownvote} onDelete={handlePostDelete} onCommentSubmission={handleCommentSubmission} />} />
+        <Route path="/" element={<AllPosts user={user} posts={posts} onUpvote={handlePostUpvote} onDownvote={handlePostDownvote} onDelete={handlePostDelete} />} />
+        <Route path="/posts/:id" element={<Post user={user} posts={posts} onUpvote={handlePostUpvote} onDownvote={handlePostDownvote} onDelete={handlePostDelete} onCommentSubmission={handleCommentSubmission} />} />
         <Route path="/posts/:id/edit" element={<EditPost posts={posts} communities={communities} onPostEdit={handlePostEdit} />} />
         <Route path="/auth" element={<Auth onLogin={handleLogin} />} />
         <Route path="/new" element={<New user={user} onPostSubmission={handlePostSubmission} onCommunitySubmission={handleNewCommunity} />} />

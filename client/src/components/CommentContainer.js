@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Stack from 'react-bootstrap/Stack'
 import CommentData from './CommentData'
 
-function CommentList({ user, post }) {
+function CommentContainer({ user, post }) {
   const [comments, setComments] = useState(post[0].comments)
 
   const handleCommentUpvote = comment => {
@@ -110,4 +110,4 @@ function CommentList({ user, post }) {
   )
 }
 
-export default CommentList
+export default CommentContainer
