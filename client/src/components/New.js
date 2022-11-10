@@ -79,6 +79,8 @@ function New({ user, onPostSubmission, onCommunitySubmission }) {
       alert("You must select a community for your post.")
     } else if (!postTitle) {
       alert("You must give your post a title.")
+    } else if (postImageURL && postImageURL.match(/\.(jpeg|jpg|gif|png)$/) === null) {
+      alert("The image's file extension must end in jpg, jpeg, png, or gif.")
     } else {
       const communityId = allCommunities.filter(community => {
         return community.name === postCommunity

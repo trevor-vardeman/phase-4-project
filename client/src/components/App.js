@@ -20,7 +20,15 @@ function App() {
     setUser(user)
     navigate(-1)
   }
-  const handleLogout = () => setUser("")
+
+  const handleLogout = () => {
+    setUser("")
+    fetch("/logout", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      }})
+  }
 
   useEffect(() => {
     fetch("/me")
@@ -285,15 +293,15 @@ function App() {
     <div>
       <Navigation user={user} onLogout={handleLogout} />
       <Routes>
-        <Route path="/" 
-          element={<AllPosts 
-          user={user} posts={posts} 
+        <Route path="/" element={<AllPosts 
+          user={user} 
+          posts={posts} 
           onUpvote={handlePostUpvote} 
           onDownvote={handlePostDownvote} 
           onDelete={handlePostDelete} />} />
-        <Route path="/posts/:id" 
-          element={<Post 
-          user={user} posts={posts} 
+        <Route path="/posts/:id" element={<Post 
+          user={user} 
+          posts={posts} 
           onPostUpvote={handlePostUpvote} 
           onPostDownvote={handlePostDownvote} 
           onPostDelete={handlePostDelete} 
@@ -302,17 +310,16 @@ function App() {
           onCommentDownvote={handleCommentDownvote} 
           onCommentDelete={handleCommentDelete}
         />} />
-        <Route path="/posts/:id/edit" 
-          element={<EditPost 
+        <Route path="/posts/:id/edit" element={<EditPost 
           posts={posts} 
           communities={communities} 
           onPostEdit={handlePostEdit}
         />} />
-        <Route path="/auth" 
-          element={<Auth onLogin={handleLogin}
+        <Route path="/auth" element={<Auth 
+          onLogin={handleLogin}
         />} />
-        <Route path="/new" 
-          element={<New user={user} 
+        <Route path="/new" element={<New 
+          user={user} 
           onPostSubmission={handlePostSubmission} 
           onCommunitySubmission={handleNewCommunity}
         />} />

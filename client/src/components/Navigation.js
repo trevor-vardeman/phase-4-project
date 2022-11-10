@@ -4,15 +4,6 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
 function Navigation( { user, onLogout } ) {
-const handleLogout = () => {
-    fetch("/logout", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      }})
-    onLogout()
-  }
-
   return (
     <Navbar sticky="top" bg="dark" variant="dark">
       <Container fluid>
@@ -23,7 +14,7 @@ const handleLogout = () => {
         <Nav>
           <Nav.Link as={Link} to="new">New</Nav.Link>
           {user ? <Nav.Link style={{color: "orange"}}>{user.username}</Nav.Link> : null}
-          {user ? <Nav.Link onClick={handleLogout}>Sign Out</Nav.Link> : <Nav.Link as={Link} to="auth">Sign In</Nav.Link>}
+          {user ? <Nav.Link onClick={onLogout}>Sign Out</Nav.Link> : <Nav.Link as={Link} to="auth">Sign In</Nav.Link>}
         </Nav>
       </Container>
     </Navbar>

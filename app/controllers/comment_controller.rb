@@ -23,16 +23,6 @@ class CommentController < ApplicationController
     end
   end
 
-  # def update
-  #   comment = Comment.find(params[:id])
-  #   comment.update(comment_params)
-  #   if comment.valid?
-  #     render json: comment, status: :accepted
-  #   else
-  #     render json: { error: comment.errors.full_messages }, status: :unprocessable_entity
-  #   end
-  # end
-
   def destroy
     comment = Comment.find(params[:id])
     comment.destroy
