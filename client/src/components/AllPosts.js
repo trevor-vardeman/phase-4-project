@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import PostData from "./PostData"
 import Stack from 'react-bootstrap/Stack'
 
-function AllPosts({ user, posts, onUpvote, onDownvote, onDelete, onCommentSubmission }) {
+function AllPosts({ posts, onUpvote, onDownvote, onDelete }) {
   const navigate = useNavigate()
   const { id } = useParams()
   const handleOpenPost = post => navigate(`/posts/${post.id}`)

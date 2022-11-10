@@ -5,29 +5,28 @@ import CommentSubmission from "./CommentSubmission"
 import CommentContainer from "./CommentContainer"
 import NoPath from "./NoPath"
 
-  function Post({ user, posts, onUpvote, onDownvote, onDelete, onCommentSubmission }) {
-    const { id } = useParams()
-
+function Post({ user, posts, onPostUpvote, onPostDownvote, onPostDelete, onCommentSubmission, onCommentUpvote, onCommentDownvote, onCommentDelete }) {
+  const { id } = useParams()
   const [selectedPost, setSelectedPost] = useState("")  
+
   useEffect(() => {
     if (id) {
       const post = posts.find(p => p.id === parseInt(id))
       setSelectedPost(post)
-      console.log(post)
     }
-  },[id, posts, selectedPost])
+  },[id, posts])
 
   return (
     <div className="main">
       {selectedPost
         ? <div>
             {[selectedPost].map(post => (
-              <PostData key={post.id} post={post} onUpvote={onUpvote} onDownvote={onDownvote} onDelete={onDelete} />
+              <PostData key={post.id} post={post} onUpvote={onPostUpvote} onDownvote={onPostDownvote} onDelete={onPostDelete} />
             ))}
             <br></br>
             <CommentSubmission user={user} onCommentSubmission={onCommentSubmission} />
             <br></br>
-            <CommentContainer user={user} post={[selectedPost]} />
+            <CommentContainer user={user} post={[selectedPost]} onCommentUpvote={onCommentUpvote} onCommentDownvote={onCommentDownvote} onCommentDelete={onCommentDelete} />
           </div>
         :  <NoPath />}
     </div>

@@ -12,21 +12,7 @@ function CommentSubmission({ user, onCommentSubmission }) {
 
   const submitComment = e => {
     e.preventDefault()
-    const newComment = {
-      text: comment,
-      points: 1,
-      post_id: id
-    }
-    fetch("/comment", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newComment),
-    })
-    .then(r => r.json())
-    .then(comment => onCommentSubmission(comment))
-    .catch(e => alert(e))
+    onCommentSubmission(comment, id)
   }
   
   return (
@@ -36,7 +22,7 @@ function CommentSubmission({ user, onCommentSubmission }) {
             <Form.Group controlId="commentForm">
             <Form.Control type="text" placeholder="Comment" value={comment} onChange={(e) => setComment(e.target.value)} />
             </Form.Group>
-            <Button variant="dark" type="submit" onClick={submitComment}>Submit</Button>
+            <Button variant="dark" type="submit" onClick={(e) => submitComment(e)}>Submit</Button>
           </Form>
         : <p>You must be logged in to post a comment. <Alert.Link onClick={() => navigate("/auth")}>Sign in here.</Alert.Link></p>}
     </Stack>
