@@ -10,7 +10,7 @@ class PostController < ApplicationController
 
   def create
     post = Post.create(
-      user_id: current_user.id,
+      # user_id: current_user.id,
       title: params[:title],
       text: params[:text],
       image_url: params[:image_url],
@@ -89,7 +89,8 @@ class PostController < ApplicationController
   end
 
   def authorize_user
-    user_can_modify = current_user.try(:admin) || current_user.id != nil && @post.user_id == current_user.id
+    # user_can_modify = current_user.try(:admin) || current_user.id != nil && @post.user_id == current_user.id
+    user_can_modify = current_user.try(:admin)
     render json: { error: "You don't have permission to perform that action." }, status: :forbidden unless user_can_modify
   end
 

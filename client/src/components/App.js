@@ -28,19 +28,26 @@ function App() {
       headers: {
         "Content-Type": "application/json",
       }})
+    // setUser("")
   }
 
   useEffect(() => {
     fetch("/me")
     .then((r) => {
       if (r.ok) {
-        r.json().then(user => setUser(user))
+        r.json().then(user => {
+          console.log(user)
+          setUser(user)
+        })
       }
     })
     fetch("/community")
     .then((r) => {
       if (r.ok) {
-        r.json().then(communities => setCommunities(communities))
+        r.json().then(communities => {
+          setCommunities(communities)
+          console.log(communities)
+        })
       } else {
         r.json().then(error => alert(error))
       }
@@ -52,6 +59,7 @@ function App() {
       .then(r => r.json())
       .then(posts => {
         const sortedPosts = posts.sort((a, b) => b.points - a.points)
+        console.log(sortedPosts)
         setPosts(sortedPosts)
       })
       .catch(err => alert(err.message))

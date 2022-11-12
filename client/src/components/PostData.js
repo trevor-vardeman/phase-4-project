@@ -28,7 +28,8 @@ function PostData({ post, onUpvote, onDownvote, onDelete, onPostSelection }) {
             : 
             <sub onClick={() => openPost(post)}>{post.comments.length} comments</sub>}
             <br></br>
-            <sub>submitted by {post.user.username} to {post.community.name} at {post.created_at}</sub>
+            {/* <sub>submitted by {post.user.username} to {post.community.name} at {post.created_at}</sub> */}
+            <sub>submitted to {post.community.name} at {post.created_at}</sub>
             <br></br>
             {post.user_can_modify ?
               <Stack direction="horizontal" gap={1}>
