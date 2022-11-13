@@ -7,7 +7,7 @@ function CommentData({ comment, onCommentUpvote, onCommentDownvote, onCommentDel
   return (
     <Stack gap={3}>
       {comment 
-        ? <Stack className="comment" gap={3}>
+        ? <Stack className="comment-user" gap={3}>
             <Stack className="points-and-arrows" gap={1} direction="horizontal" key={comment.id}>
               {comment.user_upvoted ? <p onClick={() => onCommentUpvote(comment)} className="orange">&#x25b2;</p> : <p onClick={() => onCommentUpvote(comment)}>&#x25b2;</p>}
               <h6>{comment.points}</h6>

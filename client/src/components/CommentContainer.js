@@ -21,7 +21,7 @@ function CommentContainer({ post, onCommentUpvote, onCommentDownvote, onCommentD
               : <Stack gap={3}>
                   <h5><span className="hover" onClick={() => setShowComments(true)}>Comments</span> | <strong className="orange hover" onClick={() => setShowComments(false)}>Unique Users</strong></h5>
                   {post[0].users.map(user => (
-                      <p className="user hover" key={user.id} onClick={() => navigate(`/user/${user.id}`)}>{user.username}</p>
+                      <p className="comment-user hover" key={user.id} onClick={() => navigate(`/user/${user.id}`)}>{user.username}</p>
                   ))}
                 </Stack>
             }

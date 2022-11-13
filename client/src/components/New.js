@@ -41,8 +41,7 @@ function New({ user, onPostSubmission, onCommunitySubmission }) {
         onClick(e)
       }}
     >
-      {children}
-      &#x25bc;
+      {children} &#x25bc;
     </a>
   ))
 
@@ -141,11 +140,11 @@ function New({ user, onPostSubmission, onCommunitySubmission }) {
   }
 
   return (
-    <div className="centered">
+    <Stack gap={3} className="centered">
       {user 
-        ? <div>
+        ? <Stack gap={3}>
           {newPost
-            ? <div>
+            ? <Stack gap={3}>
                 <h2>New Post</h2>
                 <Form>
                   <Dropdown>
@@ -172,12 +171,11 @@ function New({ user, onPostSubmission, onCommunitySubmission }) {
                     <Form.Label>Image URL (Optional)</Form.Label>
                     <Form.Control type="url" placeholder="Image URL" value={postImageURL} onChange={(e) => setPostImageURL(e.target.value)} />
                   </Form.Group>
-
-                  <Button variant="dark" type="submit" onClick={submitPost}>Post</Button>
                 </Form>
+                <Button variant="dark" type="submit" onClick={submitPost}>Post</Button>
                 <p>Want to create a new community instead? <Alert.Link onClick={() => setNewPost(false)}>New Community</Alert.Link></p>
-              </div>
-            : <div>
+              </Stack>
+            : <Stack gap={3}>
                 <h2>New Community</h2>
                 <Form>
                   <Form.Group controlId="communityNameForm">
@@ -189,19 +187,18 @@ function New({ user, onPostSubmission, onCommunitySubmission }) {
                     <Form.Label>Community Description</Form.Label>
                     <Form.Control type="text" placeholder="Description" value={communityDescription} onChange={(e) => setCommunityDescription(e.target.value)} />
                   </Form.Group>
-
-                  <Button variant="dark" type="submit" onClick={submitCommunity}>Create</Button>
                 </Form>
+                <Button variant="dark" type="submit" onClick={submitCommunity}>Create</Button>
                 <p>Want to submit a post instead? <Alert.Link onClick={() => setNewPost(true)}>New Post</Alert.Link></p>
-              </div>
+              </Stack>
           }
-          </div>
+          </Stack>
         : <Stack gap={3}>
             <p>You must be logged in to create a new community or post.</p><br></br>
             <Alert.Link className="centered" onClick={() => navigate("/auth")}>Click here to sign in</Alert.Link>
           </Stack>
       }
-  </div>
+  </Stack>
   )
 }
 

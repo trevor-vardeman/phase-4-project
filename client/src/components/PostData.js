@@ -15,7 +15,7 @@ function PostData({ post, onPostUpvote, onPostDownvote, onPostDelete }) {
               {post.user_downvoted ? <p onClick={() => onPostDownvote(post.id)} className="purple">&#x25bc;</p> : <p onClick={() => onPostDownvote(post.id)}>&#x25bc;</p>}
               {post.image_url ? <img onClick={() => window.open(`${post.image_url}`, "_blank")} src={post.image_url} alt={`${post.title}`}/> : null}
               <Stack>
-                {id ? <h4 className="hover">{post.title}</h4> : <h4 className="hover" onClick={() => navigate(`/post/${post.id}`)}>{post.title}</h4>}
+                {id ? <h4 className="hover">{post.title}</h4> : <h4 className="hover" onClick={() => navigate(`/post/${post.id}`)}><span>{post.title}</span></h4>}
                 {post.text ? <p>{post.text}</p> : null}
                 {post.comments.length === 1
                   ? <sub className="hover" onClick={() => navigate(`/post/${post.id}`)}>{post.comments.length} comment</sub>

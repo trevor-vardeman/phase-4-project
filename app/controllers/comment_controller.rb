@@ -69,7 +69,7 @@ class CommentController < ApplicationController
   private
 
   def comment_params
-    params.permit(:text, :points, :post_id)
+    params.permit(:text, :post_id)
   end
 
   def set_comment

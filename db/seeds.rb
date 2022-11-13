@@ -53,7 +53,6 @@ Post.create(
   image_url: "https://www.rd.com/wp-content/uploads/2020/04/DogMeme1.jpg",
   points: 0,
   community_id: 2
-  # user_id: 1,
 )
 
 Post.create(
@@ -62,7 +61,6 @@ Post.create(
   image_url: "https://www.rd.com/wp-content/uploads/2020/04/DogMeme2.jpg",
   points: 0,
   community_id: 2
-  # user_id: 1,
 )
 
 Post.create(
@@ -71,7 +69,6 @@ Post.create(
   image_url: "https://www.rd.com/wp-content/uploads/2020/04/DogMeme4.jpg",
   points: 0,
   community_id: 2
-  # user_id: 1,
 )
 
 Post.create(
@@ -80,7 +77,6 @@ Post.create(
   image_url: "https://sportshub.cbsistatic.com/i/r/2022/09/30/92367559-c2f8-44ab-8fd4-ca1fb9a15ac1/thumbnail/770x433/8070086a2e664c6e99a36735c4f4c590/tua-getty.jpg",
   points: 0,
   community_id: 3
-  # user_id: 1,
 )
 
 Post.create(
@@ -89,7 +85,6 @@ Post.create(
   image_url: "",
   points: 0,
   community_id: 1
-  # user_id: 2,
 )
 
 Comment.create(
@@ -148,36 +143,36 @@ Comment.create(
   post_id: 1
 )
 
-# PostVote.create!([
-#   {post_id: 1, user_id: 2, points: 1},
-#   {post_id: 2, user_id: 2, points: 1},
-#   {post_id: 3, user_id: 2, points: 1},
-#   {post_id: 4, user_id: 2, points: -1},
-#   {post_id: 5, user_id: 2, points: 1},
-#   {post_id: 1, user_id: 1, points: 1},
-#   {post_id: 2, user_id: 1, points: 0},
-#   {post_id: 3, user_id: 1, points: 1},
-#   {post_id: 4, user_id: 1, points: -1},
-#   {post_id: 1, user_id: 3, points: 1},
-#   {post_id: 2, user_id: 3, points: 1},
-#   {post_id: 3, user_id: 3, points: 1},
-#   {post_id: 1, user_id: 4, points: 1},
-#   {post_id: 2, user_id: 4, points: 1},
-#   {post_id: 3, user_id: 4, points: 1},
-#   {post_id: 4, user_id: 4, points: -1},
-#   {post_id: 5, user_id: 4, points: 1},
-#   {post_id: 1, user_id: 5, points: 1},
-#   {post_id: 3, user_id: 5, points: 1},
-#   {post_id: 1, user_id: 6, points: 1}
-# ])
+PostVote.create!([
+  {post_id: 1, user_id: 2, points: 1},
+  {post_id: 2, user_id: 2, points: 1},
+  {post_id: 3, user_id: 2, points: 1},
+  {post_id: 4, user_id: 2, points: -1},
+  {post_id: 5, user_id: 2, points: 1},
+  {post_id: 1, user_id: 1, points: 1},
+  {post_id: 2, user_id: 1, points: 0},
+  {post_id: 3, user_id: 1, points: 1},
+  {post_id: 4, user_id: 1, points: -1},
+  {post_id: 1, user_id: 3, points: 1},
+  {post_id: 2, user_id: 3, points: 1},
+  {post_id: 3, user_id: 3, points: 1},
+  {post_id: 1, user_id: 4, points: 1},
+  {post_id: 2, user_id: 4, points: 1},
+  {post_id: 3, user_id: 4, points: 1},
+  {post_id: 4, user_id: 4, points: -1},
+  {post_id: 5, user_id: 4, points: 1},
+  {post_id: 1, user_id: 5, points: 1},
+  {post_id: 3, user_id: 5, points: 1},
+  {post_id: 1, user_id: 6, points: 1}
+])
 
-# CommentVote.create!([
-#   {comment_id: 1, user_id: 1, points: 1},
-#   {comment_id: 2, user_id: 2, points: 1},
-#   {comment_id: 3, user_id: 1, points: 0},
-#   {comment_id: 3, user_id: 2, points: -1},
-#   {comment_id: 4, user_id: 2, points: 1},
-#   {comment_id: 5, user_id: 1, points: 1}
-# ])
+CommentVote.create!([
+  {comment_id: 1, user_id: 1, points: 1},
+  {comment_id: 2, user_id: 2, points: 1},
+  {comment_id: 3, user_id: 1, points: 0},
+  {comment_id: 3, user_id: 2, points: -1},
+  {comment_id: 4, user_id: 2, points: 1},
+  {comment_id: 5, user_id: 1, points: 1}
+])
 
 puts "Seeding complete!"

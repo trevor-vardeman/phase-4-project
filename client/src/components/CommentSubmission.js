@@ -19,12 +19,14 @@ function CommentSubmission({ user, onCommentSubmission }) {
   return (
     <Stack gap={3}>
       {user
-        ? <Form>
-            <Form.Group controlId="commentForm">
-            <Form.Control type="text" placeholder="Comment" value={comment} onChange={(e) => setComment(e.target.value)} />
-            </Form.Group><br></br>
+        ? <Stack>
+            <Form>
+              <Form.Group controlId="commentForm">
+              <Form.Control as="textarea" rows={2} type="text" placeholder="Leave a comment..." value={comment} onChange={(e) => setComment(e.target.value)} />
+              </Form.Group><br></br>
+              </Form>
             <Button variant="dark" type="submit" onClick={(e) => submitComment(e)}>Submit</Button>
-          </Form>
+          </Stack>
         : <p>You must be logged in to post a comment. <Alert.Link onClick={() => navigate("/auth")}>Sign in here.</Alert.Link></p>
       }
     </Stack>

@@ -49,21 +49,14 @@ img {
   outline: solid;
   padding: 10px;
   padding-bottom: 10px;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: ghostwhite;
 }
 
-.comment {
+.comment-user {
   border-color: black;
   outline: solid;
   padding: 10px;
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-.user {
-  border-color: black;
-  outline: solid;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: ghostwhite;
 }
 
 .hover {

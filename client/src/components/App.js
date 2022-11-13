@@ -24,32 +24,27 @@ function App() {
   }
 
   const handleLogout = () => {
-    setUser("")
     fetch("/logout", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       }})
-    // setUser("")
+      .catch(e => alert(e))
+      .then(setUser(""))
+      setUser("")
   }
 
   useEffect(() => {
     fetch("/me")
     .then((r) => {
       if (r.ok) {
-        r.json().then(user => {
-          console.log(user)
-          setUser(user)
-        })
+        r.json()
       }
     })
     fetch("/community")
     .then((r) => {
       if (r.ok) {
-        r.json().then(communities => {
-          setCommunities(communities)
-          console.log(communities)
-        })
+        r.json().then(communities => setCommunities(communities))
       } else {
         r.json().then(error => alert(error))
       }
@@ -57,10 +52,7 @@ function App() {
     fetch("/users")
     .then((r) => {
       if (r.ok) {
-        r.json().then(users => {
-          setAllUsers(users)
-          console.log("users", users)
-        })
+        r.json().then(users => setAllUsers(users))
       } else {
         r.json().then(error => alert(error))
       }
@@ -72,7 +64,7 @@ function App() {
       .then(r => r.json())
       .then(posts => {
         const sortedPosts = posts.sort((a, b) => b.points - a.points)
-        console.log("sortedPosts", sortedPosts)
+        sortedPosts.map(post => post.comments.sort((a, b) => b.points - a.points))
         setPosts(sortedPosts)
       })
       .catch(err => alert(err.message))
