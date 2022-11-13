@@ -13,6 +13,7 @@ function CommentSubmission({ user, onCommentSubmission }) {
   const submitComment = e => {
     e.preventDefault()
     onCommentSubmission(comment, id)
+    setComment("")
   }
   
   return (
@@ -24,7 +25,8 @@ function CommentSubmission({ user, onCommentSubmission }) {
             </Form.Group>
             <Button variant="dark" type="submit" onClick={(e) => submitComment(e)}>Submit</Button>
           </Form>
-        : <p>You must be logged in to post a comment. <Alert.Link onClick={() => navigate("/auth")}>Sign in here.</Alert.Link></p>}
+        : <p>You must be logged in to post a comment. <Alert.Link onClick={() => navigate("/auth")}>Sign in here.</Alert.Link></p>
+      }
     </Stack>
   )
 }

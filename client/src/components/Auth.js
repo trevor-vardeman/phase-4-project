@@ -58,45 +58,44 @@ function Auth( { onLogin } ) {
   return (
     <div className="centered">
       {signIn
-      ? 
-      <div>
-        <Form>
-          <Form.Group controlId="usernameForm">
-            <Form.Label>Username</Form.Label>
-            <Form.Control type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-          </Form.Group>
+        ? <div>
+            <Form>
+              <Form.Group controlId="usernameForm">
+                <Form.Label>Username</Form.Label>
+                <Form.Control type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+              </Form.Group>
 
-          <Form.Group controlId="passwordForm">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          </Form.Group>
+              <Form.Group controlId="passwordForm">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              </Form.Group>
 
-          <Button variant="dark" type="submit" onClick={handleLogin}>Sign In</Button>
-        </Form>
-        <p>New to seenit? <Alert.Link onClick={() => setSignIn(false)}>Register</Alert.Link></p>
-      </div>
-      : 
-      <div>
-        <Form>
-          <Form.Group controlId="usernameForm">
-            <Form.Label>Username</Form.Label>
-            <Form.Control type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-          </Form.Group>
+              <Button variant="dark" type="submit" onClick={handleLogin}>Sign In</Button>
+            </Form>
+            <p>New to seenit? <Alert.Link onClick={() => setSignIn(false)}>Register</Alert.Link></p>
+          </div>
+        : <div>
+            <Form>
+              <Form.Group controlId="usernameForm">
+                <Form.Label>Username</Form.Label>
+                <Form.Control type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+              </Form.Group>
 
-          <Form.Group controlId="passwordForm">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          </Form.Group>
+              <Form.Group controlId="passwordForm">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              </Form.Group>
 
-          <Form.Group controlId="passwordConfirmationForm">
-            <Form.Label>Password Confirmation</Form.Label>
-            <Form.Control type="password" placeholder="Password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
-          </Form.Group>
+              <Form.Group controlId="passwordConfirmationForm">
+                <Form.Label>Password Confirmation</Form.Label>
+                <Form.Control type="password" placeholder="Password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
+              </Form.Group>
 
-          <Button variant="dark" type="submit" onClick={handleSignUp}>Sign Up</Button>
-        </Form>
-        <p>Already have an account? <Alert.Link onClick={() => setSignIn(true)}>Login</Alert.Link></p>
-      </div>}
+              <Button variant="dark" type="submit" onClick={handleSignUp}>Sign Up</Button>
+            </Form>
+            <p>Already have an account? <Alert.Link onClick={() => setSignIn(true)}>Login</Alert.Link></p>
+          </div>
+      }
     </div>
   )
 }

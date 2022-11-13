@@ -28,7 +28,8 @@ function Post({ user, posts, onPostUpvote, onPostDownvote, onPostDelete, onComme
             <br></br>
             <CommentContainer user={user} post={[selectedPost]} onCommentUpvote={onCommentUpvote} onCommentDownvote={onCommentDownvote} onCommentDelete={onCommentDelete} />
           </div>
-        :  <NoPath />}
+        :  <NoPath />
+      }
     </div>
   )
 }

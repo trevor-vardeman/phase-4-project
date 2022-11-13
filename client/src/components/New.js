@@ -192,9 +192,11 @@ function New({ user, onPostSubmission, onCommunitySubmission }) {
                   <Button variant="dark" type="submit" onClick={submitCommunity}>Create</Button>
                 </Form>
                 <p>Want to submit a post instead? <Alert.Link onClick={() => setNewPost(true)}>New Post</Alert.Link></p>
-              </div>}
+              </div>
+          }
           </div>
-      : <p>You must be logged in to create a new community or post. <Alert.Link onClick={() => navigate("/auth")}>Sign in here.</Alert.Link></p>}
+        : <p>You must be logged in to create a new community or post. <Alert.Link onClick={() => navigate("/auth")}>Sign in here.</Alert.Link></p>
+      }
   </div>
   )
 }

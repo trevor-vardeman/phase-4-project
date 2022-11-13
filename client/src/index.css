@@ -23,11 +23,11 @@ img {
   min-width: 50px;
 }
 
-.upvoted {
+.orange {
   color: orange;
 }
 
-.downvoted {
+.purple {
   color: purple;
 }
 

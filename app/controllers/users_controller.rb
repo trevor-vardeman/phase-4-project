@@ -10,6 +10,12 @@ class UsersController < ApplicationController
     end
   end
 
+  # get '/index'
+  def index
+    users = User.all.order(username: :asc)
+    render json: users, status: :ok
+  end
+
   # post '/signup'
   def create
     user = User.create(user_params)

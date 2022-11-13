@@ -8,9 +8,11 @@ import New from './New'
 import AllPosts from './AllPosts'
 import EditPost from './EditPost'
 import Post from './Post'
+import User from './User'
 
 function App() {
   const [user, setUser] = useState("")
+  const [allUsers, setAllUsers] = useState([])
   const [posts, setPosts] = useState([])
   const [communities, setCommunities] = useState([])
   const navigate = useNavigate()
@@ -52,6 +54,17 @@ function App() {
         r.json().then(error => alert(error))
       }
     })
+    fetch("/users")
+    .then((r) => {
+      if (r.ok) {
+        r.json().then(users => {
+          setAllUsers(users)
+          console.log("users", users)
+        })
+      } else {
+        r.json().then(error => alert(error))
+      }
+    })
   }, [])
 
   useEffect(() => {
@@ -59,7 +72,7 @@ function App() {
       .then(r => r.json())
       .then(posts => {
         const sortedPosts = posts.sort((a, b) => b.points - a.points)
-        console.log(sortedPosts)
+        console.log("sortedPosts", sortedPosts)
         setPosts(sortedPosts)
       })
       .catch(err => alert(err.message))
@@ -307,7 +320,7 @@ function App() {
           onUpvote={handlePostUpvote} 
           onDownvote={handlePostDownvote} 
           onDelete={handlePostDelete} />} />
-        <Route path="/posts/:id" element={<Post 
+        <Route path="/post/:id" element={<Post 
           user={user} 
           posts={posts} 
           onPostUpvote={handlePostUpvote} 
@@ -318,7 +331,7 @@ function App() {
           onCommentDownvote={handleCommentDownvote} 
           onCommentDelete={handleCommentDelete}
         />} />
-        <Route path="/posts/:id/edit" element={<EditPost 
+        <Route path="/post/:id/edit" element={<EditPost 
           posts={posts} 
           communities={communities} 
           onPostEdit={handlePostEdit}
@@ -331,6 +344,7 @@ function App() {
           onPostSubmission={handlePostSubmission} 
           onCommunitySubmission={handleNewCommunity}
         />} />
+        <Route path="/user/:id" element={<User users={allUsers} />} />
         <Route path="*" element={<NoPath />} />
       </Routes>
     </div>

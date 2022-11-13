@@ -4,7 +4,7 @@ import Stack from 'react-bootstrap/Stack'
 
 function AllPosts({ posts, onUpvote, onDownvote, onDelete }) {
   const navigate = useNavigate()
-  const handleOpenPost = post => navigate(`/posts/${post.id}`)
+  const handleOpenPost = post => navigate(`/post/${post.id}`)
 
   return (
     <Stack gap={3} className="main">

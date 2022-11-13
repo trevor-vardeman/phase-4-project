@@ -131,7 +131,8 @@ function EditPost({ posts, communities, onPostEdit }) {
               <Button variant="dark" type="submit" onClick={submitPost}>Post</Button>
             </Form>
           </div>
-        : <NoPath />}
+        : <NoPath />
+      }
     </div>
   )
 }
