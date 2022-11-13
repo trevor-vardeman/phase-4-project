@@ -43,3 +43,29 @@ img {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.post {
+  border-color: black;
+  outline: solid;
+  padding: 10px;
+  padding-bottom: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.comment {
+  border-color: black;
+  outline: solid;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.user {
+  border-color: black;
+  outline: solid;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.hover {
+  cursor: pointer;
+}

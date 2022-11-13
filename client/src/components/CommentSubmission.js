@@ -22,7 +22,7 @@ function CommentSubmission({ user, onCommentSubmission }) {
         ? <Form>
             <Form.Group controlId="commentForm">
             <Form.Control type="text" placeholder="Comment" value={comment} onChange={(e) => setComment(e.target.value)} />
-            </Form.Group>
+            </Form.Group><br></br>
             <Button variant="dark" type="submit" onClick={(e) => submitComment(e)}>Submit</Button>
           </Form>
         : <p>You must be logged in to post a comment. <Alert.Link onClick={() => navigate("/auth")}>Sign in here.</Alert.Link></p>

@@ -12,18 +12,18 @@ function CommentContainer({ post, onCommentUpvote, onCommentDownvote, onCommentD
       {post[0].comments.length > 0
         ? <Stack gap={3}>
             {showComments 
-              ? <div>
-                  <h5><strong className="orange" onClick={() => setShowComments(true)}>Comments</strong> | <span onClick={() => setShowComments(false)}>Unique Users</span></h5> 
+              ? <Stack gap={3}>
+                  <h5><strong className="orange hover" onClick={() => setShowComments(true)}>Comments</strong> | <span className="hover" onClick={() => setShowComments(false)}>Unique Users</span></h5> 
                   {post[0].comments.map(comment => (
                     <CommentData key={comment.id} comment={comment} onCommentUpvote={onCommentUpvote} onCommentDownvote={onCommentDownvote} onCommentDelete={onCommentDelete} />
                   ))}
-                </div>
-              : <div>
-                  <h5><span onClick={() => setShowComments(true)}>Comments</span> | <strong className="orange" onClick={() => setShowComments(false)}>Unique Users</strong></h5>
+                </Stack>
+              : <Stack gap={3}>
+                  <h5><span className="hover" onClick={() => setShowComments(true)}>Comments</span> | <strong className="orange hover" onClick={() => setShowComments(false)}>Unique Users</strong></h5>
                   {post[0].users.map(user => (
-                    <p key={user.id} onClick={() => navigate(`/user/${user.id}`)}>{user.username}</p>
+                      <p className="user hover" key={user.id} onClick={() => navigate(`/user/${user.id}`)}>{user.username}</p>
                   ))}
-                </div>
+                </Stack>
             }
           </Stack>
         : <p>No comments yet! Be the first to comment.</p>

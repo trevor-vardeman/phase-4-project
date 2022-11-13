@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
+import Stack from 'react-bootstrap/Stack'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
@@ -195,7 +196,10 @@ function New({ user, onPostSubmission, onCommunitySubmission }) {
               </div>
           }
           </div>
-        : <p>You must be logged in to create a new community or post. <Alert.Link onClick={() => navigate("/auth")}>Sign in here.</Alert.Link></p>
+        : <Stack gap={3}>
+            <p>You must be logged in to create a new community or post.</p><br></br>
+            <Alert.Link className="centered" onClick={() => navigate("/auth")}>Click here to sign in</Alert.Link>
+          </Stack>
       }
   </div>
   )

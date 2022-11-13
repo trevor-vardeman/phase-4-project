@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   # get '/index'
   def index
     users = User.all.order(username: :asc)
-    render json: users, status: :ok
+    render json: users, include: ["posts", "posts.users", "posts.comments", "posts.community", "posts.post_votes"], status: :ok
   end
 
   # post '/signup'

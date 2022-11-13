@@ -21,7 +21,7 @@ function Post({ user, posts, onPostUpvote, onPostDownvote, onPostDelete, onComme
       {selectedPost
         ? <div>
             {[selectedPost].map(post => (
-              <PostData key={post.id} post={post} onUpvote={onPostUpvote} onDownvote={onPostDownvote} onDelete={onPostDelete} />
+              <PostData key={post.id} post={post} onPostUpvote={onPostUpvote} onPostDownvote={onPostDownvote} onPostDelete={onPostDelete} />
             ))}
             <br></br>
             <CommentSubmission user={user} onCommentSubmission={onCommentSubmission} />

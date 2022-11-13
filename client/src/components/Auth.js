@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Stack from 'react-bootstrap/Stack'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
@@ -56,25 +57,24 @@ function Auth( { onLogin } ) {
   }
 
   return (
-    <div className="centered">
+    <Stack gap={3} className="centered">
       {signIn
-        ? <div>
-            <Form>
-              <Form.Group controlId="usernameForm">
-                <Form.Label>Username</Form.Label>
-                <Form.Control type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-              </Form.Group>
+        ? <Stack gap={3}>
+              <Form>
+                <Form.Group controlId="usernameForm">
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                </Form.Group>
 
-              <Form.Group controlId="passwordForm">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-              </Form.Group>
-
-              <Button variant="dark" type="submit" onClick={handleLogin}>Sign In</Button>
-            </Form>
+                <Form.Group controlId="passwordForm">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                </Form.Group>
+              </Form>
+            <Button variant="dark" type="submit" onClick={handleLogin}>Sign In</Button>
             <p>New to seenit? <Alert.Link onClick={() => setSignIn(false)}>Register</Alert.Link></p>
-          </div>
-        : <div>
+          </Stack>
+        : <Stack gap={3}>
             <Form>
               <Form.Group controlId="usernameForm">
                 <Form.Label>Username</Form.Label>
@@ -90,13 +90,12 @@ function Auth( { onLogin } ) {
                 <Form.Label>Password Confirmation</Form.Label>
                 <Form.Control type="password" placeholder="Password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
               </Form.Group>
-
-              <Button variant="dark" type="submit" onClick={handleSignUp}>Sign Up</Button>
             </Form>
+            <Button variant="dark" type="submit" onClick={handleSignUp}>Sign Up</Button>
             <p>Already have an account? <Alert.Link onClick={() => setSignIn(true)}>Login</Alert.Link></p>
-          </div>
+          </Stack>
       }
-    </div>
+    </Stack>
   )
 }
 

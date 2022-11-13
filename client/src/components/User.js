@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import Stack from 'react-bootstrap/Stack'
-import PostData from './PostData'
 import NoPath from "./NoPath"
 
-function User({ users }) {
-  const { id } = useParams()
+function User({ users, posts }) {
   const [selectedUser, setSelectedUser] = useState("")
+  const { id } = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (id) {
@@ -14,28 +14,35 @@ function User({ users }) {
       console.log(user)
       setSelectedUser(user)
     }
-  },[id, users])
+  },[id, users, posts])
 
   return (
-    <div>
+    <Stack className="main">
       {selectedUser 
-        ? <div>
-            Posts this user has commented on:
+        ? <Stack gap={3}>
+            <p><span className="orange"><strong>{selectedUser.username}</strong></span> has commented on the following posts:</p>
             {selectedUser.posts.map(post => (
-              <Stack className="main" gap={1} direction="horizontal" key={post.id}>
-                <h4>{post.title}</h4>
-                <p>{post.text}</p>
-                {post.image_url ? <img onClick={() => window.open(`${post.image_url}`, "_blank")} src={post.image_url} alt={`${post.title}`}/> : null}
-              </Stack>
+              <Stack gap={3} className="post" key={post.id}>
+                <Stack gap={1} direction="horizontal">
+                  {post.image_url ? <img onClick={() => window.open(`${post.image_url}`, "_blank")} src={post.image_url} alt={`${post.title}`}/> : null}
+                  <Stack>
+                    <h4 className="hover" onClick={() => navigate(`/post/${post.id}`)}>{post.title}</h4>
+                    {post.text ? <p>{post.text}</p> : null}
+                    {post.comments.length === 1
+                      ? <sub className="hover" onClick={() => navigate(`/post/${post.id}`)}>{post.comments.length} comment</sub>
+                      : <sub className="hover" onClick={() => navigate(`/post/${post.id}`)}>{post.comments.length} comments</sub>
+                    }
+                    <br></br>
+                    <sub>submitted to {post.community.name} at {post.created_at}</sub>
+                    <br></br>
+                  </Stack>
+                </Stack>
+              </Stack> 
             ))}
-            {/* {selectedUser.posts.map(post => (
-              <PostData key={post.id} post={post} />
-            ))}
-            {selectedUser.username} */}
-          </div> 
+          </Stack> 
         : <NoPath /> 
       }
-    </div>
+    </Stack>
   )
 }
 

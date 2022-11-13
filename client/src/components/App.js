@@ -199,7 +199,6 @@ function App() {
     }
     const postArray = [...posts]
     const post = postArray.find(post => post.id === parseInt(postId))
-
     fetch("/comment", {
       method: "POST",
       headers: {
@@ -317,9 +316,10 @@ function App() {
         <Route path="/" element={<AllPosts 
           user={user} 
           posts={posts} 
-          onUpvote={handlePostUpvote} 
-          onDownvote={handlePostDownvote} 
-          onDelete={handlePostDelete} />} />
+          onPostUpvote={handlePostUpvote} 
+          onPostDownvote={handlePostDownvote} 
+          onPostDelete={handlePostDelete} />} 
+        />
         <Route path="/post/:id" element={<Post 
           user={user} 
           posts={posts} 
@@ -329,22 +329,27 @@ function App() {
           onCommentSubmission={handleCommentSubmission} 
           onCommentUpvote={handleCommentUpvote}
           onCommentDownvote={handleCommentDownvote} 
-          onCommentDelete={handleCommentDelete}
-        />} />
+          onCommentDelete={handleCommentDelete}/>} 
+        />
         <Route path="/post/:id/edit" element={<EditPost 
           posts={posts} 
           communities={communities} 
-          onPostEdit={handlePostEdit}
-        />} />
+          onPostEdit={handlePostEdit}/>} 
+        />
         <Route path="/auth" element={<Auth 
-          onLogin={handleLogin}
-        />} />
+          onLogin={handleLogin}/>} 
+        />
         <Route path="/new" element={<New 
           user={user} 
           onPostSubmission={handlePostSubmission} 
-          onCommunitySubmission={handleNewCommunity}
-        />} />
-        <Route path="/user/:id" element={<User users={allUsers} />} />
+          onCommunitySubmission={handleNewCommunity}/>} 
+        />
+        <Route path="/user/:id" element={<User 
+          users={allUsers} 
+          posts={posts}
+          onPostUpvote={handlePostUpvote} 
+          onPostDownvote={handlePostDownvote} />} 
+        />
         <Route path="*" element={<NoPath />} />
       </Routes>
     </div>
