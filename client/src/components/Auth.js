@@ -68,7 +68,7 @@ function Auth( { onLogin } ) {
 
                 <Form.Group controlId="passwordForm">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                  <Form.Control type="password" autoComplete="on" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </Form.Group>
               </Form>
             <Button variant="dark" type="submit" onClick={handleLogin}>Sign In</Button>
@@ -83,12 +83,12 @@ function Auth( { onLogin } ) {
 
               <Form.Group controlId="passwordForm">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <Form.Control type="password" autoComplete="on" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
               </Form.Group>
 
               <Form.Group controlId="passwordConfirmationForm">
                 <Form.Label>Password Confirmation</Form.Label>
-                <Form.Control type="password" placeholder="Password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
+                <Form.Control type="password" autoComplete="on" placeholder="Password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
               </Form.Group>
             </Form>
             <Button variant="dark" type="submit" onClick={handleSignUp}>Sign Up</Button>

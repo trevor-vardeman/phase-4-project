@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session.clear
+    reset_session
     head :no_content
   end
 end

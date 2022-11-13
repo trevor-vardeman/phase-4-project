@@ -29,8 +29,8 @@ function App() {
       headers: {
         "Content-Type": "application/json",
       }})
-      .catch(e => alert(e))
-      .then(setUser(""))
+      // .then(setUser(""))
+      .catch(err => alert(err.message))
       setUser("")
   }
 
@@ -38,8 +38,10 @@ function App() {
     fetch("/me")
     .then((r) => {
       if (r.ok) {
-        r.json()
-      }
+        r.json().then(user => setUser(user))
+      } else {
+          console.log("You are not logged in.")
+        }
     })
     fetch("/community")
     .then((r) => {
