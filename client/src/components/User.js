@@ -11,7 +11,6 @@ function User({ users, posts }) {
   useEffect(() => {
     if (id) {
       const user = users.find(user => user.id === parseInt(id))
-      console.log(user)
       setSelectedUser(user)
     }
   },[id, users, posts])

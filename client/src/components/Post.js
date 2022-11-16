@@ -7,7 +7,7 @@ import NoPath from "./NoPath"
 
 function Post({ user, posts, onPostUpvote, onPostDownvote, onPostDelete, onCommentSubmission, onCommentUpvote, onCommentDownvote, onCommentDelete }) {
   const { id } = useParams()
-  const [selectedPost, setSelectedPost] = useState("")  
+  const [selectedPost, setSelectedPost] = useState("")
 
   useEffect(() => {
     if (id) {

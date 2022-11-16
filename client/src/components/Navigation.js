@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
-function Navigation( { user, onLogout } ) {
+function Navigation({ user, onLogout }) {
   const navigate = useNavigate()
   const handleOpenUser = () => navigate(`/user/${user.id}`)
 
@@ -16,8 +16,8 @@ function Navigation( { user, onLogout } ) {
         </Nav>
         <Nav>
           <Nav.Link as={Link} to="new">New</Nav.Link>
-          {user ? <Nav.Link style={{color: "orange"}} onClick={handleOpenUser}>{user.username}</Nav.Link> : null}
-          {user ? <Nav.Link onClick={onLogout}>Sign Out</Nav.Link> : <Nav.Link as={Link} to="auth">Sign In</Nav.Link>}
+          {user !== null ? <Nav.Link style={{color: "orange"}} onClick={handleOpenUser}>{user.username}</Nav.Link> : null}
+          {user !== null ? <Nav.Link onClick={onLogout}>Sign Out</Nav.Link> : <Nav.Link as={Link} to="auth">Sign In</Nav.Link>}
         </Nav>
       </Container>
     </Navbar>

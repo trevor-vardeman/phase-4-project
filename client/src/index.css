@@ -62,3 +62,7 @@ img {
 .hover {
   cursor: pointer;
 }
+
+.text-center {
+  text-align: center;
+}

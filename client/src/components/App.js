@@ -11,7 +11,7 @@ import Post from './Post'
 import User from './User'
 
 function App() {
-  const [user, setUser] = useState("")
+  const [user, setUser] = useState(null)
   const [allUsers, setAllUsers] = useState([])
   const [posts, setPosts] = useState([])
   const [communities, setCommunities] = useState([])
@@ -24,14 +24,14 @@ function App() {
   }
 
   const handleLogout = () => {
+    setUser(null)
     fetch("/logout", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       }})
-      // .then(setUser(""))
       .catch(err => alert(err.message))
-      setUser("")
+      setUser(null)
   }
 
   useEffect(() => {
@@ -62,11 +62,12 @@ function App() {
   }, [])
 
   useEffect(() => {
-    fetch("/post")
+    fetch("/posts")
       .then(r => r.json())
       .then(posts => {
         const sortedPosts = posts.sort((a, b) => b.points - a.points)
         sortedPosts.map(post => post.comments.sort((a, b) => b.points - a.points))
+        console.log(sortedPosts)
         setPosts(sortedPosts)
       })
       .catch(err => alert(err.message))
@@ -153,7 +154,7 @@ function App() {
   }
 
   const handlePostDelete = singlePost => {
-    fetch(`/post/${singlePost.id}`, {
+    fetch(`/posts/${singlePost.id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -193,7 +194,7 @@ function App() {
     }
     const postArray = [...posts]
     const post = postArray.find(post => post.id === parseInt(postId))
-    fetch("/comment", {
+    fetch("/comments", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -296,7 +297,7 @@ function App() {
     postArray.push(clickedPost)
     setPosts(postArray)
 
-    fetch(`/comment/${singleComment.id}`, {
+    fetch(`/comments/${singleComment.id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     })
