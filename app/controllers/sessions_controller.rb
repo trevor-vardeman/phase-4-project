@@ -13,6 +13,6 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    render json: {session: session}
+    return head :no_content
   end
 end

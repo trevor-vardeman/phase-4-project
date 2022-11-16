@@ -67,7 +67,6 @@ function App() {
       .then(posts => {
         const sortedPosts = posts.sort((a, b) => b.points - a.points)
         sortedPosts.map(post => post.comments.sort((a, b) => b.points - a.points))
-        console.log(sortedPosts)
         setPosts(sortedPosts)
       })
       .catch(err => alert(err.message))
