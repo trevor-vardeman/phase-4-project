@@ -17,7 +17,8 @@ class CommentsController < ApplicationController
     )
     if comment.valid?
       comment.comment_votes.create(user_id: current_user.id, points: params[:points])
-      render json: comment, status: :created
+      posts = Post.all.order(points: :desc)
+      render json: posts, status: :created
     else
       render json: { errors: comment.errors.full_messages }, status: :unprocessable_entity
     end
@@ -25,7 +26,9 @@ class CommentsController < ApplicationController
 
   def destroy
     comment = Comment.find(params[:id])
-    comment.destroy
+    comment.destroy      
+    posts = Post.all.order(points: :desc)
+    render json: posts, status: :ok
   end
 
   def upvote

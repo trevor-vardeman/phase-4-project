@@ -31,7 +31,6 @@ function App() {
         "Content-Type": "application/json",
       }})
       .catch(err => alert(err.message))
-      setUser(null)
   }
 
   useEffect(() => {
@@ -39,22 +38,12 @@ function App() {
     .then((r) => {
       if (r.ok) {
         r.json().then(user => setUser(user))
-      } else {
-          console.log("You are not logged in.")
-        }
+      } else return
     })
     fetch("/community")
     .then((r) => {
       if (r.ok) {
         r.json().then(communities => setCommunities(communities))
-      } else {
-        r.json().then(error => alert(error))
-      }
-    })
-    fetch("/users")
-    .then((r) => {
-      if (r.ok) {
-        r.json().then(users => setAllUsers(users))
       } else {
         r.json().then(error => alert(error))
       }
@@ -70,6 +59,14 @@ function App() {
         setPosts(sortedPosts)
       })
       .catch(err => alert(err.message))
+    fetch("/users")
+      .then((r) => {
+        if (r.ok) {
+          r.json().then(users => setAllUsers(users))
+        } else {
+          r.json().then(error => alert(error))
+        }
+      })
   },[user])
 
   const handlePostUpvote = postId => {
@@ -191,8 +188,6 @@ function App() {
       points: 1,
       post_id: postId,
     }
-    const postArray = [...posts]
-    const post = postArray.find(post => post.id === parseInt(postId))
     fetch("/comments", {
       method: "POST",
       headers: {
@@ -201,9 +196,10 @@ function App() {
       body: JSON.stringify(newComment),
     })
     .then(r => r.json())
-    .then(comment => {
-      post.comments.push(comment)
-      setPosts(postArray)
+    .then(posts => {
+      const sortedPosts = posts.sort((a, b) => b.points - a.points)
+      sortedPosts.map(post => post.comments.sort((a, b) => b.points - a.points))
+      setPosts(sortedPosts)
     })
     .catch(e => alert(e))
   }
@@ -287,18 +283,15 @@ function App() {
   }
 
   const handleCommentDelete = singleComment => {
-    const postArray = [...posts]
-    const clickedPost = postArray.find(posts => posts.id === singleComment.post_id)
-    const newComments = clickedPost.comments.filter(comment => comment.id !== singleComment.id)
-    clickedPost.comments = []
-    clickedPost.comments = newComments
-    postArray.filter(post => post.id !== clickedPost.id)
-    postArray.push(clickedPost)
-    setPosts(postArray)
-
-    fetch(`/comments/${singleComment.id}`, {
+fetch(`/comments/${singleComment.id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
+    })
+    .then(r => r.json())
+    .then(posts => {
+      const sortedPosts = posts.sort((a, b) => b.points - a.points)
+      sortedPosts.map(post => post.comments.sort((a, b) => b.points - a.points))
+      setPosts(sortedPosts)
     })
     .catch(error => alert(error))
   }
@@ -316,6 +309,7 @@ function App() {
         />
         <Route path="/post/:id" element={<Post 
           user={user} 
+          allUsers={allUsers}
           posts={posts} 
           onPostUpvote={handlePostUpvote} 
           onPostDownvote={handlePostDownvote} 

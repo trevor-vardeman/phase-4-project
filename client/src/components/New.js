@@ -193,7 +193,7 @@ function New({ user, onPostSubmission, onCommunitySubmission }) {
               </Stack>
           }
           </Stack>
-        : <Stack gap={3} className="text-center">
+        : <Stack className="text-center">
             <p>You must be logged in to create a new community or post.</p><br></br>
             <Alert.Link onClick={() => navigate("/auth")}>Click here to sign in</Alert.Link>
           </Stack>

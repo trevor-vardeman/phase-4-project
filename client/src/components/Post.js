@@ -5,7 +5,7 @@ import CommentSubmission from "./CommentSubmission"
 import CommentContainer from "./CommentContainer"
 import NoPath from "./NoPath"
 
-function Post({ user, posts, onPostUpvote, onPostDownvote, onPostDelete, onCommentSubmission, onCommentUpvote, onCommentDownvote, onCommentDelete }) {
+function Post({ user, allUsers, posts, onPostUpvote, onPostDownvote, onPostDelete, onCommentSubmission, onCommentUpvote, onCommentDownvote, onCommentDelete }) {
   const { id } = useParams()
   const [selectedPost, setSelectedPost] = useState("")
 
@@ -26,7 +26,7 @@ function Post({ user, posts, onPostUpvote, onPostDownvote, onPostDelete, onComme
             <br></br>
             <CommentSubmission user={user} onCommentSubmission={onCommentSubmission} />
             <br></br>
-            <CommentContainer user={user} post={[selectedPost]} onCommentUpvote={onCommentUpvote} onCommentDownvote={onCommentDownvote} onCommentDelete={onCommentDelete} />
+            <CommentContainer allUsers={allUsers} post={[selectedPost]} onCommentUpvote={onCommentUpvote} onCommentDownvote={onCommentDownvote} onCommentDelete={onCommentDelete} />
           </div>
         :  <NoPath />
       }

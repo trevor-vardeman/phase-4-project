@@ -1,8 +1,13 @@
 import { useNavigate } from "react-router-dom"
 import Stack from 'react-bootstrap/Stack'
 
-function CommentData({ comment, onCommentUpvote, onCommentDownvote, onCommentDelete }) {
+function CommentData({ allUsers, comment, onCommentUpvote, onCommentDownvote, onCommentDelete }) {
   const navigate = useNavigate()
+  const commentUser = () => {
+    const findCommentUser = allUsers.find(user => user.id === comment.user_id)
+    if (!findCommentUser) return ""
+    else return findCommentUser
+  }
 
   return (
     <Stack gap={3}>
@@ -14,7 +19,7 @@ function CommentData({ comment, onCommentUpvote, onCommentDownvote, onCommentDel
               {comment.user_downvoted ? <p onClick={() => onCommentDownvote(comment)} className="purple">&#x25bc;</p> : <p onClick={() => onCommentDownvote(comment)}>&#x25bc;</p>}
               <Stack>
                 <p>{comment.text}</p>   
-                <sub>submitted by <span className="hover" onClick={() => navigate(`/user/${comment.user.id}`)}>{comment.user.username}</span> at {comment.created_at}</sub>
+                <sub>submitted by <span className="hover" onClick={() => navigate(`/user/${comment.user_id}`)}>{commentUser().username}</span> at {comment.created_at}</sub>
                 <br></br>
                 {comment.user_can_modify 
                   ? <Stack direction="horizontal" gap={1}>
