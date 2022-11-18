@@ -24,31 +24,20 @@ function App() {
   }
 
   const handleLogout = () => {
-    setUser(null)
     fetch("/logout", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       }})
+      .then(r => r.json())
+      .then(posts => {
+        const sortedPosts = posts.sort((a, b) => b.points - a.points)
+        sortedPosts.map(post => post.comments.sort((a, b) => b.points - a.points))
+        setPosts(sortedPosts)
+        setUser(null)
+      })
       .catch(err => alert(err.message))
   }
-
-  useEffect(() => {
-    fetch("/me")
-    .then((r) => {
-      if (r.ok) {
-        r.json().then(user => setUser(user))
-      } else return
-    })
-    fetch("/community")
-    .then((r) => {
-      if (r.ok) {
-        r.json().then(communities => setCommunities(communities))
-      } else {
-        r.json().then(error => alert(error))
-      }
-    })
-  }, [])
 
   useEffect(() => {
     fetch("/posts")
@@ -68,6 +57,23 @@ function App() {
         }
       })
   },[user])
+
+  useEffect(() => {
+    fetch("/me")
+    .then((r) => {
+      if (r.ok) {
+        r.json().then(user => setUser(user))
+      } else return
+    })
+    fetch("/community")
+    .then((r) => {
+      if (r.ok) {
+        r.json().then(communities => setCommunities(communities))
+      } else {
+        r.json().then(error => alert(error))
+      }
+    })
+  }, [])
 
   const handlePostUpvote = postId => {
     if (!user) {

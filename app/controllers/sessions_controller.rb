@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
 
-  # post '/login'
   def create
     user = User.find_by_username(params[:username])
     if user&.authenticate(params[:password])
@@ -13,6 +12,8 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    return head :no_content
+    @current_user = nil
+    posts = Post.all.order(points: :desc)
+    render json: posts, status: :ok
   end
 end
