@@ -2,6 +2,7 @@
 
 ## Video Walkthrough
 Click the image to open the video.
+
 [![Link to YouTube video walkthrough](https://img.youtube.com/vi/sbYQtzzUwZA/0.jpg)](https://www.youtube.com/watch?v=sbYQtzzUwZA)
 
 ## Introduction
