@@ -16,4 +16,5 @@ class SessionsController < ApplicationController
     posts = Post.all.order(points: :desc)
     render json: posts, status: :ok
   end
+  
 end

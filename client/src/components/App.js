@@ -6,7 +6,6 @@ import Auth from './Auth'
 import NoPath from './NoPath'
 import New from './New'
 import AllPosts from './AllPosts'
-import EditPost from './EditPost'
 import Post from './Post'
 import User from './User'
 
@@ -15,6 +14,7 @@ function App() {
   const [allUsers, setAllUsers] = useState([])
   const [posts, setPosts] = useState([])
   const [communities, setCommunities] = useState([])
+  const [commentChange, setCommentChange] = useState(false)
   const navigate = useNavigate()
   const {id} = useParams()
 
@@ -56,7 +56,7 @@ function App() {
           r.json().then(error => alert(error))
         }
       })
-  },[user])
+  },[user, commentChange])
 
   useEffect(() => {
     fetch("/me")
@@ -176,13 +176,6 @@ function App() {
     setPosts(sortedPosts)
   }
 
-  const handlePostEdit = updatedPost => {
-    const newPosts = posts.filter(post => post.id !== updatedPost.id)
-    newPosts.push(updatedPost)
-    const sortedPosts = newPosts.sort((a, b) => b.points - a.points)
-    setPosts(sortedPosts)
-  }
-
   const handleNewCommunity = newCommunity => {
     communities.push(newCommunity)
     setCommunities(communities)
@@ -202,11 +195,7 @@ function App() {
       body: JSON.stringify(newComment),
     })
     .then(r => r.json())
-    .then(posts => {
-      const sortedPosts = posts.sort((a, b) => b.points - a.points)
-      sortedPosts.map(post => post.comments.sort((a, b) => b.points - a.points))
-      setPosts(sortedPosts)
-    })
+    .then(() => setCommentChange(!commentChange))
     .catch(e => alert(e))
   }
 
@@ -288,17 +277,18 @@ function App() {
     }
   }
 
+  const handleCommentEdit = (posts) => {
+    const sortedPosts = posts.sort((a, b) => b.points - a.points)
+    sortedPosts.map(post => post.comments.sort((a, b) => b.points - a.points))
+    setPosts(sortedPosts)
+  }
+
   const handleCommentDelete = singleComment => {
-fetch(`/comments/${singleComment.id}`, {
+    fetch(`/comments/${singleComment.id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     })
-    .then(r => r.json())
-    .then(posts => {
-      const sortedPosts = posts.sort((a, b) => b.points - a.points)
-      sortedPosts.map(post => post.comments.sort((a, b) => b.points - a.points))
-      setPosts(sortedPosts)
-    })
+    .then(() => setCommentChange(!commentChange))
     .catch(error => alert(error))
   }
 
@@ -323,12 +313,8 @@ fetch(`/comments/${singleComment.id}`, {
           onCommentSubmission={handleCommentSubmission} 
           onCommentUpvote={handleCommentUpvote}
           onCommentDownvote={handleCommentDownvote} 
+          onCommentEdit={handleCommentEdit}
           onCommentDelete={handleCommentDelete}/>} 
-        />
-        <Route path="/post/:id/edit" element={<EditPost 
-          posts={posts} 
-          communities={communities} 
-          onPostEdit={handlePostEdit}/>} 
         />
         <Route path="/auth" element={<Auth 
           onLogin={handleLogin}/>} 
@@ -340,9 +326,7 @@ fetch(`/comments/${singleComment.id}`, {
         />
         <Route path="/user/:id" element={<User 
           users={allUsers} 
-          posts={posts}
-          onPostUpvote={handlePostUpvote} 
-          onPostDownvote={handlePostDownvote} />} 
+          posts={posts} />} 
         />
         <Route path="*" element={<NoPath />} />
       </Routes>

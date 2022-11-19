@@ -25,11 +25,7 @@ function PostData({ post, onPostUpvote, onPostDownvote, onPostDelete }) {
                 <sub>submitted to {post.community.name} at {post.created_at}</sub>
                 <br></br>
                 {post.user_can_modify 
-                  ? <Stack direction="horizontal" gap={1}>
-                      <sub className="hover" onClick={() => navigate(`/post/${post.id}/edit`)}>Edit</sub>
-                      <sub>|</sub>
-                      <sub className="hover" onClick={() => onPostDelete(post)}>Delete</sub> 
-                    </Stack> 
+                  ? <sub className="hover" onClick={() => onPostDelete(post)}>Delete</sub> 
                   : null
                 }
               </Stack>

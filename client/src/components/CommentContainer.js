@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import Stack from 'react-bootstrap/Stack'
 import CommentData from './CommentData'
 
-function CommentContainer({ allUsers, post, onCommentUpvote, onCommentDownvote, onCommentDelete }) {
+function CommentContainer({ allUsers, post, onCommentUpvote, onCommentDownvote, onCommentEdit, onCommentDelete }) {
   const [showComments, setShowComments] = useState(true)
   const navigate = useNavigate()
 
@@ -15,7 +15,7 @@ function CommentContainer({ allUsers, post, onCommentUpvote, onCommentDownvote, 
               ? <Stack gap={3}>
                   <h5><strong className="orange hover" onClick={() => setShowComments(!showComments)}>Comments</strong> | <span className="hover" onClick={() => setShowComments(!showComments)}>Unique Users</span></h5> 
                   {post[0].comments.map(comment => (
-                    <CommentData key={comment.id} allUsers={allUsers} comment={comment} onCommentUpvote={onCommentUpvote} onCommentDownvote={onCommentDownvote} onCommentDelete={onCommentDelete} />
+                    <CommentData key={comment.id} allUsers={allUsers} comment={comment} onCommentUpvote={onCommentUpvote} onCommentDownvote={onCommentDownvote} onCommentEdit={onCommentEdit} onCommentDelete={onCommentDelete} />
                   ))}
                 </Stack>
               : <Stack gap={3}>

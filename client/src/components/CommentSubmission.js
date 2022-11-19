@@ -6,14 +6,14 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 function CommentSubmission({ user, onCommentSubmission }) {
-  const [comment, setComment] = useState("")
+  const [commentText, setCommentText] = useState("")
   const navigate = useNavigate()
   const {id} = useParams()
 
   const submitComment = e => {
     e.preventDefault()
-    onCommentSubmission(comment, id)
-    setComment("")
+    onCommentSubmission(commentText, id)
+    setCommentText("")
   }
   
   return (
@@ -22,7 +22,7 @@ function CommentSubmission({ user, onCommentSubmission }) {
         ? <Stack>
             <Form>
               <Form.Group controlId="commentForm">
-              <Form.Control as="textarea" rows={2} type="text" placeholder="Leave a comment..." value={comment} onChange={(e) => setComment(e.target.value)} />
+              <Form.Control as="textarea" rows={2} type="text" placeholder="Leave a comment..." value={commentText} onChange={(e) => setCommentText(e.target.value)} />
               </Form.Group><br></br>
               </Form>
             <Button variant="dark" type="submit" onClick={(e) => submitComment(e)}>Submit</Button>
