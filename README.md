@@ -1,7 +1,7 @@
 # seenit
 
-## Vidoe Walkthrough
-
+## Video Walkthrough
+Click the image to open the video.
 [![Link to YouTube video walkthrough](https://img.youtube.com/vi/sbYQtzzUwZA/0.jpg)](https://www.youtube.com/watch?v=sbYQtzzUwZA)
 
 ## Introduction
@@ -9,7 +9,7 @@ I wanted to create an app that is similar to one of my favorite social media pla
 
 seenit allows users to sign up, login, create communities, create posts anonymously within those communities, and comment on posts. They can also upvote and downvote both posts and comments to get their favorite posts to the front page, and their favorite comments to the top of each post, respectively. 
 
-Admin users have the ability to delete both posts and comments in order to moderate, while users that leave comments have the ability to both edit and delete their own comments.
+Admin users have the ability to delete both posts and comments in order to moderate, while regular users have the ability to edit and delete their own comments.
 
 Feel free to check out my [blog post](https://dev.to/trevortx/rails-a-hidden-gem-seed-dump-3hpj) about a gem I found useful during the development of seddit called Seed Dump.
 
