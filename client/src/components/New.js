@@ -101,14 +101,14 @@ function New({ user, onPostSubmission, onCommunitySubmission }) {
         },
         body: JSON.stringify( newPost ),
       })
-      .then(r => r.json()
+      .then(r => r.json())
       .then(post => {
         setPostTitle("")
         setPostText("")
         setPostImageURL("")
         onPostSubmission(post)
         navigate("/")
-      }))
+      })
       .catch(e => alert(e))
     }
   }
