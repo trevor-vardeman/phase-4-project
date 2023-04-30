@@ -40,6 +40,6 @@ class CommentSerializer < ActiveModel::Serializer
   end
 
   def points
-    self.object.comment_votes.sum { |votes| votes[:points] } 
+    self.object.comment_votes.sum { |votes| votes[:points] }
   end
 end

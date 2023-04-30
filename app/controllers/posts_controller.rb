@@ -9,12 +9,14 @@ class PostsController < ApplicationController
   end
 
   def create
+    # post_params
     post = Post.create(
-      title: params[:title],
-      text: params[:text],
-      image_url: params[:image_url],
-      community_id: params[:community_id],
-      points: params[:points]
+      # title: params[:title],
+      post_params
+      # text: params[:text],
+      # image_url: params[:image_url],
+      # community_id: params[:community_id],
+      # points: params[:points]
     )
     if post.valid?
       post.post_votes.create(user_id: current_user.id, points: params[:points])
@@ -22,6 +24,33 @@ class PostsController < ApplicationController
     else
       render json: { error: post.errors.full_messages }, status: :unprocessable_entity
     end
+  end
+
+  def popular
+    # posts = Posts.all
+    # search all posts for comments with 5+ points
+    # return all posts above
+
+    # Comments.all
+    # comments with 5+ points
+    # posts related to those comments
+    # unique posts 
+
+    # Comments.all
+    # taking the sum of comment votes for each comment
+    # grab all comments with 5+ points 
+    # get all posts related to those comments
+    # return posts
+
+    # self.object.comment_votes.sum { |votes| votes[:points] }
+
+
+    all_comments = Comment.all
+    popular_comments = all_comments.select { |comment| comment.points >= 1 }
+    posts = popular_comments.map { |comment| comment.post }
+    render json: posts, status: :created
+    # byebug
+
   end
 
   def destroy
@@ -70,6 +99,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
+    # binding.pry
     params.permit(:title, :text, :image_url, :community_id)
   end
 

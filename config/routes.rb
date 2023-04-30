@@ -13,5 +13,6 @@ Rails.application.routes.draw do
   patch "/downvote-post", to: "posts#downvote"
   patch "/upvote-comment", to: "comments#upvote"
   patch "/downvote-comment", to: "comments#downvote"
+  get "/popular-posts", to: "posts#popular"
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 end
